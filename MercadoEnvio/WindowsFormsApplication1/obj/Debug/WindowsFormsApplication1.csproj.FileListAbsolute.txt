@@ -8,3 +8,13 @@ C:\Users\Juan\Documents\Visual Studio 2012\Projects\Aplicacion Desktop\MercadoEn
 C:\Users\Juan\Documents\Visual Studio 2012\Projects\Aplicacion Desktop\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
 C:\Users\Juan\Documents\Visual Studio 2012\Projects\Aplicacion Desktop\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
 C:\Users\Juan\Documents\Visual Studio 2012\Projects\Aplicacion Desktop\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.DbClass.resources
+C:\git\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+C:\git\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+C:\git\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+C:\git\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+C:\git\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+C:\git\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+C:\git\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\git\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
+C:\git\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Login.resources
+C:\git\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Pantalla_Principal.Principal.resources

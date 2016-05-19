@@ -19,6 +19,8 @@ namespace WindowsFormsApplication1
     {
         private DbClass dbConnection = new DbClass();   //Conectar a la base de datos
 
+        
+
         public Login()
         {
             InitializeComponent();
@@ -73,6 +75,14 @@ namespace WindowsFormsApplication1
                         this.Hide();
                         Principal pantallaPrincipal = new Principal();
                         pantallaPrincipal.Show();
+
+                        //agrego asignacion variable usuario actual en Principal - Lautaro
+                        pantallaPrincipal.setearUsuarioEnUso(user);
+                        //seteo la conexion en pantalla principal
+                        this.setearConexionPPpal(pantallaPrincipal);
+                        //verifico el acceso del usuario a las funciones ahora que principal ya esta inicializado y conectado
+                        pantallaPrincipal.verificarAccesos();
+                        
                     }
                     else
                     {
@@ -105,6 +115,24 @@ namespace WindowsFormsApplication1
 
         }
 
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        public void setearConexionPPpal(Principal pantalla)
+        {
+            pantalla.setearConexion(this.dbConnection);
+        }
 
     }
     public class DbClass
@@ -114,7 +142,7 @@ namespace WindowsFormsApplication1
 
         public DbClass()
         {
-            con = new SqlConnection("data source = .\\SQLSERVER2012; database = test;user = gd; password = gd2016");
+            con = new SqlConnection("data source = .\\SQLSERVER2012; database =test;user = gd; password = gd2016");
 
             con.Open(); 
 
@@ -122,7 +150,7 @@ namespace WindowsFormsApplication1
 
         public void closeConnection()
         {
-            con.Close();
+           con.Close();
         }
 
         public String userLogin(String user, String password){
@@ -167,6 +195,10 @@ namespace WindowsFormsApplication1
             int res = cmd.ExecuteNonQuery();
             return res;
         }
-
+        
+        public SqlConnection getdbconection()
+        {
+            return this.con;
+        }
     }
 }

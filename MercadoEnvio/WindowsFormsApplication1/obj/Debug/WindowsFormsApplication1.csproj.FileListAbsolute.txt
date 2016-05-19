@@ -18,3 +18,15 @@ C:\git\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.
 C:\git\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
 C:\git\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Login.resources
 C:\git\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Pantalla_Principal.Principal.resources
+C:\Users\lauta\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+C:\Users\lauta\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+C:\Users\lauta\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+C:\Users\lauta\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+C:\Users\lauta\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+C:\Users\lauta\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+C:\Users\lauta\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Login.resources
+C:\Users\lauta\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Pantalla_Principal.Principal.resources
+C:\Users\lauta\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\lauta\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
+C:\Users\lauta\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.Form1.resources
+C:\Users\lauta\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rubro.Form1.resources

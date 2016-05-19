@@ -118,6 +118,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ABM Rol\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM Rubro\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>

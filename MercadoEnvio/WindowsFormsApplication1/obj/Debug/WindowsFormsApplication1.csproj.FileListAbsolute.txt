@@ -30,3 +30,28 @@ C:\Users\lauta\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnv
 C:\Users\lauta\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
 C:\Users\lauta\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.Form1.resources
 C:\Users\lauta\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rubro.Form1.resources
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.Form1.resources
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rubro.Form1.resources
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Login.resources
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Pantalla_Principal.Principal.resources
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rubro.Form1.resources
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Login.resources
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Pantalla_Principal.Principal.resources
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.RegistrarRol.resources
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.ABM_Rol.resources

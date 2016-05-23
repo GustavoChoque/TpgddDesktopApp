@@ -50,7 +50,7 @@ namespace WindowsFormsApplication1.Pantalla_Principal
 
         private void buttonABMRol_Click(object sender, EventArgs e)
         {
-            ABM_Rol.Form1 pantallaABMRol = new ABM_Rol.Form1();
+            ABM_Rol.ABM_Rol pantallaABMRol = new ABM_Rol.ABM_Rol();
             pantallaABMRol.Show();
         }
 

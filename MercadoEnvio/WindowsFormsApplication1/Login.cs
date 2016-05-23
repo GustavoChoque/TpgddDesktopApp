@@ -75,14 +75,14 @@ namespace WindowsFormsApplication1
                         this.Hide();
                         Principal pantallaPrincipal = new Principal();
                         pantallaPrincipal.Show();
-
+                        /*//Lo comento todo lo de abajo porque tira una excepción no controlada-Gustavo
                         //agrego asignacion variable usuario actual en Principal - Lautaro
                         pantallaPrincipal.setearUsuarioEnUso(user);
                         //seteo la conexion en pantalla principal
                         this.setearConexionPPpal(pantallaPrincipal);
                         //verifico el acceso del usuario a las funciones ahora que principal ya esta inicializado y conectado
                         pantallaPrincipal.verificarAccesos();
-                        
+                        */
                     }
                     else
                     {

@@ -55,3 +55,16 @@ C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\Wi
 C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
 C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.RegistrarRol.resources
 C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.ABM_Rol.resources
+C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.ABM_Rol.resources
+C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.RegistrarRol.resources
+C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rubro.Form1.resources
+C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Login.resources
+C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Pantalla_Principal.Principal.resources
+C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache

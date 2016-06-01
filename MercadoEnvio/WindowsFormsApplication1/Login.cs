@@ -35,7 +35,7 @@ namespace WindowsFormsApplication1
             label1.Text = "User";
             label2.Text = "Password";
             textBox1.Text = "user1";
-            textBox2.Text = "abc123";
+            textBox2.Text = "abc";
             label3.Text = "";
             
             
@@ -59,7 +59,7 @@ namespace WindowsFormsApplication1
             {
                 SqlDataReader dataReader = dbConnection.getUser(user);
                 dataReader.Read();
-                tries = dataReader.GetInt32(2);
+                tries = dataReader.GetInt32(3);
                 dataReader.Close();
 
                 if (tries >= 3) //Si la cuenta esta bloqueada
@@ -75,14 +75,14 @@ namespace WindowsFormsApplication1
                         this.Hide();
                         Principal pantallaPrincipal = new Principal();
                         pantallaPrincipal.Show();
-                        /*//Lo comento todo lo de abajo porque tira una excepción no controlada-Gustavo
+                        
                         //agrego asignacion variable usuario actual en Principal - Lautaro
                         pantallaPrincipal.setearUsuarioEnUso(user);
                         //seteo la conexion en pantalla principal
                         this.setearConexionPPpal(pantallaPrincipal);
                         //verifico el acceso del usuario a las funciones ahora que principal ya esta inicializado y conectado
                         pantallaPrincipal.verificarAccesos();
-                        */
+                        
                     }
                     else
                     {
@@ -104,7 +104,7 @@ namespace WindowsFormsApplication1
                 }
                 else //Si existe pero la contraseña esta mal
                 {
-                    tries = dataReader.GetInt32(2);
+                    tries = dataReader.GetInt32(3);
                     tries = tries + 1;
                     dataReader.Close();
                     dbConnection.updateUserTries(user, tries);
@@ -142,7 +142,7 @@ namespace WindowsFormsApplication1
 
         public DbClass()
         {
-            con = new SqlConnection("data source = .\\SQLSERVER2012; database =test;user = gd; password = gd2016");
+            con = new SqlConnection("data source = .\\SQLSERVER2012; database =GD1C2016;user = gd; password = gd2016");
 
             con.Open(); 
 
@@ -176,7 +176,7 @@ namespace WindowsFormsApplication1
         public SqlDataReader getUser(String user)
         {
 
-            SqlCommand cmd = new SqlCommand("select * from users where (username = '" + user + "')", con);
+            SqlCommand cmd = new SqlCommand("select * from GROUP_APROVED.Usuarios where (Id_Usuario = '" + user + "')", con);
             SqlDataReader dataReader = cmd.ExecuteReader();
             return dataReader;
 
@@ -184,14 +184,14 @@ namespace WindowsFormsApplication1
 
         public int resetUserTries(String user)
         {
-            cmd = new SqlCommand("update users set tries = 0 where username = '" + user + "'", con);
+            cmd = new SqlCommand("update GROUP_APROVED.Usuarios set intentos = 0 where Id_Usuario = '" + user + "'", con);
             int res = cmd.ExecuteNonQuery();
             return res;
         }
 
         public int updateUserTries(String user, int tries)
         {
-            cmd = new SqlCommand("update users set tries = " + tries + " where username = '" + user + "'", con);
+            cmd = new SqlCommand("update GROUP_APROVED.Usuarios set intentos = " + tries + " where Id_Usuario = '" + user + "'", con);
             int res = cmd.ExecuteNonQuery();
             return res;
         }

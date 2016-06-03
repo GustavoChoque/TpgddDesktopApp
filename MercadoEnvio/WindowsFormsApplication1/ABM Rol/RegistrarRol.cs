@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 namespace WindowsFormsApplication1.ABM_Rol
 
 {
@@ -20,8 +21,8 @@ namespace WindowsFormsApplication1.ABM_Rol
         public RegistrarRol()
         {
             InitializeComponent();
-            label3.Text = "";
             label4.Text = "";
+            label4.ForeColor = System.Drawing.Color.Red;
 
         }
 
@@ -60,31 +61,36 @@ namespace WindowsFormsApplication1.ABM_Rol
         private void button1_Click(object sender, EventArgs e)
         {
             bool statusOK = true;
+            int selectedItems = 0;
+            label4.Text = "";
 
             List<Int32> funcionesSeleccionadas = new List<Int32>();
+            Regex regex = new Regex("[a-zA-Z]");
+            MatchCollection matches = regex.Matches(nombreRol.Text);
 
-            if (nombreRol.Text == "")
+            List<String> listaFunciones = new List<String>();
+
+            foreach (object o in listBox1.SelectedItems)
             {
-                label3.ForeColor = System.Drawing.Color.Red;
-                label3.Text = "Falta nombre de rol";
+                funcionesSeleccionadas.Add(listaFuncionesId[listBox1.Items.IndexOf(o)]);
+                selectedItems++;
+            }
+
+            if (matches.Count == 0 )
+            {
+                
+                label4.Text = "El nombre del rol debe ser una letra.";
                 statusOK = false;
             }
-            /*if (comboBox1.Text == "Seleccione un valor")
+            if (selectedItems == 0)
             {
-                label4.ForeColor = System.Drawing.Color.Red;
                 label4.Text = "Debe seleccionar al menos una función.";
                 statusOK = false;
-            }*/
+            }
 
             if (statusOK)
             {
                 string desc = nombreRol.Text;
-                List<String> listaFunciones = new List<String>();
-
-                foreach (object o in listBox1.SelectedItems)
-                {
-                    funcionesSeleccionadas.Add(listaFuncionesId[listBox1.Items.IndexOf(o)]);
-                }
 
                 dbQueryHandler.registrarRol(desc, funcionesSeleccionadas);
 

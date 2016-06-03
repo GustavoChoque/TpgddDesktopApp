@@ -68,3 +68,16 @@ C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio
 C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Pantalla_Principal.Principal.resources
 C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
 C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.ABM_Rol.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.RegistrarRol.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rubro.Form1.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Login.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Pantalla_Principal.Principal.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache

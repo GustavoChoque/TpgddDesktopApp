@@ -9,9 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 namespace WindowsFormsApplication1.ABM_Rol
+
 {
     public partial class RegistrarRol : Form
     {
+
+        DbQueryHandler dbQueryHandler = new DbQueryHandler();
+        List<Int32> listaFuncionesId = new List<Int32>();
+
         public RegistrarRol()
         {
             InitializeComponent();
@@ -22,20 +27,19 @@ namespace WindowsFormsApplication1.ABM_Rol
 
         private void Form1_Load(object sender, EventArgs e)
         {
-           SqlConnection conexion=new SqlConnection("data source = .\\SQLSERVER2012; database = test;user = gd; password = gd2016");
-           SqlCommand comando;
-           conexion.Open();
-            
-            comboBox1.Items.Add("Seleccione un valor");
-            string cadena="Select desc_Func FROM funciones";
-            comando=new SqlCommand(cadena,conexion);
-            SqlDataReader registros = comando.ExecuteReader();
-            while (registros.Read()) {
-                comboBox1.Items.Add(registros["desc_Func"].ToString());
+
+            SqlDataReader registros = dbQueryHandler.getFunctions();
+ 
+            while (registros.Read())
+            {
+                listBox1.Items.Add(registros["desc_Func"].ToString());
+                listaFuncionesId.Add(Convert.ToInt32(registros["Id_Func"]));
+                
             }
-               
-            comboBox1.SelectedIndex = 0;
-            conexion.Close();
+
+            registros.Close();
+            
+
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -55,62 +59,40 @@ namespace WindowsFormsApplication1.ABM_Rol
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int cont=0;
-            int idRol=0;
-            int idFuncion=0;
+            bool statusOK = true;
 
-            if (nombreRol.Text == "") {
+            List<Int32> funcionesSeleccionadas = new List<Int32>();
+
+            if (nombreRol.Text == "")
+            {
                 label3.ForeColor = System.Drawing.Color.Red;
                 label3.Text = "Falta nombre de rol";
-                cont++;
+                statusOK = false;
             }
-            if (comboBox1.Text == "Seleccione un valor") {
+            /*if (comboBox1.Text == "Seleccione un valor")
+            {
                 label4.ForeColor = System.Drawing.Color.Red;
-                label4.Text = "Elija una funcion";
-                cont++;
-            }
-            if (cont == 0) {
-                SqlConnection conexion = new SqlConnection("data source = .\\SQLSERVER2012; database = test;user = gd; password = gd2016");
-                SqlCommand comando,comando2,comando3,comando4;
-                conexion.Open();
+                label4.Text = "Debe seleccionar al menos una función.";
+                statusOK = false;
+            }*/
+
+            if (statusOK)
+            {
                 string desc = nombreRol.Text;
-                string funcion = comboBox1.Text;
-                string cadena = "insert into roles (desc_Rol) values('"+desc+"')";
-                comando = new SqlCommand(cadena, conexion);
-                comando.ExecuteNonQuery();
-                conexion.Close();
+                List<String> listaFunciones = new List<String>();
 
-                conexion.Open();
-                string cadena2 = "Select id_Func FROM funciones where desc_Func='"+funcion+"'";
-                comando2 = new SqlCommand(cadena2, conexion);
-                SqlDataReader registros = comando2.ExecuteReader();
-                 while(registros.Read()){
-                     idFuncion = Convert.ToInt32(registros["id_Func"]);
-                 }
-                 registros.Close();
-                 conexion.Close();
+                foreach (object o in listBox1.SelectedItems)
+                {
+                    funcionesSeleccionadas.Add(listaFuncionesId[listBox1.Items.IndexOf(o)]);
+                }
 
-                 conexion.Open();
-                 string cadena3 = "Select id_Rol FROM roles where desc_Rol='" + desc + "'";
-                 comando3 = new SqlCommand(cadena3, conexion);
-                 registros = comando3.ExecuteReader();
-                 while (registros.Read())
-                 {
-                     idRol = Convert.ToInt32(registros["id_Rol"]);
-                 }
-                 registros.Close();
-                conexion.Close();
-
-                conexion.Open();
-                 string cadena4 = "insert into funcionesxRol (id_Rol,id_Func) values("+idRol+ ","+idFuncion+")";
-                 comando4 = new SqlCommand(cadena4, conexion);
-                 comando4.ExecuteNonQuery();
+                dbQueryHandler.registrarRol(desc, funcionesSeleccionadas);
 
                 MessageBox.Show("Los datos se guardaron correctamente");
                 nombreRol.Text = "";
-                comboBox1.SelectedIndex = 0;
-                conexion.Close();
-                }
+                //comboBox1.SelectedIndex = 0;
+            }
+            
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -122,5 +104,41 @@ namespace WindowsFormsApplication1.ABM_Rol
         {
 
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
-}
+
+    public class DbQueryHandler
+    {
+        
+        public SqlDataReader getFunctions()
+        {
+            SqlCommand comando = new SqlCommand("Select Id_func, Desc_Func FROM GROUP_APROVED.Funciones", DbConnection.connection.getdbconnection());
+
+            SqlDataReader registros = comando.ExecuteReader();
+
+            return registros;
+
+        }
+
+        public void registrarRol(String desc, List<Int32> funciones)
+        {
+
+            SqlCommand comando = new SqlCommand("insert into GROUP_APROVED.Roles (desc_Rol) values('" + desc + "'); SELECT Id_Rol FROM GROUP_APROVED.Roles WHERE Id_Rol = @@Identity", DbConnection.connection.getdbconnection());
+            Int32 id_Rol = (Int32)comando.ExecuteScalar();
+
+            foreach (Int32 funcionId in funciones)
+            {
+                comando = new SqlCommand("insert into GROUP_APROVED.FuncionesxRol (id_Rol,id_Func) values(" + id_Rol + "," + funcionId + ")", DbConnection.connection.getdbconnection());
+                comando.ExecuteNonQuery();
+            }
+                
+       
+
+            }
+        }
+    }
+

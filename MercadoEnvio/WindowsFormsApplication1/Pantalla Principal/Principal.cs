@@ -13,28 +13,22 @@ namespace WindowsFormsApplication1.Pantalla_Principal
 {
     public partial class Principal : Form
     {
-        private String usuarioEnUso;
-        private DbClass conexion;
-                
+
+        DbQueryHandler dbQueryHandler = new DbQueryHandler();
+       
         public Principal()
         {
             InitializeComponent();
         }
 
-            public void setearUsuarioEnUso(String usuario)
-        {
-            this.usuarioEnUso = usuario;
-        }
-
-        public void setearConexion(DbClass conexion)
-        {
-            this.conexion = conexion;
-        }
+        
 
         private void Form1_Load(object sender, EventArgs e)
         {
             label1.Text = "Usuario logueado correctamente-- Pantalla principal";
             button1.Text = "Salir";
+            this.verificarAccesos();
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -103,20 +97,20 @@ namespace WindowsFormsApplication1.Pantalla_Principal
         }
         public void verificarAccesos()
         {
-            crearVista(); //Crea una vista con los usuarios y las funciones a las que pueden acceder
+            dbQueryHandler.crearVista(); //Crea una vista con los usuarios y las funciones a las que pueden acceder
 
-            if (verificarAccesoFuncion(1) == false) { buttonABMRol.Enabled = false; };
-            if (verificarAccesoFuncion(2) == false) { buttonABMUsuario.Enabled = false; };
-            if (verificarAccesoFuncion(3) == false) { buttonABMRubro.Enabled = false; };
-            if (verificarAccesoFuncion(4) == false) { buttonGenerarPublicacion.Enabled = false; };
-            if (verificarAccesoFuncion(7) == false) { buttonHistorialCliente.Enabled = false; };
-            if (verificarAccesoFuncion(8) == false) { buttonListadoEstadistico.Enabled = false; };
-            if (verificarAccesoFuncion(9) == false) { buttonVisibilidadPublicacion.Enabled = false; };
-            if (verificarAccesoFuncion(6) == false) { buttonCalificarVendedor.Enabled = false; };
-            if (verificarAccesoFuncion(10) == false) { buttonComprarOfertar.Enabled = false; };
-            if (verificarAccesoFuncion(5) == false) { buttonConsultaFacturas.Enabled = false; };
-
-            dropearVista();
+            if (dbQueryHandler.verificarAccesoFuncion(1) == false) { buttonABMRol.Enabled = false; };
+            if (dbQueryHandler.verificarAccesoFuncion(2) == false) { buttonABMUsuario.Enabled = false; };
+            if (dbQueryHandler.verificarAccesoFuncion(3) == false) { buttonABMRubro.Enabled = false; };
+            if (dbQueryHandler.verificarAccesoFuncion(4) == false) { buttonGenerarPublicacion.Enabled = false; };
+            if (dbQueryHandler.verificarAccesoFuncion(7) == false) { buttonHistorialCliente.Enabled = false; };
+            if (dbQueryHandler.verificarAccesoFuncion(8) == false) { buttonListadoEstadistico.Enabled = false; };
+            if (dbQueryHandler.verificarAccesoFuncion(9) == false) { buttonVisibilidadPublicacion.Enabled = false; };
+            if (dbQueryHandler.verificarAccesoFuncion(6) == false) { buttonCalificarVendedor.Enabled = false; };
+            if (dbQueryHandler.verificarAccesoFuncion(10) == false) { buttonComprarOfertar.Enabled = false; };
+            if (dbQueryHandler.verificarAccesoFuncion(5) == false) { buttonConsultaFacturas.Enabled = false; };
+            
+            dbQueryHandler.dropearVista();
             /*funcionalidades:  1 = r=abm rol
                                 2 = u=abm usuario
                                 3 = b=abm rubro
@@ -130,11 +124,19 @@ namespace WindowsFormsApplication1.Pantalla_Principal
              */
 
         }
-        private bool verificarAccesoFuncion(int idfuncion)
+        
+
+
+
+    }
+    public class DbQueryHandler
+    {
+
+        public bool verificarAccesoFuncion(int idfuncion)
         {
             bool respuesta = false;
             SqlDataReader lector;
-            SqlCommand comando = new SqlCommand("select count(*) from tablausuariofunciones where usuario = '" + this.usuarioEnUso + "' and funciones = " + idfuncion, this.conexion.getdbconection());
+            SqlCommand comando = new SqlCommand("select count(*) from tablausuariofunciones where usuario = '" + CurrentUser.user.getUsername() + "' and funciones = " + idfuncion, DbConnection.connection.getdbconnection());
             lector = comando.ExecuteReader();
             lector.Read();
             int retorno = lector.GetInt32(0);
@@ -143,20 +145,17 @@ namespace WindowsFormsApplication1.Pantalla_Principal
             return respuesta;
         }
 
-        private void crearVista()
+        public void crearVista()
         {
-            SqlCommand comando = new SqlCommand("create VIEW tablausuariofunciones (usuario, funciones) as select ru.id_usuario, f.id_func from GROUP_APROVED.RolesxUsuario ru join GROUP_APROVED.Roles r on (Id_Rol = Id_Roles ) join GROUP_APROVED.FuncionesxRol  fr on (fr.Id_Rol=r.Id_Rol) join GROUP_APROVED.Funciones f on (f.Id_Func =fr.Id_Func) ", this.conexion.getdbconection());
+            SqlCommand comando = new SqlCommand("create VIEW tablausuariofunciones (usuario, funciones) as select ru.id_usuario, f.id_func from GROUP_APROVED.RolesxUsuario ru join GROUP_APROVED.Roles r on (Id_Rol = Id_Roles ) join GROUP_APROVED.FuncionesxRol  fr on (fr.Id_Rol=r.Id_Rol) join GROUP_APROVED.Funciones f on (f.Id_Func =fr.Id_Func) ", DbConnection.connection.getdbconnection());
             comando.ExecuteNonQuery();
             //Crea una vista con los usuarios y las funciones a las que pueden acceder
         }
-        private void dropearVista()
+        public void dropearVista()
         {
-            SqlCommand comando = new SqlCommand("drop VIEW tablausuariofunciones", this.conexion.getdbconection());
+            SqlCommand comando = new SqlCommand("drop VIEW tablausuariofunciones", DbConnection.connection.getdbconnection());
             comando.ExecuteNonQuery();
             //Dropea la vista creada en el metodo anterior
         }
-
-
-
     }
 }

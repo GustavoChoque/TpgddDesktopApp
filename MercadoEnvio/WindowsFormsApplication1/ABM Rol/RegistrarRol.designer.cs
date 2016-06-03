@@ -33,14 +33,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.nombreRol = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // registrar
             // 
-            this.registrar.Location = new System.Drawing.Point(22, 184);
+            this.registrar.Location = new System.Drawing.Point(29, 342);
             this.registrar.Name = "registrar";
             this.registrar.Size = new System.Drawing.Size(105, 23);
             this.registrar.TabIndex = 0;
@@ -50,7 +50,7 @@
             // 
             // cancelar
             // 
-            this.cancelar.Location = new System.Drawing.Point(152, 184);
+            this.cancelar.Location = new System.Drawing.Point(152, 342);
             this.cancelar.Name = "cancelar";
             this.cancelar.Size = new System.Drawing.Size(105, 23);
             this.cancelar.TabIndex = 1;
@@ -78,26 +78,17 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(33, 77);
+            this.label2.Location = new System.Drawing.Point(33, 58);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 13);
+            this.label2.Size = new System.Drawing.Size(109, 13);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Funciones:";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(99, 77);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(158, 21);
-            this.comboBox1.TabIndex = 5;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            this.label2.Text = "Seleccinar funciones:";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(33, 53);
+            this.label3.Location = new System.Drawing.Point(41, 289);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 13);
             this.label3.TabIndex = 6;
@@ -107,21 +98,30 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(36, 114);
+            this.label4.Location = new System.Drawing.Point(41, 312);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(35, 13);
             this.label4.TabIndex = 7;
             this.label4.Text = "label4";
             this.label4.Click += new System.EventHandler(this.faltaFuncion_Click);
             // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(36, 84);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.listBox1.Size = new System.Drawing.Size(221, 173);
+            this.listBox1.TabIndex = 8;
+            // 
             // RegistrarRol
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(273, 376);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.nombreRol);
             this.Controls.Add(this.label1);
@@ -142,8 +142,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox nombreRol;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }

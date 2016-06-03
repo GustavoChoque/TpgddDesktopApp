@@ -17,9 +17,8 @@ namespace WindowsFormsApplication1
 
     public partial class Login : Form
     {
-        private DbClass dbConnection = new DbClass();   //Conectar a la base de datos
 
-        
+        DbQueryHandler dbQueryHandler = new DbQueryHandler();
 
         public Login()
         {
@@ -48,16 +47,16 @@ namespace WindowsFormsApplication1
             String password = textBox2.Text;
             int tries = 0;
             String loginResult;
-
+            CurrentUser.user.setUsername(user);
 
 
             //Logueo con clave encriptada con SHA256: devuelve true o false del stored procedure LoginUsuario
-            loginResult = dbConnection.userLogin(user,password);
+            loginResult = dbQueryHandler.userLogin(user, password);
             //
 
             if (loginResult.Equals("True")) //Si encontro el user y pass
             {
-                SqlDataReader dataReader = dbConnection.getUser(user);
+                SqlDataReader dataReader = dbQueryHandler.getUser(CurrentUser.user.getUsername());
                 dataReader.Read();
                 tries = dataReader.GetInt32(3);
                 dataReader.Close();
@@ -68,8 +67,8 @@ namespace WindowsFormsApplication1
                 }
                 else
                 {
-                    
-                    if (dbConnection.resetUserTries(user) == 1)
+
+                    if (dbQueryHandler.resetUserTries(CurrentUser.user.getUsername()) == 1)
                     {
                         //Abrir form principal
                         this.Hide();
@@ -77,11 +76,7 @@ namespace WindowsFormsApplication1
                         pantallaPrincipal.Show();
                         
                         //agrego asignacion variable usuario actual en Principal - Lautaro
-                        pantallaPrincipal.setearUsuarioEnUso(user);
-                        //seteo la conexion en pantalla principal
-                        this.setearConexionPPpal(pantallaPrincipal);
-                        //verifico el acceso del usuario a las funciones ahora que principal ya esta inicializado y conectado
-                        pantallaPrincipal.verificarAccesos();
+                        
                         
                     }
                     else
@@ -95,7 +90,7 @@ namespace WindowsFormsApplication1
             {
                 MessageBox.Show("Error en el usuario o contraseña");
 
-                SqlDataReader dataReader = dbConnection.getUser(user);
+                SqlDataReader dataReader = dbQueryHandler.getUser(CurrentUser.user.getUsername());
 
 
                 if (dataReader.Read() == false) //Si el usuario no existe
@@ -107,7 +102,7 @@ namespace WindowsFormsApplication1
                     tries = dataReader.GetInt32(3);
                     tries = tries + 1;
                     dataReader.Close();
-                    dbConnection.updateUserTries(user, tries);
+                    dbQueryHandler.updateUserTries(CurrentUser.user.getUsername(), tries);
 
                 }
                 dataReader.Close();
@@ -115,47 +110,72 @@ namespace WindowsFormsApplication1
 
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-        public void setearConexionPPpal(Principal pantalla)
-        {
-            pantalla.setearConexion(this.dbConnection);
-        }
-
     }
-    public class DbClass
+
+    class CurrentUser
+    {
+        String userName = "";
+        static CurrentUser instance = new CurrentUser();
+
+        CurrentUser()
+        {
+        }
+        public static CurrentUser user
+        {
+            get { return instance; }
+        }
+
+        public void setUsername(String user)
+        {
+            userName = user;
+        }
+
+        public String getUsername()
+        {
+            return this.userName;
+        }
+    }
+
+
+
+    class DbConnection
     {
         SqlConnection con;
-        SqlCommand cmd;
 
-        public DbClass()
+        static DbConnection dbCon = new DbConnection();
+
+        DbConnection()
         {
             con = new SqlConnection("data source = .\\SQLSERVER2012; database =GD1C2016;user = gd; password = gd2016");
 
             con.Open(); 
 
         }
+        public static DbConnection connection
+        {
+            get { return dbCon; }
+        }
 
         public void closeConnection()
         {
-           con.Close();
+            con.Close();
         }
+ 
+        public SqlConnection getdbconnection()
+        {
+            return this.con;
+        }
+    }
+
+    public class DbQueryHandler
+    {
+        SqlCommand cmd;
+
+         
 
         public String userLogin(String user, String password){
             String ret;
-            using (var command = new SqlCommand("LoginUsuario", con)
+            using (var command = new SqlCommand("LoginUsuario", DbConnection.connection.getdbconnection())
             {
                 CommandType = CommandType.StoredProcedure
 
@@ -176,7 +196,7 @@ namespace WindowsFormsApplication1
         public SqlDataReader getUser(String user)
         {
 
-            SqlCommand cmd = new SqlCommand("select * from GROUP_APROVED.Usuarios where (Id_Usuario = '" + user + "')", con);
+            SqlCommand cmd = new SqlCommand("select * from GROUP_APROVED.Usuarios where (Id_Usuario = '" + user + "')", DbConnection.connection.getdbconnection());
             SqlDataReader dataReader = cmd.ExecuteReader();
             return dataReader;
 
@@ -184,21 +204,17 @@ namespace WindowsFormsApplication1
 
         public int resetUserTries(String user)
         {
-            cmd = new SqlCommand("update GROUP_APROVED.Usuarios set intentos = 0 where Id_Usuario = '" + user + "'", con);
+            cmd = new SqlCommand("update GROUP_APROVED.Usuarios set intentos = 0 where Id_Usuario = '" + user + "'", DbConnection.connection.getdbconnection());
             int res = cmd.ExecuteNonQuery();
             return res;
         }
 
         public int updateUserTries(String user, int tries)
         {
-            cmd = new SqlCommand("update GROUP_APROVED.Usuarios set intentos = " + tries + " where Id_Usuario = '" + user + "'", con);
+            cmd = new SqlCommand("update GROUP_APROVED.Usuarios set intentos = " + tries + " where Id_Usuario = '" + user + "'", DbConnection.connection.getdbconnection());
             int res = cmd.ExecuteNonQuery();
             return res;
         }
-        
-        public SqlConnection getdbconection()
-        {
-            return this.con;
-        }
+    
     }
 }

@@ -32,6 +32,18 @@ namespace WindowsFormsApplication1.ABM_Rol
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ListadoSeleccion listaSeleccion = new ListadoSeleccion();
+            listaSeleccion.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            EliminarRol darBaja = new EliminarRol();
+            darBaja.Show();
+        }
     }
 
 }

@@ -50,6 +50,24 @@
     <Compile Include="ABM Rol\ABM_Rol.Designer.cs">
       <DependentUpon>ABM_Rol.cs</DependentUpon>
     </Compile>
+    <Compile Include="ABM Rol\EliminarRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM Rol\EliminarRol.designer.cs">
+      <DependentUpon>EliminarRol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM Rol\FormularioDeModificacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM Rol\FormularioDeModificacion.designer.cs">
+      <DependentUpon>FormularioDeModificacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM Rol\ListadoSeleccion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM Rol\ListadoSeleccion.designer.cs">
+      <DependentUpon>ListadoSeleccion.cs</DependentUpon>
+    </Compile>
     <Compile Include="ABM Rol\RegistrarRol.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,6 +144,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="ABM Rol\ABM_Rol.resx">
       <DependentUpon>ABM_Rol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM Rol\EliminarRol.resx">
+      <DependentUpon>EliminarRol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM Rol\FormularioDeModificacion.resx">
+      <DependentUpon>FormularioDeModificacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM Rol\ListadoSeleccion.resx">
+      <DependentUpon>ListadoSeleccion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ABM Rol\RegistrarRol.resx">
       <DependentUpon>RegistrarRol.cs</DependentUpon>

@@ -15,7 +15,7 @@ namespace WindowsFormsApplication1.ABM_Rol
     public partial class RegistrarRol : Form
     {
 
-        DbQueryHandler dbQueryHandler = new DbQueryHandler();
+        DbQueryHandlerAlta dbQueryHandler = new DbQueryHandlerAlta();
         List<Int32> listaFuncionesId = new List<Int32>();
 
         public RegistrarRol()
@@ -79,7 +79,7 @@ namespace WindowsFormsApplication1.ABM_Rol
             if (matches.Count == 0 )
             {
                 
-                label4.Text = "El nombre del rol debe ser una letra.";
+                label4.Text = "Debe escribir un nombre de Rol.";
                 statusOK = false;
             }
             if (selectedItems == 0)
@@ -96,6 +96,7 @@ namespace WindowsFormsApplication1.ABM_Rol
 
                 MessageBox.Show("Los datos se guardaron correctamente");
                 nombreRol.Text = "";
+                listBox1.ClearSelected();
                 //comboBox1.SelectedIndex = 0;
             }
             
@@ -115,11 +116,16 @@ namespace WindowsFormsApplication1.ABM_Rol
         {
 
         }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
-    public class DbQueryHandler
+    public class DbQueryHandlerAlta
     {
-        
+        //funciones de "RegistrarRol.cs"
         public SqlDataReader getFunctions()
         {
             SqlCommand comando = new SqlCommand("Select Id_func, Desc_Func FROM GROUP_APROVED.Funciones", DbConnection.connection.getdbconnection());

@@ -69,10 +69,10 @@
             // nombreRol
             // 
             this.nombreRol.Location = new System.Drawing.Point(99, 20);
-            this.nombreRol.MaxLength = 1;
+            this.nombreRol.MaxLength = 50;
             this.nombreRol.Name = "nombreRol";
             this.nombreRol.Size = new System.Drawing.Size(158, 20);
-            this.nombreRol.TabIndex = 3;
+            this.nombreRol.TabIndex = 0;
             this.nombreRol.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label2
@@ -103,6 +103,7 @@
             this.listBox1.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
             this.listBox1.Size = new System.Drawing.Size(221, 173);
             this.listBox1.TabIndex = 8;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // RegistrarRol
             // 

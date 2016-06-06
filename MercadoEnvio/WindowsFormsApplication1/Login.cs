@@ -45,8 +45,9 @@ namespace WindowsFormsApplication1
         {
             String user = textBox1.Text;
             String password = textBox2.Text;
-            int tries = 0;
+            Int16 tries = 0;
             String loginResult;
+            int userId;
             CurrentUser.user.setUsername(user);
 
 
@@ -58,7 +59,9 @@ namespace WindowsFormsApplication1
             {
                 SqlDataReader dataReader = dbQueryHandler.getUser(CurrentUser.user.getUsername());
                 dataReader.Read();
-                tries = dataReader.GetInt32(3);
+                userId = dataReader.GetInt32(0);
+                CurrentUser.user.setUserId(userId);
+                tries = dataReader.GetInt16(4);
                 dataReader.Close();
 
                 if (tries >= 3) //Si la cuenta esta bloqueada
@@ -99,8 +102,8 @@ namespace WindowsFormsApplication1
                 }
                 else //Si existe pero la contraseña esta mal
                 {
-                    tries = dataReader.GetInt32(3);
-                    tries = tries + 1;
+                    tries = dataReader.GetInt16(4);
+                    tries++;
                     dataReader.Close();
                     dbQueryHandler.updateUserTries(CurrentUser.user.getUsername(), tries);
 
@@ -115,6 +118,16 @@ namespace WindowsFormsApplication1
     class CurrentUser
     {
         String userName = "";
+        int userId = 0;
+
+        public void setUserId(int id)
+        {
+            userId = id;
+        }
+        public int getUserId()
+        {
+            return userId;
+        }
         static CurrentUser instance = new CurrentUser();
 
         CurrentUser()
@@ -171,7 +184,6 @@ namespace WindowsFormsApplication1
     {
         SqlCommand cmd;
 
-         
 
         public String userLogin(String user, String password){
             String ret;
@@ -196,7 +208,7 @@ namespace WindowsFormsApplication1
         public SqlDataReader getUser(String user)
         {
 
-            SqlCommand cmd = new SqlCommand("select * from GROUP_APROVED.Usuarios where (Id_Usuario = '" + user + "')", DbConnection.connection.getdbconnection());
+            SqlCommand cmd = new SqlCommand("select * from GROUP_APROVED.Usuarios where (Username = '" + user + "')", DbConnection.connection.getdbconnection());
             SqlDataReader dataReader = cmd.ExecuteReader();
             return dataReader;
 
@@ -204,14 +216,14 @@ namespace WindowsFormsApplication1
 
         public int resetUserTries(String user)
         {
-            cmd = new SqlCommand("update GROUP_APROVED.Usuarios set intentos = 0 where Id_Usuario = '" + user + "'", DbConnection.connection.getdbconnection());
+            cmd = new SqlCommand("update GROUP_APROVED.Usuarios set intentos = 0 where Username = '" + user + "'", DbConnection.connection.getdbconnection());
             int res = cmd.ExecuteNonQuery();
             return res;
         }
 
-        public int updateUserTries(String user, int tries)
+        public int updateUserTries(String user, Int16 tries)
         {
-            cmd = new SqlCommand("update GROUP_APROVED.Usuarios set intentos = " + tries + " where Id_Usuario = '" + user + "'", DbConnection.connection.getdbconnection());
+            cmd = new SqlCommand("update GROUP_APROVED.Usuarios set intentos = " + tries + " where Username = '" + user + "'", DbConnection.connection.getdbconnection());
             int res = cmd.ExecuteNonQuery();
             return res;
         }

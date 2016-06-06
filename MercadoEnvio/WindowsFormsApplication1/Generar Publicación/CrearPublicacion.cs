@@ -10,22 +10,26 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApplication1.Generar_Publicación
 {
-    public partial class Form1 : Form
+    public partial class CrearPublicacion : Form
     {
-        public Form1()
+        public CrearPublicacion()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            CrearPublicacion cp = new CrearPublicacion();
-            cp.Show();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
+        private void label5_Click(object sender, EventArgs e)
         {
 
         }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+            for (int i = 0; i == 99; i++)
+                comboBox1.Items.Add(i);
+        }
+    }
+
+    class DbQueryHandlerCreate { 
+        
     }
 }

@@ -136,7 +136,7 @@ namespace WindowsFormsApplication1.Pantalla_Principal
         {
             bool respuesta = false;
             SqlDataReader lector;
-            SqlCommand comando = new SqlCommand("select count(*) from tablausuariofunciones where usuario = '" + CurrentUser.user.getUsername() + "' and funciones = " + idfuncion, DbConnection.connection.getdbconnection());
+            SqlCommand comando = new SqlCommand("select count(*) from tablausuariofunciones where usuario = '" + CurrentUser.user.getUserId() + "' and funciones = " + idfuncion, DbConnection.connection.getdbconnection());
             lector = comando.ExecuteReader();
             lector.Read();
             int retorno = lector.GetInt32(0);
@@ -147,7 +147,7 @@ namespace WindowsFormsApplication1.Pantalla_Principal
 
         public void crearVista()
         {
-            SqlCommand comando = new SqlCommand("create VIEW tablausuariofunciones (usuario, funciones) as select ru.id_usuario, f.id_func from GROUP_APROVED.RolesxUsuario ru join GROUP_APROVED.Roles r on (Id_Rol = Id_Roles ) join GROUP_APROVED.FuncionesxRol  fr on (fr.Id_Rol=r.Id_Rol) join GROUP_APROVED.Funciones f on (f.Id_Func =fr.Id_Func) ", DbConnection.connection.getdbconnection());
+            SqlCommand comando = new SqlCommand("create VIEW tablausuariofunciones (usuario, funciones) as select ru.Id_Usr, f.id_func from GROUP_APROVED.RolesxUsuario ru join GROUP_APROVED.Roles r on (Id_Rol = Id_Roles ) join GROUP_APROVED.FuncionesxRol  fr on (fr.Id_Rol=r.Id_Rol) join GROUP_APROVED.Funciones f on (f.Id_Func =fr.Id_Func) ", DbConnection.connection.getdbconnection());
             comando.ExecuteNonQuery();
             //Crea una vista con los usuarios y las funciones a las que pueden acceder
         }

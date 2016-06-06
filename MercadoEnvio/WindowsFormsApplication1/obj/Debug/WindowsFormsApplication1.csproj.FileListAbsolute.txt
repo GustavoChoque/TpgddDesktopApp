@@ -85,3 +85,8 @@ L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktop
 L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.EliminarRol.resources
 L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.FormularioDeModificacion.resources
 L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.ListadoSeleccion.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.EliminarRol.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.FormularioDeModificacion.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.ListadoSeleccion.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Generar_Publicación.CrearPublicacion.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Generar_Publicación.Form1.resources

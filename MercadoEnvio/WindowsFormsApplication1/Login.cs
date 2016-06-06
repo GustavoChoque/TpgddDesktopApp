@@ -98,7 +98,7 @@ namespace WindowsFormsApplication1
 
                 if (dataReader.Read() == false) //Si el usuario no existe
                 {
-
+                    
                 }
                 else //Si existe pero la contraseña esta mal
                 {

@@ -128,7 +128,7 @@ CREATE TABLE GROUP_APROVED.Publicaciones(
 
 
 
-SET IDENTITY_INSERT GROUP_APROVED.Publicaciones ON;
+SET IDENTITY_INSERT GROUP_APROVED.Publicaciones ON;      /* esto es para poder migrar los datos inciales en orden, sin porblemas, despues de migrar se vuelve a setear a off*/
 
 CREATE TABLE GROUP_APROVED.Ofertas (												/* se debe restringir que solo las publicaicones de tipo subasta tienen ofertas asignadas*/
 	ID_Oferta numeric(18,0) IDENTITY(1,1) PRIMARY KEY,
@@ -460,12 +460,12 @@ select distinct Publicacion_Visibilidad_Cod, Publicacion_Visibilidad_Desc, Publi
 insert into GROUP_APROVED.Rubros(Rubro_Desc_Completa)
 select distinct Publicacion_Rubro_Descripcion from gd_esquema.Maestra
 
-
+		/*Publicaciones*/
 
 insert into GROUP_APROVED.Publicaciones(Publicacion_Cod, Publicacion_Desc, Publicacion_Fecha, Publicacion_Fecha_Venc, Publicacion_Precio, Publicacion_Stock)
 
 select distinct Publicacion_Cod, Publicacion_Descripcion, Publicacion_Fecha, Publicacion_Fecha_Venc, Publicacion_Precio, Publicacion_Stock from gd_esquema.Maestra order by 1
  
  go
-set identity_Insert GROUP_APROVED.Publicaciones off;
+set identity_Insert GROUP_APROVED.Publicaciones off;    /*esto es para que al insertar nuevas publicaciones recuente normal sin tener que insertar pub_Cod*/
 go

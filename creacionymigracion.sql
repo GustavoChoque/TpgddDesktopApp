@@ -278,7 +278,7 @@ begin
 
 	while @@FETCH_STATUS =0
 		begin
-			set @usr = concat(substring(@RazonS,17,2),substring(@Cuit,4,5)) 	;     /*creacion de usuario a partir de primera letra del nombre y primeras 3 letras del ape ape (?)*/
+			set @usr = concat(substring(@RazonS,17,2),substring(@Cuit,4,5)) 	;     /*creacion de usuario a partir de los ultimos 2 numeros de la razon social y 5 numeros deespues de los primeros 3 del cuit (?)*/
 
 			set @passw = HASHBYTES('SHA2_256',concat(substring(@RazonS,1,4),substring(@Cuit,2,3)));    /* creacion de passw a partir de las primeras 4 letras del apellido y las primeras 3 numeros del dni, excluyendo el primer numero */
 

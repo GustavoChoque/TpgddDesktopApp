@@ -40,7 +40,7 @@ namespace WindowsFormsApplication1.Generar_Publicación
             String tipo = comboBox2.Text;
             String visib = visibilidades[comboBox3.Text].ToString();
             String rubro = rubros[comboBox4.Text].ToString();
-            String estado = dbQueryHandler.cargarEstado();
+            String estado = dbQueryHandler.cargarEstado("Borrador");
             
             
             Int32 pubId = dbQueryHandler.createPub(desc, stock,precio,tipo,visib,rubro,estado);
@@ -48,7 +48,7 @@ namespace WindowsFormsApplication1.Generar_Publicación
             if (pubId > 0)
             {
                 MessageBox.Show("Publicacion creada correctamente");
-                Form2 f2 = new Form2(pubId);
+                Form2 f2 = new Form2(pubId,"creacion");
                 f2.Show();
                 this.Close();
             }
@@ -70,6 +70,11 @@ namespace WindowsFormsApplication1.Generar_Publicación
 
             comboBox2.Items.Add("Subasta");
             comboBox2.Items.Add("Compra directa");
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
    
@@ -123,9 +128,9 @@ namespace WindowsFormsApplication1.Generar_Publicación
             return visibilidades;
         }
 
-        public String cargarEstado()
+        public String cargarEstado(String est)
         {
-            SqlCommand cmd = new SqlCommand("select Id_Est from GROUP_APROVED.Estado_Publ where Descripcion = 'Borrador'", DbConnection.connection.getdbconnection());
+            SqlCommand cmd = new SqlCommand("select Id_Est from GROUP_APROVED.Estado_Publ where Descripcion = '"+est+"'", DbConnection.connection.getdbconnection());
             SqlDataReader dataReader = cmd.ExecuteReader();
             String estado;
 

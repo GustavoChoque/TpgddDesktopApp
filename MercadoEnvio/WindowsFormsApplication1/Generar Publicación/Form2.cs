@@ -14,18 +14,30 @@ namespace WindowsFormsApplication1.Generar_Publicación
     public partial class Form2 : Form
     {
         Int32 pubId;
+        String type;
         DbQueryHandlerModify dbQueryHandler = new DbQueryHandlerModify();
         Dictionary<String,String> rubros;
         Dictionary<String, String> visibilidades;
 
-        public Form2(Int32 pub_Id)
+        public Form2(Int32 pub_Id, String tipo)
         {
             InitializeComponent();
             pubId = pub_Id;
+            type = tipo;
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
+            if (type == "creacion")
+            {
+                button3.Visible = false;
+            }
+            if (type == "modificacion")
+            {
+                button1.Visible = false;
+            }
+
+            estado.Enabled = false;
             rubros = dbQueryHandler.cargarRubros();
             visibilidades = dbQueryHandler.cargarVisibilidades();
 
@@ -59,6 +71,63 @@ namespace WindowsFormsApplication1.Generar_Publicación
             estado.Text = dbQueryHandler.cargarEstado(est);
             rubro.Text = dbQueryHandler.cargarRubro(rub);
             
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            String strdesc = richTextBox1.Text;
+            String strstock = stock.Text;
+            StringBuilder sb = new StringBuilder(precio.Text);
+            sb.Replace(",",".");
+            String strprecio = sb.ToString();
+            String strtipo = tipo.Text;
+            String strvisib = visibilidades[tipoVisib.Text].ToString();
+            String strrubro = rubros[rubro.Text].ToString();
+            String strestado = dbQueryHandler.getEstado("Activa");
+
+
+            Int32  result = dbQueryHandler.updatePub(strdesc,strstock,strprecio,strtipo,strvisib,strrubro,strestado,pubId.ToString());
+
+            
+
+           if (result > 0)
+            {
+                MessageBox.Show("Publicacion correctamente activada");
+                this.Close();
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void fecVenc_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            String strdesc = richTextBox1.Text;
+            String strstock = stock.Text;
+            StringBuilder sb = new StringBuilder(precio.Text);
+            sb.Replace(",", ".");
+            String strprecio = sb.ToString();
+            String strtipo = tipo.Text;
+            String strvisib = visibilidades[tipoVisib.Text].ToString();
+            String strrubro = rubros[rubro.Text].ToString();
+
+
+            Int32 result = dbQueryHandler.updatePub(strdesc, strstock, strprecio, strtipo, strvisib, strrubro, pubId.ToString());
+
+
+
+            if (result > 0)
+            {
+                MessageBox.Show("Publicacion correctamente modificada");
+                this.Close();
+            }
         }
     }
 
@@ -132,6 +201,37 @@ namespace WindowsFormsApplication1.Generar_Publicación
             dataReader.Read();
             String estado = dataReader.GetString(0);
             dataReader.Close();
+            return estado;
+
+        }
+        public Int32 updatePub(String desc, String stock, String precio, String tipo, String visib, String Id_Rubro, String estado, String pubId)
+        {
+            SqlCommand cmd = new SqlCommand("update GROUP_APROVED.Publicaciones set Publicacion_Desc = '" + desc + "',Publicacion_Stock= " + stock + ",Publicacion_Precio = " + precio + ",Publicacion_Tipo= '" + tipo + "',Visibilidad_Cod= " + visib + ",Publicacion_Estado= " + estado + ",Id_Rubro= " + Id_Rubro + "where Publicacion_cod = " + pubId, DbConnection.connection.getdbconnection());
+
+            Int32 result = cmd.ExecuteNonQuery();
+
+            return result;
+        }
+        public Int32 updatePub(String desc, String stock, String precio, String tipo, String visib, String Id_Rubro, String pubId)
+        {
+            SqlCommand cmd = new SqlCommand("update GROUP_APROVED.Publicaciones set Publicacion_Desc = '" + desc + "',Publicacion_Stock= " + stock + ",Publicacion_Precio = " + precio + ",Publicacion_Tipo= '" + tipo + "',Visibilidad_Cod= " + visib + ",Id_Rubro= " + Id_Rubro + "where Publicacion_cod = " + pubId, DbConnection.connection.getdbconnection());
+
+            Int32 result = cmd.ExecuteNonQuery();
+
+            return result;
+        }
+        public String getEstado(String est)
+        {
+            SqlCommand cmd = new SqlCommand("select Id_Est from GROUP_APROVED.Estado_Publ where Descripcion = '" + est + "'", DbConnection.connection.getdbconnection());
+            SqlDataReader dataReader = cmd.ExecuteReader();
+            String estado;
+
+            var estados = new Dictionary<string, string>();
+
+            dataReader.Read();
+            estado = dataReader.GetInt32(0).ToString();
+            dataReader.Close();
+
             return estado;
 
         }

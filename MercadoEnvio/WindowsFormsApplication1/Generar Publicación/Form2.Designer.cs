@@ -31,6 +31,12 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.fecVenc = new System.Windows.Forms.TextBox();
+            this.fecCrea = new System.Windows.Forms.TextBox();
+            this.estado = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.stock = new System.Windows.Forms.TextBox();
             this.rubro = new System.Windows.Forms.ComboBox();
             this.precio = new System.Windows.Forms.TextBox();
@@ -43,12 +49,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.estado = new System.Windows.Forms.TextBox();
-            this.fecCrea = new System.Windows.Forms.TextBox();
-            this.fecVenc = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -61,6 +61,7 @@
             this.button2.TabIndex = 5;
             this.button2.Text = "Cancelar";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -70,6 +71,7 @@
             this.button1.TabIndex = 4;
             this.button1.Text = "Activar";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBox1
             // 
@@ -97,6 +99,57 @@
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de la publicacion";
+            // 
+            // fecVenc
+            // 
+            this.fecVenc.Enabled = false;
+            this.fecVenc.Location = new System.Drawing.Point(128, 347);
+            this.fecVenc.Name = "fecVenc";
+            this.fecVenc.Size = new System.Drawing.Size(120, 20);
+            this.fecVenc.TabIndex = 23;
+            this.fecVenc.TextChanged += new System.EventHandler(this.fecVenc_TextChanged);
+            // 
+            // fecCrea
+            // 
+            this.fecCrea.Enabled = false;
+            this.fecCrea.Location = new System.Drawing.Point(128, 321);
+            this.fecCrea.Name = "fecCrea";
+            this.fecCrea.Size = new System.Drawing.Size(121, 20);
+            this.fecCrea.TabIndex = 22;
+            // 
+            // estado
+            // 
+            this.estado.Location = new System.Drawing.Point(128, 295);
+            this.estado.Name = "estado";
+            this.estado.Size = new System.Drawing.Size(121, 20);
+            this.estado.TabIndex = 21;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(11, 347);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(101, 13);
+            this.label7.TabIndex = 20;
+            this.label7.Text = "Fecha Vencimiento:";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(10, 321);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(85, 13);
+            this.label4.TabIndex = 19;
+            this.label4.Text = "Fecha Creacion:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(11, 295);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(43, 13);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "Estado:";
             // 
             // stock
             // 
@@ -199,56 +252,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Descripción:";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 295);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(43, 13);
-            this.label3.TabIndex = 18;
-            this.label3.Text = "Estado:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 321);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(85, 13);
-            this.label4.TabIndex = 19;
-            this.label4.Text = "Fecha Creacion:";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(11, 347);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(101, 13);
-            this.label7.TabIndex = 20;
-            this.label7.Text = "Fecha Vencimiento:";
-            // 
-            // estado
-            // 
-            this.estado.Location = new System.Drawing.Point(127, 295);
-            this.estado.Name = "estado";
-            this.estado.Size = new System.Drawing.Size(121, 20);
-            this.estado.TabIndex = 21;
-            // 
-            // fecCrea
-            // 
-            this.fecCrea.Enabled = false;
-            this.fecCrea.Location = new System.Drawing.Point(127, 321);
-            this.fecCrea.Name = "fecCrea";
-            this.fecCrea.Size = new System.Drawing.Size(121, 20);
-            this.fecCrea.TabIndex = 22;
-            // 
-            // fecVenc
-            // 
-            this.fecVenc.Enabled = false;
-            this.fecVenc.Location = new System.Drawing.Point(127, 347);
-            this.fecVenc.Name = "fecVenc";
-            this.fecVenc.Size = new System.Drawing.Size(120, 20);
-            this.fecVenc.TabIndex = 23;
-            // 
             // button3
             // 
             this.button3.Location = new System.Drawing.Point(157, 400);
@@ -257,12 +260,13 @@
             this.button3.TabIndex = 6;
             this.button3.Text = "Modificar";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(408, 432);
+            this.ClientSize = new System.Drawing.Size(395, 436);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);

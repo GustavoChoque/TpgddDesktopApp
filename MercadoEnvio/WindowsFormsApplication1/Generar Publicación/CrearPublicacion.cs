@@ -43,7 +43,15 @@ namespace WindowsFormsApplication1.Generar_Publicación
             String estado = dbQueryHandler.cargarEstado();
             
             
-            dbQueryHandler.createPub(desc, stock,precio,tipo,visib,rubro,estado);
+            Int32 pubId = dbQueryHandler.createPub(desc, stock,precio,tipo,visib,rubro,estado);
+
+            if (pubId > 0)
+            {
+                MessageBox.Show("Publicacion creada correctamente");
+                Form2 f2 = new Form2(pubId);
+                f2.Show();
+                this.Close();
+            }
         }
 
         private void CrearPublicacion_Load(object sender, System.EventArgs e)
@@ -67,7 +75,7 @@ namespace WindowsFormsApplication1.Generar_Publicación
    
     class DbQueryHandlerCreate {
 
-        public void createPub(String desc, String stock, String precio, String tipo, String visib, String Id_Rubro,String estado)
+        public Int32 createPub(String desc, String stock, String precio, String tipo, String visib, String Id_Rubro,String estado)
         {
 
             DateTime myDateTime = DateTime.Now;
@@ -75,16 +83,10 @@ namespace WindowsFormsApplication1.Generar_Publicación
             DateTime myDateTime2 = DateTime.Now.AddDays(30);
 
             string sqlFormattedDate2 = myDateTime2.ToString("yyyy-MM-dd");
-            SqlCommand cmd = new SqlCommand("insert into GROUP_APROVED.publicaciones values ('" + desc + "'," + stock + ",'" + sqlFormattedDate + "','" + sqlFormattedDate2 + "'," + precio + ",'" + tipo + "'," + visib + "," + estado + "," + Id_Rubro + "," + CurrentUser.user.getUserId() + ")", DbConnection.connection.getdbconnection());
+            SqlCommand cmd = new SqlCommand("insert into GROUP_APROVED.publicaciones values ('" + desc + "'," + stock + ",'" + sqlFormattedDate + "','" + sqlFormattedDate2 + "'," + precio + ",'" + tipo + "'," + visib + "," + estado + "," + Id_Rubro + "," + CurrentUser.user.getUserId() + ");SELECT Publicacion_Cod FROM GROUP_APROVED.Publicaciones WHERE Publicacion_Cod = @@Identity", DbConnection.connection.getdbconnection());
+            Int32 Publicacion_Cod = (Int32)cmd.ExecuteScalar();
 
-            if (cmd.ExecuteNonQuery() == 1)
-            {
-                MessageBox.Show("Publicacion creada correctamente");
-            }
-            else
-            {
-                MessageBox.Show("No se pudo crear publicación");
-            }
+            return Publicacion_Cod;
         }
 
         public Dictionary<string, string> cargarRubros()

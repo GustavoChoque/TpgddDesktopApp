@@ -22,7 +22,7 @@ CREATE TABLE GROUP_APROVED.Funciones (
 
 CREATE TABLE GROUP_APROVED.Roles (
 	Id_Rol int IDENTITY(1,1) PRIMARY KEY,
-	Desc_Rol nvarchar(255),
+	Desc_Rol nvarchar(255),					/*usar el desc_rol para verificar en que tabla, cliente o empresa , hacer el select mas tarde */
 	Estado char check(Estado IN ('H','I')) default('H'),
 )
 
@@ -61,7 +61,7 @@ CREATE TABLE GROUP_APROVED.Empresas (
 	Empresa_Depto nvarchar(50),
 	Empresa_Fecha_Creacion datetime,
 	Empresa_Cod_Postal nvarchar(255),
-	Id_Usuario INT REFERENCES GROUP_APROVED.Usuarios,
+	Id_Usuario INT REFERENCES GROUP_APROVED.Usuarios UNIQUE,
 	Empresa_Telefono numeric(18,0),
 	Empresa_Nombre_Contacto nvarchar(255),
 	Empresa_RubroP nvarchar(255),
@@ -85,7 +85,7 @@ CREATE TABLE GROUP_APROVED.Clientes (
 	Cli_Piso numeric(18,0),
 	Cli_Depto nvarchar(50),
 	Cli_Cod_Postal nvarchar(255),
-	Id_Usuario INT REFERENCES GROUP_APROVED.Usuarios,
+	Id_Usuario INT REFERENCES GROUP_APROVED.Usuarios  UNIQUE,
 	PRIMARY KEY ( Dni_Cli, Tipo_Dni)
 )
 

@@ -21,7 +21,8 @@ CREATE TABLE GROUP_APROVED.Funciones (
 
 CREATE TABLE GROUP_APROVED.Roles (
 	Id_Rol int IDENTITY(1,1) PRIMARY KEY,
-	Desc_Rol nvarchar(255)	
+	Desc_Rol nvarchar(255),
+	Estado char check(Estado IN ('H','I')),
 )
 
 CREATE TABLE GROUP_APROVED.FuncionesxRol (

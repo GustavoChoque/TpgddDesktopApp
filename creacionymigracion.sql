@@ -16,13 +16,14 @@ begin transaction createTables
 CREATE TABLE GROUP_APROVED.Funciones (
 	Id_Func INT PRIMARY KEY IDENTITY(1,1),
 	Desc_Func nvarchar,
+	Estado char check(Estado IN ('H','I')) default('H'),
 
 )
 
 CREATE TABLE GROUP_APROVED.Roles (
 	Id_Rol int IDENTITY(1,1) PRIMARY KEY,
 	Desc_Rol nvarchar(255),
-	Estado char check(Estado IN ('H','I')),
+	Estado char check(Estado IN ('H','I')) default('H'),
 )
 
 CREATE TABLE GROUP_APROVED.FuncionesxRol (
@@ -37,6 +38,7 @@ CREATE TABLE GROUP_APROVED.Usuarios (
 	Passw nvarchar(255),
 	Fecha_Creacion datetime default(getdate()),
 	intentos smallint,
+	Estado char check(Estado IN ('H','I','B')) default('H'),     /*H habilitado I inhabilitado B baja logica*/
 )
 
 

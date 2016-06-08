@@ -38,7 +38,7 @@ namespace WindowsFormsApplication1.Pantalla_Principal
 
         private void buttonABMUsuario_Click(object sender, EventArgs e)
         {
-            ABM_Usuario.Form1 pantallaABMUsuario = new ABM_Usuario.Form1();
+            ABM_Usuario.abmUsuarioPrincipal pantallaABMUsuario = new ABM_Usuario.abmUsuarioPrincipal();
             pantallaABMUsuario.Show();
         }
 
@@ -99,16 +99,16 @@ namespace WindowsFormsApplication1.Pantalla_Principal
         {
             dbQueryHandler.crearVista(); //Crea una vista con los usuarios y las funciones a las que pueden acceder
 
-            if (dbQueryHandler.verificarAccesoFuncion(1) == false) { buttonABMRol.Enabled = false; };
-            if (dbQueryHandler.verificarAccesoFuncion(2) == false) { buttonABMUsuario.Enabled = false; };
-            if (dbQueryHandler.verificarAccesoFuncion(3) == false) { buttonABMRubro.Enabled = false; };
-            if (dbQueryHandler.verificarAccesoFuncion(4) == false) { buttonGenerarPublicacion.Enabled = false; };
-            if (dbQueryHandler.verificarAccesoFuncion(7) == false) { buttonHistorialCliente.Enabled = false; };
-            if (dbQueryHandler.verificarAccesoFuncion(8) == false) { buttonListadoEstadistico.Enabled = false; };
-            if (dbQueryHandler.verificarAccesoFuncion(9) == false) { buttonVisibilidadPublicacion.Enabled = false; };
-            if (dbQueryHandler.verificarAccesoFuncion(6) == false) { buttonCalificarVendedor.Enabled = false; };
-            if (dbQueryHandler.verificarAccesoFuncion(10) == false) { buttonComprarOfertar.Enabled = false; };
-            if (dbQueryHandler.verificarAccesoFuncion(5) == false) { buttonConsultaFacturas.Enabled = false; };
+            if (dbQueryHandler.verificarAccesoFuncion(1) == false) { buttonABMRol.Hide(); };
+            if (dbQueryHandler.verificarAccesoFuncion(2) == false) { buttonABMUsuario.Hide(); };
+            if (dbQueryHandler.verificarAccesoFuncion(3) == false) { buttonABMRubro.Hide(); };
+            if (dbQueryHandler.verificarAccesoFuncion(4) == false) { buttonGenerarPublicacion.Hide(); };
+            if (dbQueryHandler.verificarAccesoFuncion(7) == false) { buttonHistorialCliente.Hide(); };
+            if (dbQueryHandler.verificarAccesoFuncion(8) == false) { buttonListadoEstadistico.Hide(); };
+            if (dbQueryHandler.verificarAccesoFuncion(9) == false) { buttonVisibilidadPublicacion.Hide(); };
+            if (dbQueryHandler.verificarAccesoFuncion(6) == false) { buttonCalificarVendedor.Hide(); };
+            if (dbQueryHandler.verificarAccesoFuncion(10) == false) { buttonComprarOfertar.Hide(); };
+            if (dbQueryHandler.verificarAccesoFuncion(5) == false) { buttonConsultaFacturas.Hide(); };
             
             dbQueryHandler.dropearVista();
             /*funcionalidades:  1 = r=abm rol

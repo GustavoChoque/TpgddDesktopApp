@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApplication1.ABM_Usuario
 {
-    public partial class Form1 : Form
+    public partial class BajaUsuario : Form
     {
-        public Form1()
+        public BajaUsuario()
         {
             InitializeComponent();
         }

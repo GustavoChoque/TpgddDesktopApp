@@ -77,10 +77,6 @@ namespace WindowsFormsApplication1
                         this.Hide();
                         Principal pantallaPrincipal = new Principal();
                         pantallaPrincipal.Show();
-                        
-                        //agrego asignacion variable usuario actual en Principal - Lautaro
-                        
-                        
                     }
                     else
                     {

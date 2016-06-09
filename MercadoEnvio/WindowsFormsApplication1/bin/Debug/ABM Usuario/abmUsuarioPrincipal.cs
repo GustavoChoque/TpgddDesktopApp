@@ -45,7 +45,5 @@ namespace WindowsFormsApplication1.ABM_Usuario
 
         }
 
-        //metodos que usan los forms "agregar.."
-
     }
 }

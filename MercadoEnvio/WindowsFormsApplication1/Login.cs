@@ -33,8 +33,8 @@ namespace WindowsFormsApplication1
             button1.Text = "Login";
             label1.Text = "User";
             label2.Text = "Password";
-            textBox1.Text = "user1";
-            textBox2.Text = "abc";
+            textBox1.Text = "user5";
+            textBox2.Text = "acb";
             label3.Text = "";
             
             

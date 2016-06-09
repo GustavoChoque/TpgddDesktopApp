@@ -37,39 +37,26 @@ namespace WindowsFormsApplication1.ABM_Usuario
         {
             if (verificarLlenadoDatos())
             {
-
+                string mjeError = "";
                 dbQueryHandler.IniciarTransaction();
                 cargarDatosEnDataObject();
-                int resultado = dbQueryHandler.crearUsuario(datosParaCrear);
-                //1 inserto en usuarios 
-                //2 no inserto en usuarios
-                //2xx no inserto en clientes
-                //1xx inserto en lcinetes
-                if (resultado == 101) { mensajeExito(); this.Close(); };
-                if (resultado == 102) { mensajeErrorUsuarios(); };
-                if (resultado == 201) { mensajeErrorClientes(); };
-                if (resultado == 202) { mensajeErrorAmbos(); };
+                string resultado = dbQueryHandler.crearUsuario(datosParaCrear);
+                //A inserto en usuarios 
+                //B no inserto en usuarios
+                //F no inserto en clientes
+                //E inserto en lcinetes
+                //C inserto rol
+                //D no inserto rol
+
+                if (resultado.Contains("ACE")) { mensajeExito(); this.Close(); };
+                if (resultado.Contains('B')) { mjeError = mjeError + "Error en tabla usuarios\n"; };
+                if (resultado.Contains('F')) { mjeError = mjeError + "Error en tabla clientes\n"; };
+                if (resultado.Contains('D')) { mjeError = mjeError + "Error en tabla roles\n"; };
+                if (mjeError != "") { dbQueryHandler.rollbackear(); MessageBox.Show(mjeError + ("Se hizo un rollback transaction automático")); };
                 datosParaCrear = null;
             };
         }
 
-        private void mensajeErrorAmbos()
-        {
-            dbQueryHandler.rollbackear();
-            MessageBox.Show("Error en SQL- Se hizo un rollback transaction");
-        }
-
-        private void mensajeErrorClientes()
-        {
-            dbQueryHandler.rollbackear();
-            MessageBox.Show("Error en SQL- Tabla Clientes - Se hizo un rollback transaction");
-        }
-
-        private void mensajeErrorUsuarios()
-        {
-            dbQueryHandler.rollbackear();
-            MessageBox.Show("Error en SQL- Tabla Usuarios - Se hizo un rollback transaction");
-        }
         private void mensajeExito()
         {
             dbQueryHandler.endTransaction();
@@ -79,6 +66,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
 
         private void cargarDatosEnDataObject()
         {
+            
             datosParaCrear.setApellido(textBoxApellido.Text);
             datosParaCrear.setNombre(textBoxNombre.Text);
             datosParaCrear.setTipoDoc(comboBoxTipoDoc.SelectedItem.ToString());
@@ -87,13 +75,12 @@ namespace WindowsFormsApplication1.ABM_Usuario
             datosParaCrear.setCalle(textBoxCalle.Text);
             datosParaCrear.setPiso(Convert.ToInt32(textBoxPiso.Text));
             datosParaCrear.setNCalle(Convert.ToInt32(textBoxNroCalle.Text));
-            datosParaCrear.setLoc(textBoxLocalidad.Text);
             datosParaCrear.setTel(Convert.ToInt32(textBoxTelefono.Text));
             datosParaCrear.setDpto(textBoxDpto.Text);
             datosParaCrear.setCP(Convert.ToInt32(textBoxCP.Text));
             datosParaCrear.setFecNac(dateTimePickerFecNac.Value.ToString());
             datosParaCrear.setFecCre(DateTime.Now.ToString());
-
+            
         }
 
         private bool verificarLlenadoDatos()
@@ -111,7 +98,6 @@ namespace WindowsFormsApplication1.ABM_Usuario
             if ((textBoxNroCalle.Text == "") || (tieneLetras(textBoxNroCalle.Text))) { mensajeFalla = mensajeFalla + "\nNro de calle inválido"; rta = false; };
             if ((textBoxPiso.Text == "") || (tieneLetras(textBoxPiso.Text))) { mensajeFalla = mensajeFalla + "\nNro de piso inválido"; rta = false; };
             if (textBoxDpto.Text == "") { mensajeFalla = mensajeFalla + "\nDepartamento inválido"; rta = false; };
-            if (textBoxLocalidad.Text == "") { mensajeFalla = mensajeFalla + "\nLocalidad inválida"; rta = false; };
             if ((textBoxCP.Text == "") || (tieneLetras(textBoxCP.Text))) { mensajeFalla = mensajeFalla + "\nCódigo postal inválido"; rta = false; };
             if (!(DateTime.Compare(dateTimePickerFecNac.Value, DateTime.Now) <= 0)) { mensajeFalla = mensajeFalla + "\nFecha de nacimiento inválida"; rta = false; };
             if ((!(textBoxNroDoc.Text == "") && !(tieneLetras(textBoxNroDoc.Text)) && !((comboBoxTipoDoc.SelectedIndex) == (-1))))
@@ -164,7 +150,6 @@ namespace WindowsFormsApplication1.ABM_Usuario
             textBoxCP.Text = "";
             textBoxDpto.Text = "";
             textBoxEmail.Text = "";
-            textBoxLocalidad.Text = "";
             textBoxNombre.Text = "";
             textBoxNroCalle.Text = "";
             textBoxNroDoc.Text = "";
@@ -188,32 +173,32 @@ namespace WindowsFormsApplication1.ABM_Usuario
             return (retorno == 0);
         }
 
-        public int crearUsuario(CreacionUsuarioCliente datos)
+        public string crearUsuario(CreacionUsuarioCliente datos)
         {
-            int mensajeRespuesta;
-            SqlCommand command = new SqlCommand("IngresarNuevoUsuarioCliente", DbConnection.connection.getdbconnection());
+            string mensajeRespuesta;
+            SqlCommand command = new SqlCommand("CrearUsuarioCliente", DbConnection.connection.getdbconnection());
             command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@password", datos.password);
-                command.Parameters.AddWithValue("@dni_Cli", datos.documento);
+                command.Parameters.AddWithValue("@Username", datos.idusuario);
+                command.Parameters.AddWithValue("@Password", datos.password);
+                command.Parameters.AddWithValue("@Fecha_Creacion", datos.fechaCreacion);
+                command.Parameters.AddWithValue("@Dni_Cli", datos.documento);
                 command.Parameters.AddWithValue("@Tipo_Dni", datos.tipoDoc);
                 command.Parameters.AddWithValue("@Cli_Nombre", datos.nombre);
                 command.Parameters.AddWithValue("@Cli_Apellido", datos.apellido);
+                command.Parameters.AddWithValue("@Cli_Fecha_Nac", datos.fechaNac);
+                command.Parameters.AddWithValue("@CLI_Telefono", datos.telefono);
                 command.Parameters.AddWithValue("@Cli_Mail", datos.email);
                 command.Parameters.AddWithValue("@Cli_Dom_Calle", datos.calle);
-                command.Parameters.AddWithValue("@Cli_Nro_Calle", datos.nrocalle);
+                command.Parameters.AddWithValue("@Cli_Nro_Calle", datos.nrocalle);           
                 command.Parameters.AddWithValue("@Cli_Piso", datos.piso);
                 command.Parameters.AddWithValue("@Cli_Depto", datos.dpto);
                 command.Parameters.AddWithValue("@Cli_Cod_Postal", datos.codigopostal);
-                command.Parameters.AddWithValue("@Cli_Localidad", datos.localidad);
-                command.Parameters.AddWithValue("@Id_Usuario", datos.idusuario);
-                command.Parameters.AddWithValue("@Fecha_Creacion", datos.fechaCreacion);
-                command.Parameters.AddWithValue("@Cli_Fecha_Nac", datos.fechaNac);
-
-                SqlParameter retVal = new SqlParameter("@responseMessage", SqlDbType.Int);
+            
+                SqlParameter retVal = new SqlParameter("@respuesta", SqlDbType.NVarChar,255);
             command.Parameters.Add(retVal);
             retVal.Direction = ParameterDirection.Output;
             command.ExecuteNonQuery();
-            mensajeRespuesta = Convert.ToInt32(command.Parameters["@responseMessage"].Value);
+            mensajeRespuesta = command.Parameters["@respuesta"].Value.ToString();
 
             return mensajeRespuesta;
         }

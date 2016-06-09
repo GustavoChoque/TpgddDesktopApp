@@ -21,22 +21,22 @@ namespace WindowsFormsApplication1.ABM_Usuario
         }
         private bool verificarLlenadoDeCampos()
         {
+            bool rta = true;
+            string mjeError = "";
             if (textBoxNuevoUsuario.Text == "")
-            {MessageBox.Show("Ingresar Id Usuario");return false;}
-            else
-            {
-                if (textBoxNuevoUsuarioPassw.Text == "")
-                {MessageBox.Show("Ingresar Contraseña"); return false;}
-                else
-                {
-                    if ((!(radioButEmpresa.Checked) & !(radioButCliente.Checked)))
-                    {MessageBox.Show("Seleccionar Rol a asignar"); return false;}
-                    else {
-                        if (!(idUserExiste(textBoxNuevoUsuario.Text))) { MessageBox.Show("Id de usuario en uso"); return false; }
-                        else return true;
-                    };
-                }
-            }
+            { mjeError = mjeError + "Ingresar Id Usuario\n"; rta = false; };
+            if (textBoxNuevoUsuarioPassw.Text == "")
+            { mjeError = mjeError + "Ingresar contraseña\n"; rta = false; };
+            if (textBoxPasswConf.Text == "")
+            { mjeError = mjeError + "Ingresar verificación de contraseña\n"; rta = false; }; 
+            if (textBoxPasswConf.Text != textBoxNuevoUsuarioPassw.Text)
+            { mjeError = mjeError + "Las contraseñas no coinciden\n"; rta = false; };
+            if ((!(radioButEmpresa.Checked) & !(radioButCliente.Checked)))
+            { mjeError = mjeError + "Seleccionar Rol a asignar\n"; rta = false; };
+            if (!(idUserExiste(textBoxNuevoUsuario.Text))) { mjeError = mjeError + "Id de usuario en uso\n"; rta = false; };
+            if (rta == false) { MessageBox.Show(mjeError); }
+            return rta;
+
         }
 
         private bool idUserExiste(string user)
@@ -78,7 +78,6 @@ namespace WindowsFormsApplication1.ABM_Usuario
                 cliente.password = textBoxNuevoUsuarioPassw.Text;
                 cliente.idusuario = textBoxNuevoUsuario.Text;
                 agregarUsuarioCliente pantallaAgregarUsuarioCliente = new agregarUsuarioCliente(cliente);
-                pantallaAgregarUsuarioCliente.datosParaCrear = cliente;
                 pantallaAgregarUsuarioCliente.Show();
             };
             if (radioButEmpresa.Checked)
@@ -87,10 +86,24 @@ namespace WindowsFormsApplication1.ABM_Usuario
                 cliente.password = textBoxNuevoUsuarioPassw.Text;
                 cliente.idusuario = textBoxNuevoUsuario.Text;
                 agregarUsuarioEmpresa pantallaAgregarUsuarioEmpresa = new agregarUsuarioEmpresa(cliente);
-                pantallaAgregarUsuarioEmpresa.datosParaCrear = cliente;
                 pantallaAgregarUsuarioEmpresa.Show();
             };
         }
+            limpiar();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            limpiar();
+        }
+
+        public void limpiar()
+        {
+            textBoxNuevoUsuario.Text = "";
+            textBoxNuevoUsuarioPassw.Text = "";
+            textBoxPasswConf.Text = "";
+            radioButCliente.Checked = false;
+            radioButEmpresa.Checked = false;
         }
     }
 

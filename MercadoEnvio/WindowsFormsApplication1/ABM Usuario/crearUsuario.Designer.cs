@@ -37,6 +37,9 @@
             this.radioButEmpresa = new System.Windows.Forms.RadioButton();
             this.butContinuar = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxPasswConf = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBoxNuevoUsuario
@@ -76,7 +79,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(121, 86);
+            this.label3.Location = new System.Drawing.Point(121, 129);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(72, 13);
             this.label3.TabIndex = 4;
@@ -86,7 +89,7 @@
             // radioButCliente
             // 
             this.radioButCliente.AutoSize = true;
-            this.radioButCliente.Location = new System.Drawing.Point(211, 84);
+            this.radioButCliente.Location = new System.Drawing.Point(211, 127);
             this.radioButCliente.Name = "radioButCliente";
             this.radioButCliente.Size = new System.Drawing.Size(57, 17);
             this.radioButCliente.TabIndex = 9;
@@ -98,7 +101,7 @@
             // radioButEmpresa
             // 
             this.radioButEmpresa.AutoSize = true;
-            this.radioButEmpresa.Location = new System.Drawing.Point(211, 107);
+            this.radioButEmpresa.Location = new System.Drawing.Point(211, 150);
             this.radioButEmpresa.Name = "radioButEmpresa";
             this.radioButEmpresa.Size = new System.Drawing.Size(66, 17);
             this.radioButEmpresa.TabIndex = 10;
@@ -109,7 +112,7 @@
             // 
             // butContinuar
             // 
-            this.butContinuar.Location = new System.Drawing.Point(100, 145);
+            this.butContinuar.Location = new System.Drawing.Point(42, 188);
             this.butContinuar.Name = "butContinuar";
             this.butContinuar.Size = new System.Drawing.Size(75, 23);
             this.butContinuar.TabIndex = 11;
@@ -119,7 +122,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(211, 145);
+            this.button2.Location = new System.Drawing.Point(277, 188);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 12;
@@ -127,11 +130,43 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(42, 77);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(163, 13);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Ingrese contraseña nuevamente:";
+            // 
+            // textBoxPasswConf
+            // 
+            this.textBoxPasswConf.HideSelection = false;
+            this.textBoxPasswConf.Location = new System.Drawing.Point(211, 74);
+            this.textBoxPasswConf.Name = "textBoxPasswConf";
+            this.textBoxPasswConf.PasswordChar = '*';
+            this.textBoxPasswConf.Size = new System.Drawing.Size(100, 20);
+            this.textBoxPasswConf.TabIndex = 2;
+            this.textBoxPasswConf.UseSystemPasswordChar = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(130, 188);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 14;
+            this.button1.Text = "Limpiar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // crearUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(383, 180);
+            this.ClientSize = new System.Drawing.Size(383, 228);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.textBoxPasswConf);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.butContinuar);
             this.Controls.Add(this.radioButEmpresa);
@@ -160,5 +195,8 @@
         private System.Windows.Forms.RadioButton radioButEmpresa;
         private System.Windows.Forms.Button butContinuar;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBoxPasswConf;
+        private System.Windows.Forms.Button button1;
     }
 }

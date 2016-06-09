@@ -32,8 +32,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.textBoxNombreContact = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBoxLoc = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
             this.textBoxCP = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.textBoxPiso = new System.Windows.Forms.TextBox();
@@ -47,7 +45,6 @@
             this.buttonCrearUsuarioEmpresa = new System.Windows.Forms.Button();
             this.textBoxCalle = new System.Windows.Forms.TextBox();
             this.textBoxTel = new System.Windows.Forms.TextBox();
-            this.textBoxCiudad = new System.Windows.Forms.TextBox();
             this.textBoxEmail = new System.Windows.Forms.TextBox();
             this.textBoxRazonSoc = new System.Windows.Forms.TextBox();
             this.textBoxCuit = new System.Windows.Forms.TextBox();
@@ -55,7 +52,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonLimpiar = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -65,7 +61,7 @@
             this.textBoxRolTrabajoEmpresa.Location = new System.Drawing.Point(256, 288);
             this.textBoxRolTrabajoEmpresa.Name = "textBoxRolTrabajoEmpresa";
             this.textBoxRolTrabajoEmpresa.Size = new System.Drawing.Size(100, 20);
-            this.textBoxRolTrabajoEmpresa.TabIndex = 130;
+            this.textBoxRolTrabajoEmpresa.TabIndex = 11;
             // 
             // label8
             // 
@@ -78,47 +74,31 @@
             // 
             // textBoxNombreContact
             // 
-            this.textBoxNombreContact.Location = new System.Drawing.Point(185, 254);
+            this.textBoxNombreContact.Location = new System.Drawing.Point(185, 244);
             this.textBoxNombreContact.Name = "textBoxNombreContact";
             this.textBoxNombreContact.Size = new System.Drawing.Size(101, 20);
-            this.textBoxNombreContact.TabIndex = 128;
+            this.textBoxNombreContact.TabIndex = 10;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 257);
+            this.label3.Location = new System.Drawing.Point(8, 247);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(108, 13);
             this.label3.TabIndex = 127;
             this.label3.Text = "Nombre de Contacto:";
             // 
-            // textBoxLoc
-            // 
-            this.textBoxLoc.Location = new System.Drawing.Point(128, 176);
-            this.textBoxLoc.Name = "textBoxLoc";
-            this.textBoxLoc.Size = new System.Drawing.Size(63, 20);
-            this.textBoxLoc.TabIndex = 126;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(69, 179);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(53, 13);
-            this.label15.TabIndex = 125;
-            this.label15.Text = "Localidad";
-            // 
             // textBoxCP
             // 
-            this.textBoxCP.Location = new System.Drawing.Point(128, 201);
+            this.textBoxCP.Location = new System.Drawing.Point(128, 175);
             this.textBoxCP.Name = "textBoxCP";
             this.textBoxCP.Size = new System.Drawing.Size(63, 20);
-            this.textBoxCP.TabIndex = 124;
+            this.textBoxCP.TabIndex = 9;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(47, 204);
+            this.label16.Location = new System.Drawing.Point(47, 178);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(75, 13);
             this.label16.TabIndex = 123;
@@ -129,7 +109,7 @@
             this.textBoxPiso.Location = new System.Drawing.Point(128, 151);
             this.textBoxPiso.Name = "textBoxPiso";
             this.textBoxPiso.Size = new System.Drawing.Size(63, 20);
-            this.textBoxPiso.TabIndex = 122;
+            this.textBoxPiso.TabIndex = 7;
             // 
             // textBoxNroCalle
             // 
@@ -137,7 +117,7 @@
             this.textBoxNroCalle.Location = new System.Drawing.Point(237, 127);
             this.textBoxNroCalle.Name = "textBoxNroCalle";
             this.textBoxNroCalle.Size = new System.Drawing.Size(63, 20);
-            this.textBoxNroCalle.TabIndex = 121;
+            this.textBoxNroCalle.TabIndex = 6;
             this.textBoxNroCalle.TextChanged += new System.EventHandler(this.textBox9_TextChanged);
             // 
             // textBoxDpto
@@ -145,7 +125,7 @@
             this.textBoxDpto.Location = new System.Drawing.Point(237, 151);
             this.textBoxDpto.Name = "textBoxDpto";
             this.textBoxDpto.Size = new System.Drawing.Size(63, 20);
-            this.textBoxDpto.TabIndex = 120;
+            this.textBoxDpto.TabIndex = 8;
             // 
             // label14
             // 
@@ -188,7 +168,7 @@
             this.buttonCancelar.Location = new System.Drawing.Point(246, 373);
             this.buttonCancelar.Name = "buttonCancelar";
             this.buttonCancelar.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancelar.TabIndex = 115;
+            this.buttonCancelar.TabIndex = 14;
             this.buttonCancelar.Text = "Cancelar";
             this.buttonCancelar.UseVisualStyleBackColor = true;
             this.buttonCancelar.Click += new System.EventHandler(this.buttonCancelar_Click);
@@ -198,7 +178,7 @@
             this.buttonCrearUsuarioEmpresa.Location = new System.Drawing.Point(44, 373);
             this.buttonCrearUsuarioEmpresa.Name = "buttonCrearUsuarioEmpresa";
             this.buttonCrearUsuarioEmpresa.Size = new System.Drawing.Size(153, 23);
-            this.buttonCrearUsuarioEmpresa.TabIndex = 114;
+            this.buttonCrearUsuarioEmpresa.TabIndex = 12;
             this.buttonCrearUsuarioEmpresa.Text = "Crear nuevo usuario empresa";
             this.buttonCrearUsuarioEmpresa.UseVisualStyleBackColor = true;
             this.buttonCrearUsuarioEmpresa.Click += new System.EventHandler(this.buttonCrearUsuarioEmpresa_Click);
@@ -208,42 +188,36 @@
             this.textBoxCalle.Location = new System.Drawing.Point(128, 127);
             this.textBoxCalle.Name = "textBoxCalle";
             this.textBoxCalle.Size = new System.Drawing.Size(63, 20);
-            this.textBoxCalle.TabIndex = 113;
+            this.textBoxCalle.TabIndex = 5;
             // 
             // textBoxTel
             // 
             this.textBoxTel.Location = new System.Drawing.Point(185, 91);
             this.textBoxTel.Name = "textBoxTel";
             this.textBoxTel.Size = new System.Drawing.Size(101, 20);
-            this.textBoxTel.TabIndex = 112;
-            // 
-            // textBoxCiudad
-            // 
-            this.textBoxCiudad.Location = new System.Drawing.Point(185, 230);
-            this.textBoxCiudad.Name = "textBoxCiudad";
-            this.textBoxCiudad.Size = new System.Drawing.Size(101, 20);
-            this.textBoxCiudad.TabIndex = 111;
+            this.textBoxTel.TabIndex = 4;
             // 
             // textBoxEmail
             // 
             this.textBoxEmail.Location = new System.Drawing.Point(185, 67);
             this.textBoxEmail.Name = "textBoxEmail";
             this.textBoxEmail.Size = new System.Drawing.Size(101, 20);
-            this.textBoxEmail.TabIndex = 110;
+            this.textBoxEmail.TabIndex = 3;
+            this.textBoxEmail.TextChanged += new System.EventHandler(this.textBoxEmail_TextChanged);
             // 
             // textBoxRazonSoc
             // 
             this.textBoxRazonSoc.Location = new System.Drawing.Point(185, 19);
             this.textBoxRazonSoc.Name = "textBoxRazonSoc";
             this.textBoxRazonSoc.Size = new System.Drawing.Size(101, 20);
-            this.textBoxRazonSoc.TabIndex = 109;
+            this.textBoxRazonSoc.TabIndex = 1;
             // 
             // textBoxCuit
             // 
             this.textBoxCuit.Location = new System.Drawing.Point(185, 43);
             this.textBoxCuit.Name = "textBoxCuit";
             this.textBoxCuit.Size = new System.Drawing.Size(101, 20);
-            this.textBoxCuit.TabIndex = 108;
+            this.textBoxCuit.TabIndex = 2;
             // 
             // label7
             // 
@@ -281,15 +255,6 @@
             this.label4.TabIndex = 104;
             this.label4.Text = "Nro CUIT:";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 233);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 13);
-            this.label2.TabIndex = 103;
-            this.label2.Text = "Ciudad:";
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -304,7 +269,7 @@
             this.buttonLimpiar.Location = new System.Drawing.Point(246, 329);
             this.buttonLimpiar.Name = "buttonLimpiar";
             this.buttonLimpiar.Size = new System.Drawing.Size(75, 23);
-            this.buttonLimpiar.TabIndex = 131;
+            this.buttonLimpiar.TabIndex = 13;
             this.buttonLimpiar.Text = "Limpiar";
             this.buttonLimpiar.UseVisualStyleBackColor = true;
             this.buttonLimpiar.Click += new System.EventHandler(this.buttonLimpiar_Click);
@@ -319,8 +284,6 @@
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBoxNombreContact);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBoxLoc);
-            this.Controls.Add(this.label15);
             this.Controls.Add(this.textBoxCP);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.textBoxPiso);
@@ -334,7 +297,6 @@
             this.Controls.Add(this.buttonCrearUsuarioEmpresa);
             this.Controls.Add(this.textBoxCalle);
             this.Controls.Add(this.textBoxTel);
-            this.Controls.Add(this.textBoxCiudad);
             this.Controls.Add(this.textBoxEmail);
             this.Controls.Add(this.textBoxRazonSoc);
             this.Controls.Add(this.textBoxCuit);
@@ -342,7 +304,6 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "agregarUsuarioEmpresa";
             this.Text = "ABM Usuario - Crear Usuario Empresa";
@@ -358,8 +319,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBoxNombreContact;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBoxLoc;
-        private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox textBoxCP;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox textBoxPiso;
@@ -373,7 +332,6 @@
         private System.Windows.Forms.Button buttonCrearUsuarioEmpresa;
         private System.Windows.Forms.TextBox textBoxCalle;
         private System.Windows.Forms.TextBox textBoxTel;
-        private System.Windows.Forms.TextBox textBoxCiudad;
         private System.Windows.Forms.TextBox textBoxEmail;
         private System.Windows.Forms.TextBox textBoxRazonSoc;
         private System.Windows.Forms.TextBox textBoxCuit;
@@ -381,7 +339,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonLimpiar;
     }

@@ -74,7 +74,7 @@ namespace WindowsFormsApplication1.Pantalla_Principal
 
         private void buttonHistorialCliente_Click(object sender, EventArgs e)
         {
-            Historial_Cliente.Form1 pantallaHistorialCliente = new Historial_Cliente.Form1();
+            Historial_Cliente.Historial pantallaHistorialCliente = new Historial_Cliente.Historial();
             pantallaHistorialCliente.Show();
         }
 

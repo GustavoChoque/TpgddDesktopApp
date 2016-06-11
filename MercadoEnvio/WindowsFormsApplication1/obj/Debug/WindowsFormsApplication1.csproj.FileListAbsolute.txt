@@ -121,3 +121,19 @@ C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp post mod en 
 C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp post mod en der\gddDesktopApp\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.ModificacionUsuario.resources
 C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp post mod en der\gddDesktopApp\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.modificacionUsuarioCliente.resources
 C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp post mod en der\gddDesktopApp\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.FormularioModificacionCliente.resources
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\ABM Usuario\abmUsuarioPrincipal.cs
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\ABM Usuario\abmUsuarioPrincipal.Designer.cs
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.abmUsuarioPrincipal.resources
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.agregarUsuarioCliente.resources
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.agregarUsuarioEmpresa.resources
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.BajaUsuario.resources
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.BajaUsuarioCliente.resources
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.BajaUsuarioEmpresa.resources
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.crearUsuario.resources
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.FormularioModificacionCliente.resources
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.ModificacionUsuario.resources
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.modificacionUsuarioCliente.resources
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Generar_Publicación.CrearPublicacion.resources
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Generar_Publicación.Form1.resources
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Generar_Publicación.Form2.resources
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Historial_Cliente.Historial.resources

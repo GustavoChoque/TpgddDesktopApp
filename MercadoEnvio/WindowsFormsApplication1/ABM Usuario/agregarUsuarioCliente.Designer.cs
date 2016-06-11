@@ -332,7 +332,7 @@
             this.Controls.Add(this.label1);
             this.Name = "agregarUsuarioCliente";
             this.Text = "ABM Usuario - Crear Usuario Cliente";
-            this.Load += new System.EventHandler(this.agregarUsuarioCliente_Load);
+
             this.ResumeLayout(false);
             this.PerformLayout();
 

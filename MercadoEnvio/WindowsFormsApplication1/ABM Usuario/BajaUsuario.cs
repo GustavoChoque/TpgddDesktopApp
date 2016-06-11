@@ -16,5 +16,22 @@ namespace WindowsFormsApplication1.ABM_Usuario
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            BajaUsuarioCliente pantallaBajaUsuarioCliente = new BajaUsuarioCliente();
+            pantallaBajaUsuarioCliente.Show();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            BajaUsuarioEmpresa pantallaBajaUsuarioEmpresa = new BajaUsuarioEmpresa();
+            pantallaBajaUsuarioEmpresa.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

@@ -89,7 +89,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
                 pantallaAgregarUsuarioEmpresa.Show();
             };
         }
-            limpiar();
+            limpiar();  
         }
 
         private void button1_Click(object sender, EventArgs e)

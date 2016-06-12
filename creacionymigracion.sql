@@ -396,7 +396,34 @@ end;
 go
 
 	/*drop procedure funcionesEmpresa*/
-	
+
+/*trigger para eliminar la relacion usuario-rol cunado se inhabilita un rol*/
+create trigger quitarRol_Usuario
+on GROUP_APROVED.Roles
+after Update as 
+begin
+	declare @estado char;
+	declare @id_Rol int;
+	select @id_Rol=Id_Rol,@estado=estado from inserted;
+	if(@estado='I')begin
+	delete from RolesxUsuario where Id_Roles=@id_Rol;
+	end
+end
+go
+/*funcion para saber si un usuario ya califico una compra*/
+create function usuarioYaCalifico(@idUsuario int,@idCompra numeric(18,0))
+returns char(2) as begin
+	declare @valor char(2)
+	if exists(select 1 from GROUP_APROVED.Calificaciones where Id_Usuario=@idUsuario And ID_Compra=@idCompra )begin
+			set @valor='Si';
+		end 
+	else 
+		begin
+			set @valor= 'No';
+		end
+	return @valor
+end;
+go
 /*MIGRACION*/
 	/*funciones*/
 

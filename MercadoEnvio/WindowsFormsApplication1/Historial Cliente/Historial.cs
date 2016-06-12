@@ -13,6 +13,7 @@ namespace WindowsFormsApplication1.Historial_Cliente
     public partial class Historial : Form
     {
         DbQueryHandlerHistorial dbQueryHandler = new DbQueryHandlerHistorial();
+        
         public Historial()
         {
             InitializeComponent();
@@ -32,14 +33,15 @@ namespace WindowsFormsApplication1.Historial_Cliente
                 dataGridView1.Rows.Add(registros["Compra_Fecha"].ToString(), registros["Publicacion_Desc"].ToString(), registros["Compra_Cantidad"].ToString(), registros["Calificado"].ToString(), registros["Calif_Cant_Est"].ToString());
                
             }
+            registros.Close();
         }
+       
     }
     public class DbQueryHandlerHistorial
     {
         public SqlDataReader getInfoCompras()
         {
-            string subQuery = "realizar funcion que devuelva un bool";//Funcion para ver si ya se califico la compra 
-            string cadena = "select Compra_Fecha,Publicacion_Desc,Compra_Cantidad,"+subQuery+" Calificado,Calif_Cant_Est from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On(c.Publicacion_Cod=p.Publicacion_Cod) Join GROUP_APROVED.Calificaciones ca On (p.Publicacion_Cod=ca.Publicacion_Cod)";
+            string cadena = "select Compra_Fecha,Publicacion_Desc,Compra_Cantidad, dbo.usuarioYaCalifico(" + CurrentUser.user.getUserId() + ",c.ID_Compra) As Calificado,Calif_Cant_Est from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod) Join GROUP_APROVED.Calificaciones ca On (c.ID_Compra=ca.ID_Compra)";
             SqlCommand comando = new SqlCommand(cadena, DbConnection.connection.getdbconnection());
             SqlDataReader registros = comando.ExecuteReader();
             return registros;

@@ -156,8 +156,7 @@ CREATE TABLE GROUP_APROVED.Calificaciones(
 	Calif_Cant_Est numeric(18,0),
 	Calif_Descr nvarchar(255),
 	ID_Compra numeric(18,0) REFERENCES GROUP_APROVED.Compras,
-	Id_Usuario INT REFERENCES GROUP_APROVED.Usuarios,
-
+	 /*el usuario que hizo la calificacion se consigue de la compra*/
 )
 
 CREATE TABLE GROUP_APROVED.Facturas (

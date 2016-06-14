@@ -172,7 +172,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
         public string crearUsuario(CreacionUsuarioCliente datos)
         {
             string mensajeRespuesta;
-            SqlCommand command = new SqlCommand("CrearUsuarioCliente", DbConnection.connection.getdbconnection());
+            SqlCommand command = new SqlCommand("GROUP_APROVED.CrearUsuarioCliente", DbConnection.connection.getdbconnection());
             command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@Username", datos.idusuario);
                 command.Parameters.AddWithValue("@Password", datos.password);

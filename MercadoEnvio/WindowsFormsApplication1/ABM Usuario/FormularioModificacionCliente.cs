@@ -181,7 +181,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
         public string grabarDatos(ModificacionUsuarioCliente datosModificados, int id)
         {
             string mensajeRespuesta;
-            SqlCommand command = new SqlCommand("[dbo].[updateClientes]", DbConnection.connection.getdbconnection());
+            SqlCommand command = new SqlCommand("GROUP_APROVED.updateClientes", DbConnection.connection.getdbconnection());
             command.CommandType = CommandType.StoredProcedure;
 
             command.Parameters.AddWithValue("@Dni_Cli", datosModificados.documento);

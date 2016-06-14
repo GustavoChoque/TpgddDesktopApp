@@ -112,7 +112,7 @@ class DbQueryHandlerPantallaBajaUsuarioCliente
             public int bajaLogica(string id, string username)
             {
                 int mensajeRespuesta;
-                SqlCommand command = new SqlCommand("bajaLogicaUsuario", DbConnection.connection.getdbconnection());
+                SqlCommand command = new SqlCommand("GROUP_APROVED.bajaLogicaUsuario", DbConnection.connection.getdbconnection());
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@idusuario", id);
                 command.Parameters.AddWithValue("@Username", username);

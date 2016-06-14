@@ -208,7 +208,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
         public string grabarDatos(ModificacionUsuarioEmpresa datosModificados, int id)
         {
             string mensajeRespuesta;
-            SqlCommand command = new SqlCommand("[dbo].[updateEmpresa]", DbConnection.connection.getdbconnection());
+            SqlCommand command = new SqlCommand("GROUP_APROVED.updateEmpresa", DbConnection.connection.getdbconnection());
             command.CommandType = CommandType.StoredProcedure;
 
             command.Parameters.AddWithValue("@Empresa_Razon_Social", datosModificados.razonSocial);

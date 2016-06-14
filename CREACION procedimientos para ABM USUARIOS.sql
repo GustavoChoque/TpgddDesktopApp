@@ -1,4 +1,4 @@
-CREATE procedure [dbo].[bajaLogicaUsuario]
+CREATE procedure GROUP_APROVED.bajaLogicaUsuario
 
 @idusuario int,
 @Username nvarchar(255),
@@ -19,7 +19,7 @@ begin
 end
 
 
-CREATE PROCEDURE [dbo].[CrearUsuarioCliente]
+CREATE PROCEDURE GROUP_APROVED.CrearUsuarioCliente
 
 /*Debe ingresar registro en tabla	-usuarios
 									-clientes
@@ -117,7 +117,7 @@ set @Id_Usr = (select Id_Usr from GROUP_APROVED.Usuarios where (Username = @User
 END
 
 
-CREATE PROCEDURE [dbo].[CrearUsuarioEmpresa]
+CREATE PROCEDURE GROUP_APROVED.CrearUsuarioEmpresa
 
 /*Debe ingresar registro en tabla	-usuarios
 									-clientes
@@ -216,7 +216,7 @@ set @Id_Usr = (select Id_Usr from GROUP_APROVED.Usuarios where (Username = @User
 END
 
 
-CREATE procedure [dbo].[updateClientes]
+CREATE procedure GROUP_APROVED.updateClientes
 
 --todas las colummnas de los clientes...
 @Dni_Cli numeric(18,0),
@@ -271,7 +271,7 @@ set @respuesta = ''
 end
 
 
-CREATE procedure [dbo].[updateEmpresa]
+CREATE procedure GROUP_APROVED.updateEmpresa
 
 --todas las colummnas de las empresas...
 @Empresa_Razon_Social nvarchar(100),

@@ -180,7 +180,7 @@ public class DbQueryHandlerPantallaAgregarUsuarioEmpresa
         public string crearUsuario(CreacionUsuarioEmpresa datos)
         {
             string mensajeRespuesta;
-            SqlCommand command = new SqlCommand("CrearUsuarioEmpresa", DbConnection.connection.getdbconnection());
+            SqlCommand command = new SqlCommand("GROUP_APROVED.CrearUsuarioEmpresa", DbConnection.connection.getdbconnection());
             command.CommandType = CommandType.StoredProcedure;
             command.Parameters.AddWithValue("@Username", datos.idusuario);
             command.Parameters.AddWithValue("@Password", datos.password);

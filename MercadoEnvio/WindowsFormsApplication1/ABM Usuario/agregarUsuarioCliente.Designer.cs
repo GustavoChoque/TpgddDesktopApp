@@ -205,7 +205,7 @@
             this.comboBoxTipoDoc.FormattingEnabled = true;
             this.comboBoxTipoDoc.Items.AddRange(new object[] {
             "DNI",
-            "CI",
+            "LE",
             "LC",
             "DNIEXT"});
             this.comboBoxTipoDoc.Location = new System.Drawing.Point(185, 67);
@@ -332,7 +332,6 @@
             this.Controls.Add(this.label1);
             this.Name = "agregarUsuarioCliente";
             this.Text = "ABM Usuario - Crear Usuario Cliente";
-
             this.ResumeLayout(false);
             this.PerformLayout();
 

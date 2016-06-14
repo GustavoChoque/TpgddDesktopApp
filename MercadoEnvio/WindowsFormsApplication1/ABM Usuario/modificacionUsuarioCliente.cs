@@ -62,6 +62,8 @@ namespace WindowsFormsApplication1.ABM_Usuario
                     string usuario = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
                     FormularioModificacionCliente pantallaModifCliente = new FormularioModificacionCliente(id, usuario);
                     pantallaModifCliente.Show();
+                    dataAdapter = null;
+                    tablaDatos = null;
                 }
             }
         }
@@ -82,7 +84,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
             if ((textBoxDNI.Text != "") && (tieneLetras(textBoxDNI.Text))) { MessageBox.Show("Ingrese DNI válido"); return 0; };
             if ((textBoxApellido.Text == "") && (textBoxNombre.Text == "") && (textBoxDNI.Text == "") && (textBoxEmail.Text == "")) { MessageBox.Show("Ingrese algún filtro"); return 0; };
             if (((textBoxApellido.Text != "") || (textBoxNombre.Text != "") || (textBoxEmail.Text != "")) && (textBoxDNI.Text == "")) { return 2; };
-            MessageBox.Show("Error raro");
+            MessageBox.Show("Error no previsto");
             return 0;
         }
 
@@ -111,23 +113,6 @@ namespace WindowsFormsApplication1.ABM_Usuario
                 SqlCommand comand = new SqlCommand(@"select Id_Usuario, Username, Cli_Nombre, Cli_Apellido, Dni_Cli, Tipo_Dni,Cli_Mail, Estado  from GROUP_APROVED.Clientes c join GROUP_APROVED.Usuarios u
                 on c.Id_Usuario = u.Id_Usr where Cli_Mail like '%" + mail + "%' and Cli_Nombre like '%" + nombre + "%' and Cli_Apellido like '%" + apellido + "%'", DbConnection.connection.getdbconnection());
                 return comand;
-            }
-
-            public int bajaLogica(string id, string username)
-            {
-                int mensajeRespuesta;
-                SqlCommand command = new SqlCommand("bajaLogicaUsuario", DbConnection.connection.getdbconnection());
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@idusuario", id);
-                command.Parameters.AddWithValue("@Username", username);
-                
-                SqlParameter retVal = new SqlParameter("@respuesta", SqlDbType.Int);
-                command.Parameters.Add(retVal);
-                retVal.Direction = ParameterDirection.Output;
-                command.ExecuteNonQuery();
-                mensajeRespuesta = Convert.ToInt32(command.Parameters["@respuesta"].Value);
-
-                return mensajeRespuesta;
             }
         }
 

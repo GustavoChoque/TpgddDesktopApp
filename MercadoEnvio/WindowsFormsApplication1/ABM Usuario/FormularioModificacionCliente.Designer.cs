@@ -32,13 +32,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.textBox10 = new System.Windows.Forms.TextBox();
-            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.textBoxDoc = new System.Windows.Forms.TextBox();
+            this.textBoxNom = new System.Windows.Forms.TextBox();
+            this.textBoxAp = new System.Windows.Forms.TextBox();
+            this.textBoxTel = new System.Windows.Forms.TextBox();
+            this.textBoxEmail = new System.Windows.Forms.TextBox();
+            this.textBoxCalle = new System.Windows.Forms.TextBox();
+            this.textBoxNCalle = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -51,14 +51,16 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.textBox12 = new System.Windows.Forms.TextBox();
-            this.textBox13 = new System.Windows.Forms.TextBox();
-            this.textBox14 = new System.Windows.Forms.TextBox();
+            this.textBoxPiso = new System.Windows.Forms.TextBox();
+            this.textBoxDepto = new System.Windows.Forms.TextBox();
+            this.textBoxCP = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // textBox1
@@ -95,63 +97,63 @@
             this.textBox2.Size = new System.Drawing.Size(100, 20);
             this.textBox2.TabIndex = 3;
             // 
-            // textBox3
+            // textBoxDoc
             // 
-            this.textBox3.Location = new System.Drawing.Point(117, 99);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 4;
+            this.textBoxDoc.Location = new System.Drawing.Point(117, 99);
+            this.textBoxDoc.Name = "textBoxDoc";
+            this.textBoxDoc.Size = new System.Drawing.Size(100, 20);
+            this.textBoxDoc.TabIndex = 4;
             // 
-            // textBox5
+            // textBoxNom
             // 
-            this.textBox5.Location = new System.Drawing.Point(117, 151);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 20);
-            this.textBox5.TabIndex = 6;
+            this.textBoxNom.Location = new System.Drawing.Point(117, 151);
+            this.textBoxNom.Name = "textBoxNom";
+            this.textBoxNom.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNom.TabIndex = 6;
             // 
-            // textBox6
+            // textBoxAp
             // 
-            this.textBox6.Location = new System.Drawing.Point(117, 177);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(100, 20);
-            this.textBox6.TabIndex = 7;
+            this.textBoxAp.Location = new System.Drawing.Point(117, 177);
+            this.textBoxAp.Name = "textBoxAp";
+            this.textBoxAp.Size = new System.Drawing.Size(100, 20);
+            this.textBoxAp.TabIndex = 7;
             // 
-            // textBox8
+            // textBoxTel
             // 
-            this.textBox8.Location = new System.Drawing.Point(117, 229);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(100, 20);
-            this.textBox8.TabIndex = 9;
+            this.textBoxTel.Location = new System.Drawing.Point(117, 229);
+            this.textBoxTel.Name = "textBoxTel";
+            this.textBoxTel.Size = new System.Drawing.Size(100, 20);
+            this.textBoxTel.TabIndex = 9;
             // 
-            // textBox9
+            // textBoxEmail
             // 
-            this.textBox9.Location = new System.Drawing.Point(406, 99);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(100, 20);
-            this.textBox9.TabIndex = 10;
+            this.textBoxEmail.Location = new System.Drawing.Point(406, 99);
+            this.textBoxEmail.Name = "textBoxEmail";
+            this.textBoxEmail.Size = new System.Drawing.Size(100, 20);
+            this.textBoxEmail.TabIndex = 10;
             // 
-            // textBox10
+            // textBoxCalle
             // 
-            this.textBox10.Location = new System.Drawing.Point(406, 125);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(100, 20);
-            this.textBox10.TabIndex = 11;
+            this.textBoxCalle.Location = new System.Drawing.Point(406, 125);
+            this.textBoxCalle.Name = "textBoxCalle";
+            this.textBoxCalle.Size = new System.Drawing.Size(100, 20);
+            this.textBoxCalle.TabIndex = 11;
             // 
-            // textBox11
+            // textBoxNCalle
             // 
-            this.textBox11.Location = new System.Drawing.Point(406, 151);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(100, 20);
-            this.textBox11.TabIndex = 12;
+            this.textBoxNCalle.Location = new System.Drawing.Point(406, 151);
+            this.textBoxNCalle.Name = "textBoxNCalle";
+            this.textBoxNCalle.Size = new System.Drawing.Size(100, 20);
+            this.textBoxNCalle.TabIndex = 12;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(62, 102);
+            this.label3.Location = new System.Drawing.Point(49, 102);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(23, 13);
+            this.label3.Size = new System.Drawing.Size(62, 13);
             this.label3.TabIndex = 13;
-            this.label3.Text = "Dni";
+            this.label3.Text = "Documento";
             // 
             // label4
             // 
@@ -252,26 +254,26 @@
             this.label14.TabIndex = 24;
             this.label14.Text = "CP";
             // 
-            // textBox12
+            // textBoxPiso
             // 
-            this.textBox12.Location = new System.Drawing.Point(406, 177);
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(100, 20);
-            this.textBox12.TabIndex = 25;
+            this.textBoxPiso.Location = new System.Drawing.Point(406, 177);
+            this.textBoxPiso.Name = "textBoxPiso";
+            this.textBoxPiso.Size = new System.Drawing.Size(100, 20);
+            this.textBoxPiso.TabIndex = 25;
             // 
-            // textBox13
+            // textBoxDepto
             // 
-            this.textBox13.Location = new System.Drawing.Point(406, 203);
-            this.textBox13.Name = "textBox13";
-            this.textBox13.Size = new System.Drawing.Size(100, 20);
-            this.textBox13.TabIndex = 26;
+            this.textBoxDepto.Location = new System.Drawing.Point(406, 203);
+            this.textBoxDepto.Name = "textBoxDepto";
+            this.textBoxDepto.Size = new System.Drawing.Size(100, 20);
+            this.textBoxDepto.TabIndex = 26;
             // 
-            // textBox14
+            // textBoxCP
             // 
-            this.textBox14.Location = new System.Drawing.Point(406, 229);
-            this.textBox14.Name = "textBox14";
-            this.textBox14.Size = new System.Drawing.Size(100, 20);
-            this.textBox14.TabIndex = 27;
+            this.textBoxCP.Location = new System.Drawing.Point(406, 229);
+            this.textBoxCP.Name = "textBoxCP";
+            this.textBoxCP.Size = new System.Drawing.Size(100, 20);
+            this.textBoxCP.TabIndex = 27;
             // 
             // button1
             // 
@@ -323,19 +325,42 @@
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker1.TabIndex = 32;
             // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "I",
+            "B",
+            "H"});
+            this.comboBox2.Location = new System.Drawing.Point(406, 256);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(100, 21);
+            this.comboBox2.TabIndex = 33;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(351, 259);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(40, 13);
+            this.label15.TabIndex = 34;
+            this.label15.Text = "Estado";
+            // 
             // FormularioModificacionCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(634, 345);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox14);
-            this.Controls.Add(this.textBox13);
-            this.Controls.Add(this.textBox12);
+            this.Controls.Add(this.textBoxCP);
+            this.Controls.Add(this.textBoxDepto);
+            this.Controls.Add(this.textBoxPiso);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
@@ -348,20 +373,19 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox11);
-            this.Controls.Add(this.textBox10);
-            this.Controls.Add(this.textBox9);
-            this.Controls.Add(this.textBox8);
-            this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.textBoxNCalle);
+            this.Controls.Add(this.textBoxCalle);
+            this.Controls.Add(this.textBoxEmail);
+            this.Controls.Add(this.textBoxTel);
+            this.Controls.Add(this.textBoxAp);
+            this.Controls.Add(this.textBoxNom);
+            this.Controls.Add(this.textBoxDoc);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.Name = "FormularioModificacionCliente";
             this.Text = "FormularioModificacionCliente";
-            this.Load += new System.EventHandler(this.FormularioModificacionCliente_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -373,13 +397,13 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.TextBox textBox10;
-        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.TextBox textBoxDoc;
+        private System.Windows.Forms.TextBox textBoxNom;
+        private System.Windows.Forms.TextBox textBoxAp;
+        private System.Windows.Forms.TextBox textBoxTel;
+        private System.Windows.Forms.TextBox textBoxEmail;
+        private System.Windows.Forms.TextBox textBoxCalle;
+        private System.Windows.Forms.TextBox textBoxNCalle;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
@@ -392,13 +416,15 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox textBox12;
-        private System.Windows.Forms.TextBox textBox13;
-        private System.Windows.Forms.TextBox textBox14;
+        private System.Windows.Forms.TextBox textBoxPiso;
+        private System.Windows.Forms.TextBox textBoxDepto;
+        private System.Windows.Forms.TextBox textBoxCP;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Label label15;
     }
 }

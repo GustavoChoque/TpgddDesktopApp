@@ -76,7 +76,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
             datosParaCrear.setRazSoc(textBoxRazonSoc.Text);
             datosParaCrear.setRubroTrabajo(textBoxRolTrabajoEmpresa.Text);
             datosParaCrear.setTel(Convert.ToInt32(textBoxTel.Text));
-            datosParaCrear.setFecCreacion(DateTime.Now.ToString());
+            datosParaCrear.setFecCreacion(DateTime.Now);
         }
 
         private bool verificarLlenadoDatos()
@@ -162,16 +162,19 @@ public class DbQueryHandlerPantallaAgregarUsuarioEmpresa
         public void IniciarTransaction()
         {
             SqlCommand command = new SqlCommand("Begin Transaction", DbConnection.connection.getdbconnection());
+            command.ExecuteNonQuery();
         }
 
         public void rollbackear()
         {
             SqlCommand command = new SqlCommand("Rollback Transaction", DbConnection.connection.getdbconnection());
+            command.ExecuteNonQuery();
         }
 
         public void endTransaction()
         {
-            SqlCommand command = new SqlCommand("End Transaction", DbConnection.connection.getdbconnection());
+            SqlCommand command = new SqlCommand("Commit Transaction", DbConnection.connection.getdbconnection());
+            command.ExecuteNonQuery();
         }
 
         public string crearUsuario(CreacionUsuarioEmpresa datos)

@@ -17,49 +17,46 @@ namespace WindowsFormsApplication1.ABM_Usuario
         public string ID;
         public string usuario;
         DbQueryHandlerPantallaModifUsuarioCliente dbQueryHandler = new DbQueryHandlerPantallaModifUsuarioCliente();
-        List<String> datos;
+        ModificacionUsuarioCliente datosCliente = new ModificacionUsuarioCliente();
 
         public FormularioModificacionCliente(string id, string usuarioRecibido)
         {
             InitializeComponent();
             ID = id;
             usuario = usuarioRecibido;
-            datos = dbQueryHandler.buscarDatos(ID);
-            llenarTextBoxs(datos);
+            datosCliente = dbQueryHandler.buscarDatos(ID);
+            llenarTextBoxs(datosCliente);
         }
 
-        private void llenarTextBoxs(List<string> datos)
+        private void llenarTextBoxs(ModificacionUsuarioCliente datos)
         {
-            textBox1.Text = datos[12];
+            textBoxAp.Text = datos.apellido;
+            textBoxCalle.Text = datos.calle;
+            textBoxCP.Text = datos.codigopostal.ToString();
+            textBoxDepto.Text = datos.dpto;
+            textBoxDoc.Text = datos.documento.ToString();
+            textBoxEmail.Text = datos.email;
+            textBoxNCalle.Text = datos.nrocalle.ToString();
+            textBoxNom.Text = datos.nombre;
+            textBoxPiso.Text = datos.piso.ToString();
+            textBoxTel.Text = datos.telefono.ToString();
+            comboBox1.SelectedItem = datos.tipoDoc;
+            comboBox2.SelectedItem = datos.estado;
+            dateTimePicker1.Value = datos.fechaNac;
+            textBox1.Text = ID;
             textBox2.Text = usuario;
-            textBox3.Text = datos[0];
-            comboBox1.SelectedItem = datos[1];
-            textBox5.Text = datos[2];
-            textBox6.Text = datos[3];
-            dateTimePicker1.Value = DateTime.ParseExact(datos[4], "yyyy/dd/MM HH:mm:ss", CultureInfo.InvariantCulture);
-            textBox8.Text = datos[5];
-            textBox9.Text = datos[6];
-            textBox10.Text = datos[7];
-            textBox11.Text = datos[8];
-            textBox12.Text = datos[9];
-            textBox13.Text = datos[10];
-            textBox14.Text = datos[11];
-            
-        }
-
-        private void FormularioModificacionCliente_Load(object sender, EventArgs e)
-        {
 
         }
+
 
         private void button2_Click(object sender, EventArgs e)
         {
-            llenarTextBoxs(datos);
+            llenarTextBoxs(datosCliente);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            datos = null;
+            datosCliente = null;
             this.Close();
         }
 
@@ -67,9 +64,14 @@ namespace WindowsFormsApplication1.ABM_Usuario
         {
             if (verificarLlenado())
             {
-                List<String> datosModificados = new List<string>();
-                grabarDatosNuevosEnLista(datosModificados);
-                int mjeRta = dbQueryHandler.grabarDatos(datosModificados,ID);
+                dbQueryHandler.IniciarTransaction();
+                ModificacionUsuarioCliente datosModificados = new ModificacionUsuarioCliente();
+                cargarDatosEnDataObject(datosModificados);
+                string mjeRta = dbQueryHandler.grabarDatos(datosModificados,Convert.ToInt32(ID));
+                if (mjeRta.Contains("AC")) { MessageBox.Show("Exito"); dbQueryHandler.endTransaction(); this.Close(); } else { MessageBox.Show("Error SQL"); dbQueryHandler.rollbackear(); };
+                if (mjeRta.Contains('B')){MessageBox.Show("Error tabla clientes");};
+                if (mjeRta.Contains('D')){MessageBox.Show("Error tabla usuarios");};
+
             }
         }
 
@@ -77,21 +79,25 @@ namespace WindowsFormsApplication1.ABM_Usuario
         {
             string mensajeFalla = "";
             bool rta = true;
-            if ((textBox3.Text == "") || (tieneLetras(textBox3.Text))) { mensajeFalla = mensajeFalla + "\nNro de documento inválido"; rta = false; };
+            if ((textBoxDoc.Text == "") || (tieneLetras(textBoxDoc.Text))) { mensajeFalla = mensajeFalla + "\nNro de documento inválido"; rta = false; };
             if ((comboBox1.SelectedIndex) == (-1)) { mensajeFalla = mensajeFalla + "\nTipo de documento inválido"; rta = false; };
-            if ((textBox5.Text == "") || tieneNumeros(textBox5.Text)) { mensajeFalla = mensajeFalla + "Nombre inválido"; rta = false; };
-            if ((textBox6.Text == "") || tieneNumeros(textBox6.Text)) { mensajeFalla = mensajeFalla + "\nApellido inválido"; rta = false; };
-            if ((textBox8.Text == "") || (tieneLetras(textBox8.Text))) { mensajeFalla = mensajeFalla + "\nTeléfono inválido"; rta = false; };
-            if ((textBox9.Text == "") || !(textBox9.Text.Contains('@'))) { mensajeFalla = mensajeFalla + "\nEmail inválido"; rta = false; };
-            if (textBox10.Text == "") { mensajeFalla = mensajeFalla + "\nNombre de calle inválido"; rta = false; };
-            if ((textBox11.Text == "") || (tieneLetras(textBox11.Text))) { mensajeFalla = mensajeFalla + "\nNro de calle inválido"; rta = false; };
-            if ((textBox12.Text == "") || (tieneLetras(textBox12.Text))) { mensajeFalla = mensajeFalla + "\nNro de piso inválido"; rta = false; };
-            if (textBox13.Text == "") { mensajeFalla = mensajeFalla + "\nDepartamento inválido"; rta = false; };
-            if ((textBox14.Text == "") || (tieneLetras(textBox14.Text))) { mensajeFalla = mensajeFalla + "\nCódigo postal inválido"; rta = false; };
+            if ((textBoxNom.Text == "") || tieneNumeros(textBoxNom.Text)) { mensajeFalla = mensajeFalla + "Nombre inválido"; rta = false; };
+            if ((textBoxAp.Text == "") || tieneNumeros(textBoxAp.Text)) { mensajeFalla = mensajeFalla + "\nApellido inválido"; rta = false; };
+            if ((textBoxTel.Text == "") || (tieneLetras(textBoxTel.Text))) { mensajeFalla = mensajeFalla + "\nTeléfono inválido"; rta = false; };
+            if ((textBoxEmail.Text == "") || !(textBoxEmail.Text.Contains('@'))) { mensajeFalla = mensajeFalla + "\nEmail inválido"; rta = false; };
+            if (textBoxCalle.Text == "") { mensajeFalla = mensajeFalla + "\nNombre de calle inválido"; rta = false; };
+            if ((textBoxNCalle.Text == "") || (tieneLetras(textBoxNCalle.Text))) { mensajeFalla = mensajeFalla + "\nNro de calle inválido"; rta = false; };
+            if ((textBoxPiso.Text == "") || (tieneLetras(textBoxPiso.Text))) { mensajeFalla = mensajeFalla + "\nNro de piso inválido"; rta = false; };
+            if (textBoxDepto.Text == "") { mensajeFalla = mensajeFalla + "\nDepartamento inválido"; rta = false; };
+            if ((textBoxCP.Text == "") || (tieneLetras(textBoxCP.Text))) { mensajeFalla = mensajeFalla + "\nCódigo postal inválido"; rta = false; };
+            if ((comboBox2.SelectedIndex) == (-1)) { mensajeFalla = mensajeFalla + "\nEstado inválido"; rta = false; };
             if (!(DateTime.Compare(dateTimePicker1.Value, DateTime.Now) <= 0)) { mensajeFalla = mensajeFalla + "\nFecha de nacimiento inválida"; rta = false; };
-            if ((!(textBox3.Text == "") && !(tieneLetras(textBox3.Text)) && !((comboBox1.SelectedIndex) == (-1))))
+            if ((!(textBoxDoc.Text == "") && !(tieneLetras(textBoxDoc.Text)) && !((comboBox1.SelectedIndex) == (-1))))
             {
-                if (!verificarUnicos(textBox3.Text, comboBox1.Text)) { rta = false; mensajeFalla = mensajeFalla + "\nDocumento y tipo de documento registrados"; };
+                if ((!(textBoxDoc.Text.Contains(datosCliente.documento.ToString()))
+                    &&(comboBox1.SelectedItem.ToString().Contains(datosCliente.tipoDoc)))
+                    &&(!verificarUnicos(textBoxDoc.Text, comboBox1.Text))) { rta = false; mensajeFalla = mensajeFalla + "\nDocumento y tipo de documento registrados"; };
+                //se fija si modifico el dni y tipo dni y busca si existen los nuevos datos ingresdaos
             };
 
             if (rta == false) { MessageBox.Show("Errores detectados:\n\n" + mensajeFalla); }
@@ -121,62 +127,85 @@ namespace WindowsFormsApplication1.ABM_Usuario
             return dbQueryHandler.verificarDocumento(nrodoc, tipodoc);
         }
 
-        private void grabarDatosNuevosEnLista(List<string> datosModificados)
+        private void cargarDatosEnDataObject(ModificacionUsuarioCliente datosCliente)
         {
-            datosModificados[0]= textBox3.Text;
-            datosModificados[1] = comboBox1.SelectedItem.ToString();
-            datosModificados[2]= textBox5.Text;
-            datosModificados[3]= textBox6.Text;
-            datosModificados[4]= dateTimePicker1.Value.ToString();
-            datosModificados[5]= textBox8.Text;
-            datosModificados[6]= textBox9.Text;
-            datosModificados[7]= textBox10.Text;
-            datosModificados[8]= textBox11.Text;
-            datosModificados[9]= textBox12.Text;
-            datosModificados[10]= textBox13.Text;
-            datosModificados[11]= textBox14.Text;
-            datosModificados[12]= textBox1.Text;
+
+            datosCliente.setApellido(textBoxAp.Text);
+            datosCliente.setNombre(textBoxNom.Text);
+            datosCliente.setTipoDoc(comboBox1.SelectedItem.ToString());
+            datosCliente.setDoc(Convert.ToInt32(textBoxDoc.Text));
+            datosCliente.setEmail(textBoxEmail.Text);
+            datosCliente.setCalle(textBoxCalle.Text);
+            datosCliente.setPiso(Convert.ToInt32(textBoxPiso.Text));
+            datosCliente.setNCalle(Convert.ToInt32(textBoxNCalle.Text));
+            datosCliente.setTel(Convert.ToInt32(textBoxTel.Text));
+            datosCliente.setDpto(textBoxDepto.Text);
+            datosCliente.setCP(Convert.ToInt32(textBoxCP.Text));
+            datosCliente.setFecNac(dateTimePicker1.Value);
+            datosCliente.setEstado(comboBox2.SelectedItem.ToString());
+
         }
     }
     class DbQueryHandlerPantallaModifUsuarioCliente 
     {
         SqlCommand comando;
-        public List<String> buscarDatos(string id)
+        
+        public ModificacionUsuarioCliente buscarDatos(string id)
         {
             comando = new SqlCommand(@"select Dni_Cli, Tipo_Dni, Cli_Nombre,Cli_Apellido,Cli_Fecha_Nac,
-            CLI_Telefono,Cli_Mail,Cli_Dom_Calle,Cli_Nro_Calle,Cli_Piso,Cli_Depto,Cli_Cod_Postal,Id_Usuario
-            from GROUP_APROVED.Clientes where Id_Usuario = '"+id+"'", DbConnection.connection.getdbconnection());
+            CLI_Telefono,Cli_Mail,Cli_Dom_Calle,Cli_Nro_Calle,Cli_Piso,Cli_Depto,Cli_Cod_Postal,Id_Usuario,Estado
+            from GROUP_APROVED.Clientes c join GROUP_APROVED.Usuarios u on (u.Id_Usr = c.Id_Usuario) where Id_Usuario =" + id , DbConnection.connection.getdbconnection());
             SqlDataReader lector = comando.ExecuteReader();
             lector.Read();
-            List<string> datos = new List<string>();
-            //problemas con la lista de string... dice que esta fuera del intervalo... ver bien como poronga se usa
-            datos[0]=lector.GetValue(0).ToString();
-            datos[1]=lector.GetValue(1).ToString();
-            datos[2]=lector.GetValue(2).ToString();
-            datos[3]=lector.GetValue(3).ToString();
-            datos[4]=lector.GetValue(4).ToString();
-            datos[5]=lector.GetValue(5).ToString();
-            datos[6]=lector.GetValue(6).ToString();
-            datos[7]=lector.GetValue(7).ToString();
-            datos[8]=lector.GetValue(8).ToString();
-            datos[9]=lector.GetValue(9).ToString();
-            datos[10]=lector.GetValue(10).ToString();
-            datos[11]=lector.GetValue(11).ToString();
-            datos[12]=lector.GetValue(12).ToString();
-            
 
-            return datos;
+            ModificacionUsuarioCliente datosCliente= new ModificacionUsuarioCliente();
+
+            datosCliente.setApellido(lector.GetValue(3).ToString());
+            datosCliente.setNombre(lector.GetValue(2).ToString());
+            datosCliente.setTipoDoc(lector.GetValue(1).ToString());
+            datosCliente.setDoc(Convert.ToInt32(lector.GetValue(0)));
+            datosCliente.setEmail(lector.GetValue(6).ToString());
+            datosCliente.setCalle(lector.GetValue(7).ToString());
+            datosCliente.setPiso(Convert.ToInt32(lector.GetValue(9)));
+            datosCliente.setNCalle(Convert.ToInt32(lector.GetValue(8)));
+            datosCliente.setTel(Convert.ToInt32(lector.GetValue(5)));
+            datosCliente.setDpto(lector.GetValue(10).ToString());
+            datosCliente.setCP(Convert.ToInt32(lector.GetValue(11)));
+            datosCliente.setFecNac(lector.GetDateTime(4));
+            datosCliente.setEstado(lector.GetValue(13).ToString());
+            lector.Close();
+
+            return datosCliente;
         }
 
-        public int grabarDatos(List<string> datosModificados, string id)
+        public string grabarDatos(ModificacionUsuarioCliente datosModificados, int id)
         {
-            SqlDataReader lector;
-            SqlCommand comando = new SqlCommand(@"update GROUP_APROVED.Clientes SET Dni_Cli = "+datosModificados[3]+@", Tipo_Dni = "+datosModificados[4]+@",
-            Cli_Nombre="+datosModificados[5]+@",Cli_Apellido="+datosModificados[6]+@",Cli_Fecha_Nac="+datosModificados[7]+@",CLI_Telefono,Cli_Mail="+datosModificados[8]+",Cli_Dom_Calle="+datosModificados[9]+@",
-            Cli_Nro_Calle="+datosModificados[10]+",Cli_Piso"+datosModificados[11]+",Cli_Depto="+datosModificados[12]+",Cli_Cod_Postal="+datosModificados[13]+" where Id_Usuario = '" + id + "' ", DbConnection.connection.getdbconnection());
-            lector = comando.ExecuteReader();
-            lector.Close();
-            return 0;
+            string mensajeRespuesta;
+            SqlCommand command = new SqlCommand("[dbo].[updateClientes]", DbConnection.connection.getdbconnection());
+            command.CommandType = CommandType.StoredProcedure;
+
+            command.Parameters.AddWithValue("@Dni_Cli", datosModificados.documento);
+            command.Parameters.AddWithValue("@Tipo_Dni", datosModificados.tipoDoc);
+            command.Parameters.AddWithValue("@Cli_Nombre", datosModificados.nombre);
+            command.Parameters.AddWithValue("@Cli_Apellido", datosModificados.apellido);
+            command.Parameters.AddWithValue("@Cli_Fecha_Nac", datosModificados.fechaNac);
+            command.Parameters.AddWithValue("@CLI_Telefono", datosModificados.telefono);
+            command.Parameters.AddWithValue("@Cli_Mail", datosModificados.email);
+            command.Parameters.AddWithValue("@Cli_Dom_Calle", datosModificados.calle);
+            command.Parameters.AddWithValue("@Cli_Nro_Calle", datosModificados.nrocalle);
+            command.Parameters.AddWithValue("@Cli_Piso", datosModificados.piso);
+            command.Parameters.AddWithValue("@Cli_Depto", datosModificados.dpto);
+            command.Parameters.AddWithValue("@Cli_Cod_Postal", datosModificados.codigopostal);
+            command.Parameters.AddWithValue("@Id_Usr", id);
+            command.Parameters.AddWithValue("@Estado",datosModificados.estado);
+
+            SqlParameter retVal = new SqlParameter("@respuesta", SqlDbType.NVarChar, 255);
+            command.Parameters.Add(retVal);
+            retVal.Direction = ParameterDirection.Output;
+            command.ExecuteNonQuery();
+            mensajeRespuesta = command.Parameters["@respuesta"].Value.ToString();
+
+            return mensajeRespuesta;
         }
 
         public bool verificarDocumento(string nrodoc, string tipodoc)
@@ -189,5 +218,64 @@ namespace WindowsFormsApplication1.ABM_Usuario
             lector.Close();
             return (retorno == 0);
         }
+
+        public void IniciarTransaction()
+        {
+            SqlCommand command = new SqlCommand("Begin Transaction", DbConnection.connection.getdbconnection());
+            command.ExecuteNonQuery();
+
+        }
+
+        public void rollbackear()
+        {
+            SqlCommand command = new SqlCommand("Rollback Transaction", DbConnection.connection.getdbconnection());
+            command.ExecuteNonQuery();
+
+        }
+
+        public void endTransaction()
+        {
+            SqlCommand command = new SqlCommand("Commit Transaction", DbConnection.connection.getdbconnection());
+            command.ExecuteNonQuery();
+
+        }
+    }
+
+
+    public class ModificacionUsuarioCliente
+    {
+        public string idusuario;
+        public string password;
+        public string nombre;
+        public string apellido;
+        public string tipoDoc;
+        public int documento;
+        public string email;
+        public int telefono;
+        public string calle;
+        public int nrocalle;
+        public int piso;
+        public string dpto;
+        public string localidad;
+        public int codigopostal;
+        public DateTime fechaCreacion;
+        public DateTime fechaNac;
+        public string estado;
+        //setters
+        public void setNombre(string n) { nombre = n; }
+        public void setApellido(string a) { apellido = a; }
+        public void setTipoDoc(string t) { tipoDoc = t; }
+        public void setDoc(int d) { documento = d; }
+        public void setEmail(string e) { email = e; }
+        public void setTel(int t) { telefono = t; }
+        public void setCalle(string c) { calle = c; }
+        public void setNCalle(int n) { nrocalle = n; }
+        public void setPiso(int p) { piso = p; }
+        public void setDpto(string d) { dpto = d; }
+        public void setLoc(string l) { localidad = l; }
+        public void setCP(int cp) { codigopostal = cp; }
+        public void setFecCre(DateTime date) { fechaCreacion = date; }
+        public void setFecNac(DateTime date) { fechaNac = date; }
+        public void setEstado(string es) { estado = es; }
     }
 }

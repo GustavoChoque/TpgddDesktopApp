@@ -62,7 +62,6 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros de búsqueda";
-
             // 
             // button2
             // 
@@ -165,7 +164,6 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "BajaUsuarioCliente";
             this.Text = "Baja Usuario Cliente";
-
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

@@ -29,9 +29,6 @@ namespace WindowsFormsApplication1.ABM_Usuario
             textBoxCuit.Text = "";
             textBoxEmail.Text = "";
             dataAdapter = null;
-            //dataGridView1.Dispose();
-            //dataGridView1.ClearSelection();
-            
             dataGridView1.DataSource = null;
         }
 
@@ -105,14 +102,14 @@ namespace WindowsFormsApplication1.ABM_Usuario
     {
         public SqlCommand consultaFiltrosConCuit(string cuit, string mail, string razSoc)
         {
-            SqlCommand comand = new SqlCommand(@"select Id_Usuario, Username, Empresa_Razon_Social, Empresa_Cuit, Empresa_Mail  from GROUP_APROVED.Empresas c join GROUP_APROVED.Usuarios u
- on c.Id_Usuario = u.Id_Usr where Empresa_Razon_Social = '%"+razSoc+"%' and Empresa_Mail like '%"+mail+"%' and Empresa_Cuit = "+cuit, DbConnection.connection.getdbconnection());
+            SqlCommand comand = new SqlCommand(@"select Id_Usuario, Username, Empresa_Razon_Social, Empresa_Cuit, Empresa_Mail, Estado  from GROUP_APROVED.Empresas c join GROUP_APROVED.Usuarios u
+ on c.Id_Usuario = u.Id_Usr where Empresa_Razon_Social like '%"+razSoc+"%' and Empresa_Mail like '%"+mail+"%' and Empresa_Cuit = "+cuit, DbConnection.connection.getdbconnection());
             return comand;
         }
         public SqlCommand consultaFiltrosSinCuit(string mail, string razSoc)
         {
-            SqlCommand comand = new SqlCommand(@"select Id_Usuario, Username, Empresa_Razon_Social, Empresa_Cuit, Empresa_Mail  from GROUP_APROVED.Empresas c join GROUP_APROVED.Usuarios u
- on c.Id_Usuario = u.Id_Usr where Empresa_Razon_Social = '%" + razSoc + "%' and Empresa_Mail like '%" + mail + "%'", DbConnection.connection.getdbconnection());
+            SqlCommand comand = new SqlCommand(@"select Id_Usuario, Username, Empresa_Razon_Social, Empresa_Cuit, Empresa_Mail, Estado  from GROUP_APROVED.Empresas c join GROUP_APROVED.Usuarios u
+ on c.Id_Usuario = u.Id_Usr where Empresa_Razon_Social like '%" + razSoc + "%' and Empresa_Mail like '%" + mail + "%'", DbConnection.connection.getdbconnection());
             return comand;
         }
         public int bajaLogica(string id, string username)

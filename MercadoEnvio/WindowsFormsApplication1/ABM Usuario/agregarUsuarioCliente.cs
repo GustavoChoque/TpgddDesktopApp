@@ -74,8 +74,8 @@ namespace WindowsFormsApplication1.ABM_Usuario
             datosParaCrear.setTel(Convert.ToInt32(textBoxTelefono.Text));
             datosParaCrear.setDpto(textBoxDpto.Text);
             datosParaCrear.setCP(Convert.ToInt32(textBoxCP.Text));
-            datosParaCrear.setFecNac(dateTimePickerFecNac.Value.ToString());
-            datosParaCrear.setFecCre(DateTime.Now.ToString());
+            datosParaCrear.setFecNac(dateTimePickerFecNac.Value);
+            datosParaCrear.setFecCre(DateTime.Now);
             
         }
 
@@ -202,16 +202,22 @@ namespace WindowsFormsApplication1.ABM_Usuario
         public void IniciarTransaction()
         {
             SqlCommand command = new SqlCommand("Begin Transaction", DbConnection.connection.getdbconnection());
+            command.ExecuteNonQuery();
+           
         }
 
         public void rollbackear()
         {
             SqlCommand command = new SqlCommand("Rollback Transaction", DbConnection.connection.getdbconnection());
+            command.ExecuteNonQuery();
+            
         }
 
         public void endTransaction()
         {
-            SqlCommand command = new SqlCommand("End Transaction", DbConnection.connection.getdbconnection());
+            SqlCommand command = new SqlCommand("Commit Transaction", DbConnection.connection.getdbconnection());
+            command.ExecuteNonQuery();
+            
         }
     }
 }

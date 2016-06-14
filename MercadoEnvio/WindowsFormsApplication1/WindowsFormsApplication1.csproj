@@ -81,77 +81,75 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM Usuario\abmUsuarioPrincipal.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM Usuario\abmUsuarioPrincipal.Designer.cs">
+    <Compile Include="ABM Usuario\abmUsuarioPrincipal.designer.cs">
       <DependentUpon>abmUsuarioPrincipal.cs</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="ABM Usuario\agregarUsuarioCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM Usuario\agregarUsuarioCliente.Designer.cs">
+    <Compile Include="ABM Usuario\agregarUsuarioCliente.designer.cs">
       <DependentUpon>agregarUsuarioCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM Usuario\agregarUsuarioEmpresa.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM Usuario\agregarUsuarioEmpresa.Designer.cs">
+    <Compile Include="ABM Usuario\agregarUsuarioEmpresa.designer.cs">
       <DependentUpon>agregarUsuarioEmpresa.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM Usuario\BajaUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM Usuario\BajaUsuario.Designer.cs">
+    <Compile Include="ABM Usuario\BajaUsuario.designer.cs">
       <DependentUpon>BajaUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM Usuario\BajaUsuarioCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM Usuario\BajaUsuarioCliente.Designer.cs">
+    <Compile Include="ABM Usuario\BajaUsuarioCliente.designer.cs">
       <DependentUpon>BajaUsuarioCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM Usuario\BajaUsuarioEmpresa.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM Usuario\BajaUsuarioEmpresa.Designer.cs">
+    <Compile Include="ABM Usuario\BajaUsuarioEmpresa.designer.cs">
       <DependentUpon>BajaUsuarioEmpresa.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM Usuario\crearUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM Usuario\crearUsuario.Designer.cs">
+    <Compile Include="ABM Usuario\crearUsuario.designer.cs">
       <DependentUpon>crearUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM Usuario\FormularioModificacionCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM Usuario\FormularioModificacionCliente.Designer.cs">
+    <Compile Include="ABM Usuario\FormularioModificacionCliente.designer.cs">
       <DependentUpon>FormularioModificacionCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM Usuario\FormularioModificacionEmpresa.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM Usuario\FormularioModificacionEmpresa.Designer.cs">
+    <Compile Include="ABM Usuario\FormularioModificacionEmpresa.designer.cs">
       <DependentUpon>FormularioModificacionEmpresa.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM Usuario\ModificacionUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM Usuario\ModificacionUsuario.Designer.cs">
+    <Compile Include="ABM Usuario\ModificacionUsuario.designer.cs">
       <DependentUpon>ModificacionUsuario.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM Usuario\modificacionUsuarioCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM Usuario\modificacionUsuarioCliente.Designer.cs">
+    <Compile Include="ABM Usuario\modificacionUsuarioCliente.designer.cs">
       <DependentUpon>modificacionUsuarioCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM Usuario\modificacionUsuarioEmpresa.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM Usuario\modificacionUsuarioEmpresa.Designer.cs">
+    <Compile Include="ABM Usuario\modificacionUsuarioEmpresa.designer.cs">
       <DependentUpon>modificacionUsuarioEmpresa.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM Visibilidad\Form1.cs">
@@ -264,11 +262,17 @@
     <EmbeddedResource Include="ABM Usuario\FormularioModificacionCliente.resx">
       <DependentUpon>FormularioModificacionCliente.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ABM Usuario\FormularioModificacionEmpresa.resx">
+      <DependentUpon>FormularioModificacionEmpresa.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ABM Usuario\ModificacionUsuario.resx">
       <DependentUpon>ModificacionUsuario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ABM Usuario\modificacionUsuarioCliente.resx">
       <DependentUpon>modificacionUsuarioCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM Usuario\modificacionUsuarioEmpresa.resx">
+      <DependentUpon>modificacionUsuarioEmpresa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Publicación\CrearPublicacion.resx">
       <DependentUpon>CrearPublicacion.cs</DependentUpon>

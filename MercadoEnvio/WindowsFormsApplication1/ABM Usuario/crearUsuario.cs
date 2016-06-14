@@ -123,8 +123,8 @@ public class CreacionUsuarioCliente
     public string dpto;
     public string localidad;
     public int codigopostal;
-    public string fechaCreacion;
-    public string fechaNac;
+    public DateTime fechaCreacion;
+    public DateTime fechaNac;
 
     //setters
     public void setNombre(string n){ nombre = n; }
@@ -139,8 +139,8 @@ public class CreacionUsuarioCliente
     public void setDpto(string d) { dpto = d; }
     public void setLoc(string l) { localidad = l; }
     public void setCP(int cp) { codigopostal = cp; }
-    public void setFecCre(string date) { fechaCreacion = date; }
-    public void setFecNac(string date) { fechaNac = date; }
+    public void setFecCre(DateTime date) { fechaCreacion = date; }
+    public void setFecNac(DateTime date) { fechaNac = date; }
 }
 
 public class CreacionUsuarioEmpresa
@@ -160,7 +160,7 @@ public class CreacionUsuarioEmpresa
     public int codigopostal;
     public string nombreContacto;
     public string rubroTrabajoEmpresa;
-    public string fechaCreacion;
+    public DateTime fechaCreacion;
 
     //setters
     public void setRazSoc(string n) { razonSocial = n; }
@@ -176,7 +176,7 @@ public class CreacionUsuarioEmpresa
     public void setCP(int cp) { codigopostal = cp; }
     public void setNombreCont(string nc) { nombreContacto = nc; }
     public void setRubroTrabajo(string r) { rubroTrabajoEmpresa = r; }
-    public void setFecCreacion(string f) { fechaCreacion = f; }
+    public void setFecCreacion(DateTime f) { fechaCreacion = f; }
 
 }
 

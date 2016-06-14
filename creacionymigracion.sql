@@ -1,7 +1,6 @@
 use GD1C2016
 
 /* 
-
 creacion de schema*/
 
 go
@@ -61,7 +60,7 @@ CREATE TABLE GROUP_APROVED.Empresas (
 	Empresa_Depto nvarchar(50),
 	Empresa_Fecha_Creacion datetime,
 	Empresa_Cod_Postal nvarchar(255),
-	Id_Usuario INT REFERENCES GROUP_APROVED.Usuarios UNIQUE,
+	Id_Usuario INT REFERENCES GROUP_APROVED.Usuarios,
 	Empresa_Telefono numeric(18,0),
 	Empresa_Nombre_Contacto nvarchar(255),
 	Empresa_RubroP nvarchar(255),
@@ -85,7 +84,7 @@ CREATE TABLE GROUP_APROVED.Clientes (
 	Cli_Piso numeric(18,0),
 	Cli_Depto nvarchar(50),
 	Cli_Cod_Postal nvarchar(255),
-	Id_Usuario INT REFERENCES GROUP_APROVED.Usuarios  UNIQUE,
+	Id_Usuario INT REFERENCES GROUP_APROVED.Usuarios,
 	PRIMARY KEY ( Dni_Cli, Tipo_Dni)
 )
 
@@ -130,8 +129,9 @@ CREATE TABLE GROUP_APROVED.Publicaciones(
 )
 
 
-
+/*go
 SET IDENTITY_INSERT GROUP_APROVED.Publicaciones ON;      /* esto es para poder migrar los datos inciales en orden, sin porblemas, despues de migrar se vuelve a setear a off*/
+go*/
 
 CREATE TABLE GROUP_APROVED.Ofertas (												/* se debe restringir que solo las publicaicones de tipo subasta tienen ofertas asignadas*/
 	ID_Oferta numeric(18,0) IDENTITY(1,1) PRIMARY KEY,
@@ -155,8 +155,8 @@ CREATE TABLE GROUP_APROVED.Calificaciones(
 	Calif_Cod numeric(18,0) PRIMARY KEY,
 	Calif_Cant_Est numeric(18,0),
 	Calif_Descr nvarchar(255),
-	ID_Compra numeric(18,0) REFERENCES GROUP_APROVED.Compras,
-	 /*el usuario que hizo la calificacion se consigue de la compra*/
+	ID_Compra numeric(18,0) REFERENCES GROUP_APROVED.Compras,       /*el usuario que hizo la calificacion se consigue de la compra*/
+
 )
 
 CREATE TABLE GROUP_APROVED.Facturas (
@@ -202,7 +202,6 @@ begin transaction dropTables
 	DROP TABLE GROUP_APROVED.Funciones
 	DROP SCHEMA [GROUP_APROVED]
 commit transaction
-
 */
 go
 /*CREACION DE STORED PROCEDURES / TRIGGERS*/
@@ -393,16 +392,19 @@ begin
 end;
 
 go
+/*drop procedure funcionesEmpresa*/
 
 create procedure migracionPubl
 
 as
 begin
+
+	
  declare @ID_usr INT;
  declare @Publ_Cod numeric(18,0) , @Publ_Cli_Dni numeric(18,0),@Publ_Empresa_Razon_Social nvarchar(255), @Publ_Empresa_Cuit nvarchar(50), @Publicacion_Rubro_Descripcion nvarchar(255),@Publicacion_Visibilidad_Cod numeric(18,0),@Publicacion_Descripcion nvarchar(255), @Publicacion_Fecha datetime, @Publicacion_Fecha_Venc datetime, @Publicacion_Precio numeric(18,2), @Publicacion_Stock numeric(18,0),@Publicacion_Tipo nvarchar(255); 
  declare @Id_Pub_Estado INT,@Id_Rubro INT;
  declare publCursr cursor for
-	select distinct Publicacion_Cod, Publ_Cli_Dni, Publ_Empresa_Razon_Social, Publ_Empresa_Cuit, Publicacion_Rubro_Descripcion,Publicacion_Visibilidad_Cod,Publicacion_Descripcion, Publicacion_Fecha, Publicacion_Fecha_Venc, Publicacion_Precio, Publicacion_Stock, Publicacion_Tipo,Publicacion_Estado
+	select distinct Publicacion_Cod, Publ_Cli_Dni, Publ_Empresa_Razon_Social, Publ_Empresa_Cuit, Publicacion_Rubro_Descripcion,Publicacion_Visibilidad_Cod,Publicacion_Descripcion, Publicacion_Fecha, Publicacion_Fecha_Venc, Publicacion_Precio, Publicacion_Stock, Publicacion_Tipo
 	from gd_esquema.Maestra order by 1;
 
 open publCursr;
@@ -429,16 +431,18 @@ while @@FETCH_STATUS =0
 			begin
 			select @ID_usr = Id_Usuario from GROUP_APROVED.Clientes where Dni_Cli = @Publ_Cli_Dni
 			
-			insert into GROUP_APROVED.Publicaciones
-			values(@Publ_Cod,@Publicacion_Descripcion,@Publicacion_Stock, @Publicacion_Fecha, @Publicacion_Fecha_Venc, @Publicacion_Precio,@Publicacion_Tipo,@Publicacion_Visibilidad_Cod,@Id_Pub_Estado,@Id_Rubro,@ID_usr)
+			insert into GROUP_APROVED.Publicaciones(Publicacion_Desc,Publicacion_Stock,Publicacion_Fecha,Publicacion_Fecha_Venc,Publicacion_Precio,Publicacion_Tipo,Visibilidad_Cod,Publicacion_Estado,Id_Rubro,Id_Usuario)
+
+			values(@Publicacion_Descripcion,@Publicacion_Stock, @Publicacion_Fecha, @Publicacion_Fecha_Venc, @Publicacion_Precio,@Publicacion_Tipo,@Publicacion_Visibilidad_Cod,@Id_Pub_Estado,@Id_Rubro,@ID_usr)
 			
 			end;
 		else
 			begin
 			select @ID_usr = Id_Usuario from GROUP_APROVED.Empresas where Empresa_Razon_Social = @Publ_Empresa_Razon_Social and Empresa_Cuit = @Publ_Empresa_Cuit
 			
-			insert into GROUP_APROVED.Publicaciones
-			values(@Publ_Cod,@Publicacion_Descripcion,@Publicacion_Stock, @Publicacion_Fecha, @Publicacion_Fecha_Venc, @Publicacion_Precio,@Publicacion_Tipo,@Publicacion_Visibilidad_Cod,@Id_Pub_Estado,@Id_Rubro,@ID_usr)
+			insert into GROUP_APROVED.Publicaciones(Publicacion_Desc,Publicacion_Stock,Publicacion_Fecha,Publicacion_Fecha_Venc,Publicacion_Precio,Publicacion_Tipo,Visibilidad_Cod,Publicacion_Estado,Id_Rubro,Id_Usuario)
+
+			values(@Publicacion_Descripcion,@Publicacion_Stock, @Publicacion_Fecha, @Publicacion_Fecha_Venc, @Publicacion_Precio,@Publicacion_Tipo,@Publicacion_Visibilidad_Cod,@Id_Pub_Estado,@Id_Rubro,@ID_usr)
 			
 			end;
 		fetch next from publCursr into @Publ_Cod,@Publ_Cli_Dni,@Publ_Empresa_Razon_Social,@Publ_Empresa_Cuit, @Publicacion_Rubro_Descripcion,@Publicacion_Visibilidad_Cod,@Publicacion_Descripcion,@Publicacion_Fecha,@Publicacion_Fecha_Venc ,@Publicacion_Precio ,@Publicacion_Stock ,@Publicacion_Tipo;
@@ -449,13 +453,8 @@ while @@FETCH_STATUS =0
 
 end;
 
-
-
-/*drop procedure migracionPubl*/
-
 go
 
-	/*drop procedure funcionesEmpresa*/
 
 /*trigger para eliminar la relacion usuario-rol cunado se inhabilita un rol*/
 create trigger quitarRol_Usuario
@@ -483,16 +482,373 @@ returns char(2) as begin
 		end
 	return @valor
 end;
+
 go
+
+
+
+CREATE procedure GROUP_APROVED.bajaLogicaUsuario
+
+@idusuario int,
+@Username nvarchar(255),
+@respuesta int output
+
+as
+begin
+	begin try
+		update GROUP_APROVED.Usuarios
+		set Estado = 'B'
+		where Id_Usr = @idusuario and Username = @Username
+
+		set @respuesta = 1
+	end try
+	begin catch
+		set @respuesta = 0
+	end catch
+end
+
+go
+
+CREATE PROCEDURE GROUP_APROVED.CrearUsuarioCliente
+
+/*Debe ingresar registro en tabla	-usuarios
+									-clientes
+									-rolesxusuario
+									*/
+--variables
+@respuesta nvarchar(1000) output,
+@Username nvarchar(255),
+@Password nvarchar(255),
+@Fecha_Creacion datetime,
+
+@Dni_Cli numeric(18,0),
+@Tipo_Dni nvarchar(7),
+@Cli_Nombre  nvarchar(255),
+@Cli_Apellido nvarchar(255),
+@Cli_Fecha_Nac datetime,
+@CLI_Telefono numeric(18,0),
+@Cli_Mail nvarchar(255),
+@Cli_Dom_Calle nvarchar(255),
+@Cli_Nro_Calle numeric(18,0),
+@Cli_Piso numeric(18,0),
+@Cli_Depto nvarchar(50),
+@Cli_Cod_Postal nvarchar(255)
+
+AS
+BEGIN
+set @respuesta = ''
+
+--primero inserta en usuarios
+	begin try
+		insert into GROUP_APROVED.Usuarios (Username,Passw,Fecha_Creacion,intentos)
+		values (
+		@Username, 
+		convert(nvarchar(255),HASHBYTES('SHA2_256', @Password),1),
+		convert(datetime,@Fecha_Creacion,103),
+		0)
+		set @respuesta = @respuesta + 'A'
+	end try
+	begin catch
+		set @respuesta = @respuesta + 'B'
+	end catch
+
+--busco el id_usr que creó el insert anterior
+
+declare @Id_Usr int
+set @Id_Usr = (select Id_Usr from GROUP_APROVED.Usuarios where (Username = @Username))
+
+--insercion en rolesxusuario
+	begin try
+		insert into GROUP_APROVED.RolesxUsuario(Id_Usr,Id_Roles)
+		values (@Id_Usr, 2) --2 es el rol cliente
+		set @respuesta = @respuesta + 'C'
+	end try
+	begin catch
+		set @respuesta = @respuesta + 'D'
+	end catch
+
+--insercion en clientes
+	begin try
+		insert into GROUP_APROVED.Clientes 
+		(Dni_Cli,
+		Tipo_Dni,
+		Cli_Nombre,
+		Cli_Apellido,
+		Cli_Fecha_Nac,
+		CLI_Telefono,
+		Cli_Mail,
+		Cli_Dom_Calle,
+		Cli_Nro_Calle,
+		Cli_Piso,
+		Cli_Depto,
+		Cli_Cod_Postal,
+		Id_Usuario)
+		values (
+				@Dni_Cli,
+				@Tipo_Dni,
+				@Cli_Nombre,
+				@Cli_Apellido,
+				@Cli_Fecha_Nac,
+				@CLI_Telefono,
+				@Cli_Mail,
+				@Cli_Dom_Calle,
+				@Cli_Nro_Calle,
+				@Cli_Piso,
+				@Cli_Depto,
+				@Cli_Cod_Postal,
+				@Id_Usr
+				)
+		set @respuesta = @respuesta + 'E'
+	end try
+	begin catch
+		set @respuesta = @respuesta + 'F'
+	end catch
+	
+END
+
+go
+
+CREATE PROCEDURE GROUP_APROVED.CrearUsuarioEmpresa
+
+/*Debe ingresar registro en tabla	-usuarios
+									-clientes
+									-rolesxusuario
+									*/
+--variables
+@respuesta nvarchar(255) output,
+@Username nvarchar(255),
+@Password nvarchar(255),
+@Fecha_Creacion datetime,
+
+@Empresa_Razon_Social nvarchar(100),
+@Empresa_Cuit nvarchar(100),
+@Empresa_Mail nvarchar(255),																			/*VERIFICAR FECHA CREACION EMPRESA, NO ES LO MISMO Q FECHA CREACION USUARIO (?)*/
+@Empresa_Dom_Calle nvarchar (255),
+@Empresa_Nro_Calle numeric(18,0),
+@Empresa_Piso numeric(18,0),
+@Empresa_Depto nvarchar(50),
+@Empresa_Cod_Postal nvarchar(255),
+@Empresa_Telefono numeric(18,0),
+@Empresa_Nombre_Contacto nvarchar(255),
+@Empresa_RubroP nvarchar(255)
+
+AS
+BEGIN
+set @respuesta = ''
+
+--primero inserta en usuarios
+	begin try
+		insert into GROUP_APROVED.Usuarios (Username,Passw,Fecha_Creacion,intentos)
+		values (
+		@Username, 
+		convert(nvarchar(255),HASHBYTES('SHA2_256', @Password),1),
+		convert(datetime,@Fecha_Creacion,103),
+		0)
+		set @respuesta = @respuesta + 'A'
+	end try
+	begin catch
+		set @respuesta = @respuesta + 'B'
+	end catch
+
+--busco el id_usr que creó el insert anterior
+
+declare @Id_Usr int
+set @Id_Usr = (select Id_Usr from GROUP_APROVED.Usuarios where (Username = @Username))
+
+--insercion en rolesxusuario
+	begin try
+		insert into GROUP_APROVED.RolesxUsuario(Id_Usr,Id_Roles)
+		values (@Id_Usr, 3) --3 es el rol empresa
+		set @respuesta = @respuesta + 'C'
+	end try
+	begin catch
+		set @respuesta = @respuesta + 'D'
+	end catch
+
+--insercion en empresas
+	begin try
+		insert into GROUP_APROVED.Empresas
+		(
+		Empresa_Razon_Social,
+		Empresa_Cuit,
+		Empresa_Mail,
+		Empresa_Dom_Calle,
+		Empresa_Nro_Calle,
+		Empresa_Piso,
+		Empresa_Depto,
+		Empresa_Fecha_Creacion,
+		Empresa_Cod_Postal,
+		Id_Usuario,
+		Empresa_Telefono,
+		Empresa_Nombre_Contacto,
+		Empresa_RubroP
+		)
+		values (
+		@Empresa_Razon_Social,
+		@Empresa_Cuit,
+		@Empresa_Mail,
+		@Empresa_Dom_Calle,
+		@Empresa_Nro_Calle,
+		@Empresa_Piso,
+		@Empresa_Depto,
+		@Fecha_Creacion,
+		@Empresa_Cod_Postal,
+		@Id_Usr,
+		@Empresa_Telefono,
+		@Empresa_Nombre_Contacto,
+		@Empresa_RubroP
+				)
+		set @respuesta = @respuesta + 'E'
+	end try
+	begin catch
+		set @respuesta = @respuesta + 'F'
+	end catch
+	
+END
+
+go
+
+CREATE procedure GROUP_APROVED.updateClientes
+
+--todas las colummnas de los clientes...
+@Dni_Cli numeric(18,0),
+@Tipo_Dni nvarchar(7),
+@Cli_Nombre  nvarchar(255),
+@Cli_Apellido nvarchar(255),
+@Cli_Fecha_Nac datetime,
+@CLI_Telefono numeric(18,0),
+@Cli_Mail nvarchar(255),
+@Cli_Dom_Calle nvarchar(255),
+@Cli_Nro_Calle numeric(18,0),
+@Cli_Piso numeric(18,0),
+@Cli_Depto nvarchar(50),
+@Cli_Cod_Postal nvarchar(255),
+@Id_Usr int,
+@Estado nvarchar(255),
+--la response
+@respuesta nvarchar(255) output
+as
+begin
+set @respuesta = ''
+	begin try
+	update GROUP_APROVED.Clientes
+	set Dni_Cli=@Dni_Cli,
+		Tipo_Dni=@Tipo_Dni,
+		Cli_Nombre=@Cli_Nombre,
+		Cli_Apellido=@Cli_Apellido,
+		Cli_Fecha_Nac=convert(datetime,@Cli_Fecha_Nac,103),
+		CLI_Telefono=@CLI_Telefono,
+		Cli_Mail=@Cli_Mail,
+		Cli_Dom_Calle=@Cli_Dom_Calle,
+		Cli_Nro_Calle=@Cli_Nro_Calle,
+		Cli_Piso=@Cli_Piso,
+		Cli_Depto=@Cli_Depto,
+		Cli_Cod_Postal=@Cli_Cod_Postal
+		where Id_Usuario=@Id_Usr
+	set @respuesta = @respuesta +'A'
+	end try
+	begin catch
+	set @respuesta = @respuesta +'B'
+	end catch
+
+	begin try
+		update GROUP_APROVED.Usuarios
+		set Estado = @Estado
+		where Id_Usr = @Id_Usr
+		set @respuesta = @respuesta +'C'
+	end try
+	begin catch
+		set @respuesta = @respuesta +'D'
+	end catch
+end
+
+
+go
+
+CREATE procedure GROUP_APROVED.updateEmpresa
+
+--todas las colummnas de las empresas...
+@Empresa_Razon_Social nvarchar(100),
+	@Empresa_Cuit nvarchar(100),
+	@Empresa_Mail nvarchar(255),
+	@Empresa_Dom_Calle nvarchar (255),
+	@Empresa_Nro_Calle numeric(18,0),
+	@Empresa_Piso numeric(18,0),
+	@Empresa_Depto nvarchar(50),
+	@Empresa_Cod_Postal nvarchar(255),
+	@Id_Usuario INT,
+	@Empresa_Telefono numeric(18,0),
+	@Empresa_Nombre_Contacto nvarchar(255),
+	@Empresa_RubroP nvarchar(255),
+@Estado nvarchar(255),
+--la response
+@respuesta nvarchar(255) output
+as
+begin
+set @respuesta = ''
+	begin try
+	update GROUP_APROVED.Empresas
+	set Empresa_Razon_Social =@Empresa_Razon_Social,
+	Empresa_Cuit =@Empresa_Cuit,
+	Empresa_Mail =@Empresa_Mail,
+	Empresa_Dom_Calle =@Empresa_Dom_Calle,
+	Empresa_Nro_Calle =@Empresa_Nro_Calle,
+	Empresa_Piso =@Empresa_Piso,
+	Empresa_Depto =@Empresa_Depto,
+	Empresa_Cod_Postal =@Empresa_Cod_Postal,
+	Empresa_Telefono =@Empresa_Telefono,
+	Empresa_Nombre_Contacto =@Empresa_Nombre_Contacto,
+	Empresa_RubroP =@Empresa_RubroP
+	where Id_Usuario=@Id_Usuario
+	set @respuesta = @respuesta +'A'
+	end try
+	begin catch
+	set @respuesta = @respuesta +'B'
+	end catch
+
+	begin try
+		update GROUP_APROVED.Usuarios
+		set Estado = @Estado
+		where Id_Usr = @Id_Usuario
+		set @respuesta = @respuesta +'C'
+	end try
+	begin catch
+		set @respuesta = @respuesta +'D'
+	end catch
+end;
+
+go
+
+/*drop procedure usrCreationCli
+drop procedure usrCreationEmp
+drop procedure funcionesAdmin
+drop procedure funcionesCliente
+drop procedure funcionesEmpresa
+drop procedure migracionPubl
+drop trigger quitarRol_Usuario
+drop procedure GROUP_APROVED.bajaLogicaUsuario
+drop procedure GROUP_APROVED.CrearUsuarioCliente
+drop procedure GROUP_APROVED.CrearUsuarioEmpresa
+drop procedure GROUP_APROVED.updateClientes
+drop procedure GROUP_APROVED.updateEmpresa
+*/
+
+	
+	
 /*MIGRACION*/
 	/*funciones*/
 
 insert into GROUP_APROVED.Funciones(Desc_Func) values ('r')
 insert into GROUP_APROVED.Funciones(Desc_Func)  values ('u')
-insert into GROUP_APROVED.Funciones(Desc_Func)  values ('b')
+insert into GROUP_APROVED.Funciones(Desc_Func)  values ('b')								
 insert into GROUP_APROVED.Funciones(Desc_Func)  values ('p')
 insert into GROUP_APROVED.Funciones(Desc_Func)  values ('f')
 insert into GROUP_APROVED.Funciones(Desc_Func)  values ('c')
+
+
+	/*	r = 1 = abm rol			p = 4 = publicacion
+		u = 2 = abm usuario		f = 5 = consultar facturas
+		b = 3 = abm rubro		c = 6 = calificar*/
 
 
 
@@ -541,6 +897,14 @@ go
 exec usrCreationEmp;
 
 go
+
+alter table GROUP_APROVED.Clientes
+ADD CONSTRAINT ID_usrUniq UNIQUE(Id_Usuario);
+go
+alter table GROUP_APROVED.Empresas
+ADD CONSTRAINT ID_usrUniqEMP UNIQUE(Id_Usuario);
+go
+
 		/*visibilidades*/
 insert into GROUP_APROVED.Visibilidades(Visibilidad_Cod, Visibilidad_Desc, Visibilidad_Precio, Visibilidad_Porcentaje)
 select distinct Publicacion_Visibilidad_Cod, Publicacion_Visibilidad_Desc, Publicacion_Visibilidad_Precio, Publicacion_Visibilidad_Porcentaje  from gd_esquema.Maestra order by 1
@@ -549,7 +913,6 @@ select distinct Publicacion_Visibilidad_Cod, Publicacion_Visibilidad_Desc, Publi
 		/*rubros*/
 insert into GROUP_APROVED.Rubros(Rubro_Desc_Completa)
 select distinct Publicacion_Rubro_Descripcion from gd_esquema.Maestra
-
 
 
 		/*Estados_publicaciones*/
@@ -566,15 +929,24 @@ values('Finalizada')
 		/*Publicaciones*/
 
 exec migracionPubl
-
- go
+ 
+/* go
 set identity_Insert GROUP_APROVED.Publicaciones off;    /*esto es para que al insertar nuevas publicaciones recuente normal sin tener que insertar pub_Cod*/
-go
+go*/
 
-/*compras*/
+
+		/*compras*/
 insert into GROUP_APROVED.Compras(Compra_Fecha,Compra_Cantidad,Id_Usuario,Publicacion_Cod)
-select distinct m.Compra_Fecha,m.Compra_Cantidad,c.Id_Usuario from gd_esquema.Maestra m join GROUP_APROVED.Clientes c on m.Cli_Dni = c.Dni_Cli  where m.Compra_Fecha is not null
+select distinct m.Compra_Fecha,m.Compra_Cantidad,c.Id_Usuario,m.Publicacion_Cod from gd_esquema.Maestra m join GROUP_APROVED.Clientes c on m.Cli_Dni = c.Dni_Cli  where m.Compra_Fecha is not null
 
 		/*ofertas*/
 insert into GROUP_APROVED.Ofertas(Oferta_Fecha,Oferta_Monto,Id_Usuario,Publicacion_Cod)
 select distinct m.Oferta_Fecha,m.Oferta_Monto,c.Id_Usuario,m.Publicacion_Cod from gd_esquema.Maestra m  join GROUP_APROVED.Clientes c on m.Cli_Dni = c.Dni_Cli where Oferta_Fecha is not null
+
+		/*calificaciones*/
+
+/*select distinct Calificacion_Codigo, Calificacion_Cant_Estrellas, Calificacion_Descripcion,Compra_Cantidad,Compra_Fecha from gd_esquema.Maestra where Calificacion_Codigo is not null
+
+select distinct Compra_Cantidad,Compra_Fecha,Cli_Dni,Publicacion_Cod from gd_esquema.Maestra where Compra_Fecha is not null*/
+
+

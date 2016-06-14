@@ -394,6 +394,67 @@ end;
 
 go
 
+create procedure migracionPubl
+
+as
+begin
+ declare @ID_usr INT;
+ declare @Publ_Cod numeric(18,0) , @Publ_Cli_Dni numeric(18,0),@Publ_Empresa_Razon_Social nvarchar(255), @Publ_Empresa_Cuit nvarchar(50), @Publicacion_Rubro_Descripcion nvarchar(255),@Publicacion_Visibilidad_Cod numeric(18,0),@Publicacion_Descripcion nvarchar(255), @Publicacion_Fecha datetime, @Publicacion_Fecha_Venc datetime, @Publicacion_Precio numeric(18,2), @Publicacion_Stock numeric(18,0),@Publicacion_Tipo nvarchar(255); 
+ declare @Id_Pub_Estado INT,@Id_Rubro INT;
+ declare publCursr cursor for
+	select distinct Publicacion_Cod, Publ_Cli_Dni, Publ_Empresa_Razon_Social, Publ_Empresa_Cuit, Publicacion_Rubro_Descripcion,Publicacion_Visibilidad_Cod,Publicacion_Descripcion, Publicacion_Fecha, Publicacion_Fecha_Venc, Publicacion_Precio, Publicacion_Stock, Publicacion_Tipo,Publicacion_Estado
+	from gd_esquema.Maestra order by 1;
+
+open publCursr;
+fetch next from publCursr into @Publ_Cod,@Publ_Cli_Dni,@Publ_Empresa_Razon_Social,@Publ_Empresa_Cuit, @Publicacion_Rubro_Descripcion,@Publicacion_Visibilidad_Cod,@Publicacion_Descripcion,@Publicacion_Fecha,@Publicacion_Fecha_Venc ,@Publicacion_Precio ,@Publicacion_Stock ,@Publicacion_Tipo;
+while @@FETCH_STATUS =0
+	begin
+		
+		
+		if @Publicacion_Tipo = 'Compra Inmediata'
+			begin
+				if @Publicacion_Fecha_Venc < getdate()
+					begin
+						select @Id_Pub_Estado = Id_Est from GROUP_APROVED.Estado_Publ WHERE  Descripcion ='Finalizada';	
+					end;
+			end;
+		else
+			begin
+				select @Id_Pub_Estado = Id_Est from GROUP_APROVED.Estado_Publ WHERE  Descripcion ='Activa';
+			end;
+	
+		select @Id_Rubro = Id_Rubro from GROUP_APROVED.Rubros WHERE Rubro_Desc_Completa = @Publicacion_Rubro_Descripcion
+
+		if @Publ_Cli_Dni <>0
+			begin
+			select @ID_usr = Id_Usuario from GROUP_APROVED.Clientes where Dni_Cli = @Publ_Cli_Dni
+			
+			insert into GROUP_APROVED.Publicaciones
+			values(@Publ_Cod,@Publicacion_Descripcion,@Publicacion_Stock, @Publicacion_Fecha, @Publicacion_Fecha_Venc, @Publicacion_Precio,@Publicacion_Tipo,@Publicacion_Visibilidad_Cod,@Id_Pub_Estado,@Id_Rubro,@ID_usr)
+			
+			end;
+		else
+			begin
+			select @ID_usr = Id_Usuario from GROUP_APROVED.Empresas where Empresa_Razon_Social = @Publ_Empresa_Razon_Social and Empresa_Cuit = @Publ_Empresa_Cuit
+			
+			insert into GROUP_APROVED.Publicaciones
+			values(@Publ_Cod,@Publicacion_Descripcion,@Publicacion_Stock, @Publicacion_Fecha, @Publicacion_Fecha_Venc, @Publicacion_Precio,@Publicacion_Tipo,@Publicacion_Visibilidad_Cod,@Id_Pub_Estado,@Id_Rubro,@ID_usr)
+			
+			end;
+		fetch next from publCursr into @Publ_Cod,@Publ_Cli_Dni,@Publ_Empresa_Razon_Social,@Publ_Empresa_Cuit, @Publicacion_Rubro_Descripcion,@Publicacion_Visibilidad_Cod,@Publicacion_Descripcion,@Publicacion_Fecha,@Publicacion_Fecha_Venc ,@Publicacion_Precio ,@Publicacion_Stock ,@Publicacion_Tipo;
+	end;
+
+	close publCursr;
+	deallocate publCursr;
+
+end;
+
+
+
+/*drop procedure migracionPubl*/
+
+go
+
 	/*drop procedure funcionesEmpresa*/
 
 /*trigger para eliminar la relacion usuario-rol cunado se inhabilita un rol*/
@@ -489,12 +550,31 @@ select distinct Publicacion_Visibilidad_Cod, Publicacion_Visibilidad_Desc, Publi
 insert into GROUP_APROVED.Rubros(Rubro_Desc_Completa)
 select distinct Publicacion_Rubro_Descripcion from gd_esquema.Maestra
 
+
+
+		/*Estados_publicaciones*/
+
+insert into GROUP_APROVED.Estado_Publ(Descripcion)
+values('Borrador')
+insert into GROUP_APROVED.Estado_Publ(Descripcion)
+values('Activa')
+insert into GROUP_APROVED.Estado_Publ(Descripcion)
+values('Pausada')
+insert into GROUP_APROVED.Estado_Publ(Descripcion)
+values('Finalizada')
+
 		/*Publicaciones*/
 
-insert into GROUP_APROVED.Publicaciones(Publicacion_Cod, Publicacion_Desc, Publicacion_Fecha, Publicacion_Fecha_Venc, Publicacion_Precio, Publicacion_Stock)
+exec migracionPubl
 
-select distinct Publicacion_Cod, Publicacion_Descripcion, Publicacion_Fecha, Publicacion_Fecha_Venc, Publicacion_Precio, Publicacion_Stock from gd_esquema.Maestra order by 1
- 
  go
 set identity_Insert GROUP_APROVED.Publicaciones off;    /*esto es para que al insertar nuevas publicaciones recuente normal sin tener que insertar pub_Cod*/
 go
+
+/*compras*/
+insert into GROUP_APROVED.Compras(Compra_Fecha,Compra_Cantidad,Id_Usuario,Publicacion_Cod)
+select distinct m.Compra_Fecha,m.Compra_Cantidad,c.Id_Usuario from gd_esquema.Maestra m join GROUP_APROVED.Clientes c on m.Cli_Dni = c.Dni_Cli  where m.Compra_Fecha is not null
+
+		/*ofertas*/
+insert into GROUP_APROVED.Ofertas(Oferta_Fecha,Oferta_Monto,Id_Usuario,Publicacion_Cod)
+select distinct m.Oferta_Fecha,m.Oferta_Monto,c.Id_Usuario,m.Publicacion_Cod from gd_esquema.Maestra m  join GROUP_APROVED.Clientes c on m.Cli_Dni = c.Dni_Cli where Oferta_Fecha is not null

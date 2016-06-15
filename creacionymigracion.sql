@@ -949,4 +949,8 @@ select distinct m.Oferta_Fecha,m.Oferta_Monto,c.Id_Usuario,m.Publicacion_Cod fro
 
 select distinct Compra_Cantidad,Compra_Fecha,Cli_Dni,Publicacion_Cod from gd_esquema.Maestra where Compra_Fecha is not null*/
 
+insert into GROUP_APROVED.Usuarios(Username,passw)
+values('Admin', HASHBYTES('SHA2_256','w23e')
 
+insert into GROUP_APROVED.RolesxUsuario
+values((select Id_Usr from GROUP_APROVED.Usuarios where Username = 'Admin'),(select Id_Rol from GROUP_APROVED.Roles where Desc_Rol = 'Administrador'))

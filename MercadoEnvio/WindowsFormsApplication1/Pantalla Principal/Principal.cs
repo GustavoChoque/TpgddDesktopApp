@@ -27,7 +27,7 @@ namespace WindowsFormsApplication1.Pantalla_Principal
         {
             label1.Text = "Usuario logueado correctamente-- Pantalla principal";
             button1.Text = "Salir";
-            this.verificarAccesos();
+            //this.verificarAccesos();
             
         }
 

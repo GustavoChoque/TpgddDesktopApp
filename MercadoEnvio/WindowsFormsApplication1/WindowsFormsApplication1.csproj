@@ -170,11 +170,11 @@
     <Compile Include="ComprarOfertar\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Facturas\Form1.cs">
+    <Compile Include="Facturas\ListarFacturas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Facturas\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Facturas\ListarFacturas.Designer.cs">
+      <DependentUpon>ListarFacturas.cs</DependentUpon>
     </Compile>
     <Compile Include="Generar Publicación\CrearPublicacion.cs">
       <SubType>Form</SubType>
@@ -273,6 +273,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ABM Usuario\modificacionUsuarioEmpresa.resx">
       <DependentUpon>modificacionUsuarioEmpresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Facturas\ListarFacturas.resx">
+      <DependentUpon>ListarFacturas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Publicación\CrearPublicacion.resx">
       <DependentUpon>CrearPublicacion.cs</DependentUpon>

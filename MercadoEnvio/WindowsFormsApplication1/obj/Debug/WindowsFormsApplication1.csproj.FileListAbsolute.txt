@@ -121,8 +121,6 @@ C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp post mod en 
 C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp post mod en der\gddDesktopApp\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.ModificacionUsuario.resources
 C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp post mod en der\gddDesktopApp\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.modificacionUsuarioCliente.resources
 C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\gddDesktopApp post mod en der\gddDesktopApp\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.FormularioModificacionCliente.resources
-L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\ABM Usuario\abmUsuarioPrincipal.cs
-L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\ABM Usuario\abmUsuarioPrincipal.Designer.cs
 L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.abmUsuarioPrincipal.resources
 L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.agregarUsuarioCliente.resources
 L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.agregarUsuarioEmpresa.resources
@@ -169,3 +167,26 @@ C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\Mer
 C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.ModificacionUsuario.resources
 C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.modificacionUsuarioCliente.resources
 C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.modificacionUsuarioEmpresa.resources
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.EliminarRol.resources
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.FormularioDeModificacion.resources
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.ListadoSeleccion.resources
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.abmUsuarioPrincipal.resources
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.agregarUsuarioCliente.resources
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.agregarUsuarioEmpresa.resources
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.BajaUsuario.resources
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.BajaUsuarioCliente.resources
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.BajaUsuarioEmpresa.resources
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.crearUsuario.resources
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.FormularioModificacionCliente.resources
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.FormularioModificacionEmpresa.resources
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.ModificacionUsuario.resources
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.modificacionUsuarioCliente.resources
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.modificacionUsuarioEmpresa.resources
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Facturas.ListarFacturas.resources
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Generar_Publicación.CrearPublicacion.resources
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Generar_Publicación.Form1.resources
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Generar_Publicación.Form2.resources
+C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Historial_Cliente.Historial.resources
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.FormularioModificacionEmpresa.resources
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.modificacionUsuarioEmpresa.resources
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Facturas.ListarFacturas.resources

@@ -4,7 +4,7 @@ use GD1C2016
 creacion de schema*/
 
 go
-
+go
 CREATE SCHEMA [GROUP_APROVED] AUTHORIZATION [gd]
 
 
@@ -457,7 +457,7 @@ go
 
 
 /*trigger para eliminar la relacion usuario-rol cunado se inhabilita un rol*/
-create trigger quitarRol_Usuario
+create trigger GROUP_APROVED.quitarRol_Usuario
 on GROUP_APROVED.Roles
 after Update as 
 begin
@@ -470,10 +470,10 @@ begin
 end
 go
 /*funcion para saber si un usuario ya califico una compra*/
-create function usuarioYaCalifico(@idUsuario int,@idCompra numeric(18,0))
+create function GROUP_APROVED.usuarioYaCalifico(@idCompra numeric(18,0))
 returns char(2) as begin
 	declare @valor char(2)
-	if exists(select 1 from GROUP_APROVED.Calificaciones where Id_Usuario=@idUsuario And ID_Compra=@idCompra )begin
+	if exists(select 1 from GROUP_APROVED.Calificaciones where ID_Compra=@idCompra )begin
 			set @valor='Si';
 		end 
 	else 
@@ -482,11 +482,39 @@ returns char(2) as begin
 		end
 	return @valor
 end;
-
+go
+create function GROUP_APROVED.getCalificacion (@idCompra numeric(18,0))
+returns char as begin
+	declare @valor char
+	if (GROUP_APROVED.usuarioYaCalifico(@idCompra)='Si' )begin
+			select @valor=convert(char ,Calif_Cant_Est) from GROUP_APROVED.Calificaciones where ID_Compra=@idCompra
+			
+		end 
+	else 
+		begin
+			set @valor= '-';
+		end
+	return @valor
+end;
 go
 
-
-
+/*drop Procedure LoginUsuario*/
+Create Procedure LoginUsuario
+    @username nvarchar(255),
+    @password nvarchar(255),
+    @result bit Output
+As
+    Declare @passHash As nvarchar(255)
+Begin
+    set @passHash = (Select Passw From GROUP_APROVED.Usuarios Where Username = @username)--Id_Usuario
+End
+Begin
+	If (@passHash = (select convert(nvarchar(255),HASHBYTES('SHA2_256', @password),1)))
+        Set @result = 1
+    Else
+        Set @result = 0
+End
+Go
 CREATE procedure GROUP_APROVED.bajaLogicaUsuario
 
 @idusuario int,
@@ -825,7 +853,10 @@ drop procedure funcionesAdmin
 drop procedure funcionesCliente
 drop procedure funcionesEmpresa
 drop procedure migracionPubl
-drop trigger quitarRol_Usuario
+drop trigger GROUP_APROVED.quitarRol_Usuario
+drop function GROUP_APROVED.usuarioYaCalifico
+drop function GROUP_APROVED.getCalificacion
+drop Procedure LoginUsuario 
 drop procedure GROUP_APROVED.bajaLogicaUsuario
 drop procedure GROUP_APROVED.CrearUsuarioCliente
 drop procedure GROUP_APROVED.CrearUsuarioEmpresa
@@ -949,8 +980,21 @@ select distinct m.Oferta_Fecha,m.Oferta_Monto,c.Id_Usuario,m.Publicacion_Cod fro
 
 select distinct Compra_Cantidad,Compra_Fecha,Cli_Dni,Publicacion_Cod from gd_esquema.Maestra where Compra_Fecha is not null*/
 
-insert into GROUP_APROVED.Usuarios(Username,passw)
-values('Admin', HASHBYTES('SHA2_256','w23e')
+
+
+
+
+
+/*----hice cambios aqui------------- */
+declare @password nvarchar(255)---declarar estas variables fue la unica manera, para hacer funcionar el login
+declare @username nvarchar(255)
+set @username='Admin'
+set @password='w23e'
+insert into GROUP_APROVED.Usuarios(Username,Passw,intentos)
+values(@username, convert(nvarchar(255),HASHBYTES('SHA2_256', @password),1),0)
+
+--creo que deberia ser default 0 el numero de intentos en la tabla usuarios
 
 insert into GROUP_APROVED.RolesxUsuario
 values((select Id_Usr from GROUP_APROVED.Usuarios where Username = 'Admin'),(select Id_Rol from GROUP_APROVED.Roles where Desc_Rol = 'Administrador'))
+

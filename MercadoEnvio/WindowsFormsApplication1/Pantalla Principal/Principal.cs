@@ -86,7 +86,7 @@ namespace WindowsFormsApplication1.Pantalla_Principal
 
         private void buttonConsultaFacturas_Click(object sender, EventArgs e)
         {
-            Facturas.Form1 pantallaConsultaFacturas = new Facturas.Form1();
+            Facturas.ListarFacturas pantallaConsultaFacturas = new Facturas.ListarFacturas();
             pantallaConsultaFacturas.Show();
         }
 

@@ -522,7 +522,7 @@ end
 go
 /*funcion para saber si un usuario ya califico una compra*/
 
-create function GROUP_APROVED.usuarioYaCalifico(@idUsuario int,@idCompra numeric(18,0))
+create function GROUP_APROVED.usuarioYaCalifico(@idCompra numeric(18,0))
 returns char(2) as begin
 	declare @valor char(2)
 	if exists(select 1 from GROUP_APROVED.Calificaciones where ID_Compra=@idCompra )begin

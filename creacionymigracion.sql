@@ -159,12 +159,14 @@ CREATE TABLE GROUP_APROVED.Calificaciones(
 
 )
 
+
 CREATE TABLE GROUP_APROVED.Facturas (
 	Nro_Fact numeric(18,0) PRIMARY KEY,
 	Fact_Fecha datetime,
 	Fact_Total numeric(18,2),
 	Fact_Forma_Pago nvarchar(255),
 	Publicacion_Cod INT REFERENCES GROUP_APROVED.Publicaciones,
+
 
 )
 
@@ -173,6 +175,7 @@ CREATE TABLE GROUP_APROVED.Items(
 	Nro_item numeric(18,0),
 	Item_Monto numeric(18,2),
 	Item_Cantidad numeric(18,0),
+	Item_Tipo varchar(255) default('publicacion'),                                    /*tipo de item, por venta, por envio por publicacion*/
 	PRIMARY KEY( Nro_Fact , Nro_item)
 )
 commit transaction createTables
@@ -211,7 +214,7 @@ go
 -- select distinct Cli_Dni,Cli_Nombre,Cli_Apeliido from gd_esquema.Maestra
 
 
-	Create Procedure usrCreationCli
+	Create Procedure GROUP_APROVED.usrCreationCli
 
 as
 
@@ -261,7 +264,7 @@ end;
 
 	go
 
-	CREATE Procedure usrCreationEmp
+	CREATE Procedure GROUP_APROVED.usrCreationEmp
 
 as
 
@@ -313,7 +316,7 @@ end;
 
 
 
-CREATE PROCEDURE funcionesAdmin
+CREATE PROCEDURE GROUP_APROVED.funcionesAdmin
 
 as
 
@@ -338,7 +341,7 @@ go
 	
 	/*drop procedure funcionesAdmin*/
 
-CREATE PROCEDURE funcionesCliente
+CREATE PROCEDURE GROUP_APROVED.funcionesCliente
 
 as
 	
@@ -369,7 +372,7 @@ go
 
 	/*drop procedure funcionesCliente*/
 
-CREATE PROCEDURE funcionesEmpresa
+CREATE PROCEDURE GROUP_APROVED.funcionesEmpresa
 
 as
 
@@ -394,7 +397,7 @@ end;
 go
 /*drop procedure funcionesEmpresa*/
 
-create procedure migracionPubl
+create procedure GROUP_APROVED.migracionPubl
 
 as
 begin
@@ -453,6 +456,54 @@ while @@FETCH_STATUS =0
 
 end;
 
+
+
+go
+Create procedure GROUP_APROVED.migrComprasCalif
+as
+begin 
+	declare @Calificacion_Codigo numeric(18,0), @Calificacion_Cant_Estrellas numeric(18,1), @Compra_Cantidad numeric(18,0), @Publicacion_Cod numeric(18,0)
+	declare @Calificacion_Descripcion nvarchar(255);
+	declare @Compra_Fecha datetime;
+	declare @Id_Usr INT;
+	declare @Cli_Dni numeric(18,0);
+	declare cursorCompCalif cursor for
+	select Calificacion_Codigo, Calificacion_Cant_Estrellas, Calificacion_Descripcion, Compra_Fecha, Compra_Cantidad,Publicacion_Cod, Cli_Dni from gd_esquema.Maestra  where Compra_Fecha is not null;
+
+	open cursorCompCalif;
+
+	fetch next from cursorCompCalif into @Calificacion_Codigo , @Calificacion_Cant_Estrellas, @Calificacion_Descripcion, @Compra_Fecha, @Compra_Cantidad, @Publicacion_Cod, @Cli_Dni;
+
+	while @@FETCH_STATUS = 0
+	begin
+		
+		set @Id_Usr = (select Id_Usuario from GROUP_APROVED.Clientes where Dni_Cli = @Cli_Dni );
+
+		if @Calificacion_Codigo is not null
+			begin 
+				insert into GROUP_APROVED.Compras(Compra_Fecha,Compra_Cantidad,Id_Usuario,Publicacion_Cod)
+				VALUES (@Compra_Fecha,@Compra_Cantidad,@Id_Usr,@Publicacion_Cod)
+				set @Publicacion_Cod  = (select max(ID_Compra) from GROUP_APROVED.Compras);    /*el id de publ pasa a ser id de compra a medios de minimizar y reutilizar variables*/
+				set @Calificacion_Cant_Estrellas = @Calificacion_Cant_Estrellas/2;
+				insert into GROUP_APROVED.Calificaciones(Calif_Cod, Calif_Cant_Est, Calif_Descr, ID_Compra)
+				values(@Calificacion_Codigo, @Calificacion_Cant_Estrellas, @Calificacion_Descripcion, @Publicacion_Cod);
+
+
+
+			end;
+		else
+			begin
+				
+				insert into GROUP_APROVED.Compras(Compra_Fecha,Compra_Cantidad,Id_Usuario,Publicacion_Cod)
+				VALUES (@Compra_Fecha,@Compra_Cantidad,@Id_Usr,@Publicacion_Cod);
+
+			end;
+		fetch next from cursorCompCalif;
+	end;
+	close cursorCompCalif;
+	deallocate cursorCompCalif;
+end;
+
 go
 
 
@@ -470,10 +521,11 @@ begin
 end
 go
 /*funcion para saber si un usuario ya califico una compra*/
-create function GROUP_APROVED.usuarioYaCalifico(@idCompra numeric(18,0))
+
+create function GROUP_APROVED.usuarioYaCalifico(@idUsuario int,@idCompra numeric(18,0))
 returns char(2) as begin
 	declare @valor char(2)
-	if exists(select 1 from GROUP_APROVED.Calificaciones where ID_Compra=@idCompra )begin
+	if exists(select 1 from GROUP_APROVED.Calificaciones where Id_Usuario=@idUsuario And ID_Compra=@idCompra )begin
 			set @valor='Si';
 		end 
 	else 
@@ -482,39 +534,11 @@ returns char(2) as begin
 		end
 	return @valor
 end;
-go
-create function GROUP_APROVED.getCalificacion (@idCompra numeric(18,0))
-returns char as begin
-	declare @valor char
-	if (GROUP_APROVED.usuarioYaCalifico(@idCompra)='Si' )begin
-			select @valor=convert(char ,Calif_Cant_Est) from GROUP_APROVED.Calificaciones where ID_Compra=@idCompra
-			
-		end 
-	else 
-		begin
-			set @valor= '-';
-		end
-	return @valor
-end;
+
 go
 
-/*drop Procedure LoginUsuario*/
-Create Procedure LoginUsuario
-    @username nvarchar(255),
-    @password nvarchar(255),
-    @result bit Output
-As
-    Declare @passHash As nvarchar(255)
-Begin
-    set @passHash = (Select Passw From GROUP_APROVED.Usuarios Where Username = @username)--Id_Usuario
-End
-Begin
-	If (@passHash = (select convert(nvarchar(255),HASHBYTES('SHA2_256', @password),1)))
-        Set @result = 1
-    Else
-        Set @result = 0
-End
-Go
+
+
 CREATE procedure GROUP_APROVED.bajaLogicaUsuario
 
 @idusuario int,
@@ -847,25 +871,22 @@ end;
 
 go
 
-/*drop procedure usrCreationCli
-drop procedure usrCreationEmp
-drop procedure funcionesAdmin
-drop procedure funcionesCliente
-drop procedure funcionesEmpresa
-drop procedure migracionPubl
+/*drop procedure GROUP_APROVED.usrCreationCli
+drop procedure GROUP_APROVED.usrCreationEmp
+drop procedure GROUP_APROVED.funcionesAdmin
+drop procedure GROUP_APROVED.funcionesCliente
+drop procedure GROUP_APROVED.funcionesEmpresa
+drop procedure GROUP_APROVED.migracionPubl
 drop trigger GROUP_APROVED.quitarRol_Usuario
-drop function GROUP_APROVED.usuarioYaCalifico
-drop function GROUP_APROVED.getCalificacion
-drop Procedure LoginUsuario 
 drop procedure GROUP_APROVED.bajaLogicaUsuario
 drop procedure GROUP_APROVED.CrearUsuarioCliente
 drop procedure GROUP_APROVED.CrearUsuarioEmpresa
 drop procedure GROUP_APROVED.updateClientes
 drop procedure GROUP_APROVED.updateEmpresa
+drop procedure GROUP_APROVED.migrComprasCalif
 */
 
-	
-	
+
 /*MIGRACION*/
 	/*funciones*/
 
@@ -897,11 +918,11 @@ values('Empresa')
 
 
 go
-exec funcionesCliente;
+exec GROUP_APROVED.funcionesCliente;
 go
-exec funcionesAdmin;
+exec GROUP_APROVED.funcionesAdmin;
 go
-exec funcionesEmpresa;
+exec GROUP_APROVED.funcionesEmpresa;
 go
 
 		/*clientes*/
@@ -920,12 +941,12 @@ WHERE Publ_Empresa_Razon_Social is not null and Publ_Empresa_Cuit is not null
 
 		/*usuarios*/
 go
-exec usrCreationCli;     /*select * from GROUP_APROVED.Usuarios*/
+exec GROUP_APROVED.usrCreationCli;     /*select * from GROUP_APROVED.Usuarios*/
 
 go
 
 
-exec usrCreationEmp;
+exec GROUP_APROVED.usrCreationEmp;
 
 go
 
@@ -959,26 +980,24 @@ values('Finalizada')
 
 		/*Publicaciones*/
 
-exec migracionPubl
+exec GROUP_APROVED.migracionPubl
  
 /* go
 set identity_Insert GROUP_APROVED.Publicaciones off;    /*esto es para que al insertar nuevas publicaciones recuente normal sin tener que insertar pub_Cod*/
 go*/
 
 
-		/*compras*/
-insert into GROUP_APROVED.Compras(Compra_Fecha,Compra_Cantidad,Id_Usuario,Publicacion_Cod)
-select distinct m.Compra_Fecha,m.Compra_Cantidad,c.Id_Usuario,m.Publicacion_Cod from gd_esquema.Maestra m join GROUP_APROVED.Clientes c on m.Cli_Dni = c.Dni_Cli  where m.Compra_Fecha is not null
+		/*compras y calificaciones */
+
+exec GROUP_APROVED.migrComprasCalif
 
 		/*ofertas*/
 insert into GROUP_APROVED.Ofertas(Oferta_Fecha,Oferta_Monto,Id_Usuario,Publicacion_Cod)
 select distinct m.Oferta_Fecha,m.Oferta_Monto,c.Id_Usuario,m.Publicacion_Cod from gd_esquema.Maestra m  join GROUP_APROVED.Clientes c on m.Cli_Dni = c.Dni_Cli where Oferta_Fecha is not null
 
-		/*calificaciones*/
+	
 
-/*select distinct Calificacion_Codigo, Calificacion_Cant_Estrellas, Calificacion_Descripcion,Compra_Cantidad,Compra_Fecha from gd_esquema.Maestra where Calificacion_Codigo is not null
 
-select distinct Compra_Cantidad,Compra_Fecha,Cli_Dni,Publicacion_Cod from gd_esquema.Maestra where Compra_Fecha is not null*/
 
 
 

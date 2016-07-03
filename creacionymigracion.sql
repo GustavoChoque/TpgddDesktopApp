@@ -525,7 +525,7 @@ go
 create function GROUP_APROVED.usuarioYaCalifico(@idUsuario int,@idCompra numeric(18,0))
 returns char(2) as begin
 	declare @valor char(2)
-	if exists(select 1 from GROUP_APROVED.Calificaciones where Id_Usuario=@idUsuario And ID_Compra=@idCompra )begin
+	if exists(select 1 from GROUP_APROVED.Calificaciones where ID_Compra=@idCompra )begin
 			set @valor='Si';
 		end 
 	else 

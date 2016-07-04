@@ -174,7 +174,7 @@ CREATE TABLE GROUP_APROVED.Facturas (
 
 CREATE TABLE GROUP_APROVED.Items(
 	Nro_Fact numeric(18,0) REFERENCES GROUP_APROVED.Facturas,
-	Nro_item numeric(18,0),
+	Nro_item numeric(18,0) IDENTITY (1,1),
 	Item_Monto numeric(18,2),
 	Item_Cantidad numeric(18,0),
 	Item_Tipo varchar(255) default('publicacion'),                                    /*tipo de item, por venta, por envio por publicacion*/

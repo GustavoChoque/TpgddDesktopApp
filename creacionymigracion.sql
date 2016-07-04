@@ -523,7 +523,6 @@ begin
 end
 go
 /*funcion para saber si un usuario ya califico una compra*/
-
 create function GROUP_APROVED.usuarioYaCalifico(@idCompra numeric(18,0))
 returns char(2) as begin
 	declare @valor char(2)
@@ -536,9 +535,39 @@ returns char(2) as begin
 		end
 	return @valor
 end;
-
+go
+create function GROUP_APROVED.getCalificacion (@idCompra numeric(18,0))
+returns char as begin
+	declare @valor char
+	if (GROUP_APROVED.usuarioYaCalifico(@idCompra)='Si' )begin
+			select @valor=convert(char ,Calif_Cant_Est) from GROUP_APROVED.Calificaciones where ID_Compra=@idCompra
+			
+		end 
+	else 
+		begin
+			set @valor= '-';
+		end
+	return @valor
+end;
 go
 
+/*drop Procedure LoginUsuario*/
+Create Procedure GROUP_APROVED.LoginUsuario
+    @username nvarchar(255),
+    @password nvarchar(255),
+    @result bit Output
+As
+    Declare @passHash As nvarchar(255)
+Begin
+    set @passHash = (Select Passw From GROUP_APROVED.Usuarios Where Username = @username)--Id_Usuario
+End
+Begin
+	If (@passHash = (select convert(nvarchar(255),HASHBYTES('SHA2_256', @password),1)))
+        Set @result = 1
+    Else
+        Set @result = 0
+End
+Go
 
 
 CREATE procedure GROUP_APROVED.bajaLogicaUsuario
@@ -880,6 +909,9 @@ drop procedure GROUP_APROVED.funcionesCliente
 drop procedure GROUP_APROVED.funcionesEmpresa
 drop procedure GROUP_APROVED.migracionPubl
 drop trigger GROUP_APROVED.quitarRol_Usuario
+drop function GROUP_APROVED.usuarioYaCalifico
+drop function GROUP_APROVED.getCalificacion
+drop Procedure LoginUsuario
 drop procedure GROUP_APROVED.bajaLogicaUsuario
 drop procedure GROUP_APROVED.CrearUsuarioCliente
 drop procedure GROUP_APROVED.CrearUsuarioEmpresa
@@ -1027,3 +1059,6 @@ values(@username, convert(nvarchar(255),HASHBYTES('SHA2_256', @password),1),0)
 insert into GROUP_APROVED.RolesxUsuario
 values((select Id_Usr from GROUP_APROVED.Usuarios where Username = 'Admin'),(select Id_Rol from GROUP_APROVED.Roles where Desc_Rol = 'Administrador'))
 
+begin transaction t1
+rollback transaction t1
+commit transaction t1

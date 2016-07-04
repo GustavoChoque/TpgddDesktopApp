@@ -183,7 +183,7 @@ namespace WindowsFormsApplication1
 
         public String userLogin(String user, String password){
             String ret;
-            using (var command = new SqlCommand("LoginUsuario", DbConnection.connection.getdbconnection())
+            using (var command = new SqlCommand("GROUP_APROVED.LoginUsuario", DbConnection.connection.getdbconnection())
             {
                 CommandType = CommandType.StoredProcedure
 

@@ -498,7 +498,7 @@ begin
 				VALUES (@Compra_Fecha,@Compra_Cantidad,@Id_Usr,@Publicacion_Cod);
 
 			end;
-		fetch next from cursorCompCalif;
+		fetch next from cursorCompCalif into @Calificacion_Codigo , @Calificacion_Cant_Estrellas, @Calificacion_Descripcion, @Compra_Fecha, @Compra_Cantidad, @Publicacion_Cod, @Cli_Dni;
 	end;
 	close cursorCompCalif;
 	deallocate cursorCompCalif;
@@ -995,7 +995,15 @@ exec GROUP_APROVED.migrComprasCalif
 insert into GROUP_APROVED.Ofertas(Oferta_Fecha,Oferta_Monto,Id_Usuario,Publicacion_Cod)
 select distinct m.Oferta_Fecha,m.Oferta_Monto,c.Id_Usuario,m.Publicacion_Cod from gd_esquema.Maestra m  join GROUP_APROVED.Clientes c on m.Cli_Dni = c.Dni_Cli where Oferta_Fecha is not null
 
-	
+		/*facturas*/
+
+insert into GROUP_APROVED.Facturas(Nro_Fact, Fact_Fecha, Fact_Total, Fact_Forma_Pago, Publicacion_Cod)
+select distinct Factura_Nro, Factura_Fecha, Factura_Total, Forma_Pago_Desc, Publicacion_Cod from gd_esquema.Maestra where Factura_Nro is not null
+
+		/* items */
+
+insert into GROUP_APROVED.Items(Nro_Fact, Item_Monto, Item_Cantidad, Item_Tipo)
+select distinct Factura_Nro, Item_Factura_Monto, Item_Factura_Cantidad, 'Publicacion' from gd_esquema.Maestra where factura_nro is not null order by 1 	
 
 
 

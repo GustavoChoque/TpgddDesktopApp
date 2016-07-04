@@ -551,7 +551,66 @@ returns char as begin
 end;
 go
 
-/*drop Procedure LoginUsuario*/
+/*drop procedure GROUP_APROVED.paginacionHistorial*/
+CREATE PROCEDURE GROUP_APROVED.paginacionHistorial
+@startRowIndex int,
+@maximumRows int,
+@idUsuario int, 
+@totalRows int OUTPUT
+
+AS
+
+DECLARE @first_id int, @startRow int
+
+SET @startRowIndex =  (@startRowIndex - 1)  * @maximumRows
+
+IF @startRowIndex = 0 
+SET @startRowIndex = 1
+
+SET ROWCOUNT @startRowIndex
+if exists (select 1 from GROUP_APROVED.RolesxUsuario RU join GROUP_APROVED.Roles R On(RU.Id_Roles=R.Id_Rol) where R.Desc_Rol='Administrador' and RU.Id_Usr=@idUsuario)
+begin 
+SELECT @first_id = ID_Compra from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod) order by ID_Compra
+
+PRINT @first_id
+
+SET ROWCOUNT @maximumRows
+
+SELECT ID_Compra,Publicacion_Desc,Compra_Cantidad,( GROUP_APROVED.usuarioYaCalifico(c.ID_Compra)) Calificado ,GROUP_APROVED.getCalificacion(c.ID_Compra)Calificacion 
+from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod) 
+WHERE ID_Compra >= @first_id
+ORDER BY ID_Compra
+ 
+SET ROWCOUNT 0
+
+--GEt total filas
+
+SELECT @totalRows = COUNT(ID_Compra)from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod)
+
+end else 
+begin
+SELECT @first_id = ID_Compra from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod) where c.Id_Usuario=@idUsuario order by ID_Compra
+
+PRINT @first_id
+
+SET ROWCOUNT @maximumRows
+
+SELECT ID_Compra,Publicacion_Desc,Compra_Cantidad,( GROUP_APROVED.usuarioYaCalifico(c.ID_Compra)) Calificado ,GROUP_APROVED.getCalificacion(c.ID_Compra)Calificacion 
+from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod) 
+WHERE ID_Compra >= @first_id and c.Id_Usuario=@idUsuario
+ORDER BY ID_Compra
+ 
+SET ROWCOUNT 0
+
+-- GEt total filas
+
+SELECT @totalRows = COUNT(ID_Compra)from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod) where c.Id_Usuario=@idUsuario
+end
+GO
+
+
+
+/*drop Procedure GROUP_APROVED.LoginUsuario*/
 Create Procedure GROUP_APROVED.LoginUsuario
     @username nvarchar(255),
     @password nvarchar(255),
@@ -911,7 +970,8 @@ drop procedure GROUP_APROVED.migracionPubl
 drop trigger GROUP_APROVED.quitarRol_Usuario
 drop function GROUP_APROVED.usuarioYaCalifico
 drop function GROUP_APROVED.getCalificacion
-drop Procedure LoginUsuario
+drop procedure GROUP_APROVED.paginacionHistorial
+drop Procedure GROUP_APROVED.LoginUsuario
 drop procedure GROUP_APROVED.bajaLogicaUsuario
 drop procedure GROUP_APROVED.CrearUsuarioCliente
 drop procedure GROUP_APROVED.CrearUsuarioEmpresa

@@ -13,13 +13,14 @@ namespace WindowsFormsApplication1.Historial_Cliente
     public partial class Historial : Form
     {
         DbQueryHandlerHistorial dbQueryHandler = new DbQueryHandlerHistorial();
-        SqlDataAdapter pagingAdapter;
-        DataSet pagingDS;
-        int scrollVal;
+        
+        public int currentPageNumber = 1;
+        public const int PAGE_SIZE = 10;
+        double totalRows;
         public Historial()
         {
             InitializeComponent();
-            scrollVal = 0;
+            
         }
 
         private void salir_Click(object sender, EventArgs e)
@@ -30,56 +31,64 @@ namespace WindowsFormsApplication1.Historial_Cliente
 
         private void Historial_Load(object sender, EventArgs e)
         {
-            /*SqlDataReader registros = dbQueryHandler.getInfoCompras();
-            while (registros.Read())
-            {
-                dataGridView1.Rows.Add(registros["Compra_Fecha"].ToString(), registros["Publicacion_Desc"].ToString(), registros["Compra_Cantidad"].ToString(), registros["Calificado"].ToString(), registros["Calificacion"].ToString());
-               
-            }
-            registros.Close();*/
-
-            string cadena = "select Compra_Fecha,Publicacion_Desc,Compra_Cantidad,( GROUP_APROVED.usuarioYaCalifico(c.ID_Compra)) Calificado ,GROUP_APROVED.getCalificacion(c.ID_Compra)Calificacion from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod)" /*where c.Id_Usuario=" + CurrentUser.user.getUserId()*/;//sacar luego los /**/ de la consulta
-            pagingAdapter = new SqlDataAdapter(cadena, DbConnection.connection.getdbconnection());
-            pagingDS = new DataSet();
-            
-            pagingAdapter.Fill(pagingDS, scrollVal, 5, "Historial_Compras");
-            //DbConnection.connection.closeConnection();
-            dataGridView1.DataSource = pagingDS;
-            dataGridView1.DataMember = "Historial_Compras";
+           
+            BindData();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            scrollVal = scrollVal - 5;
-            if (scrollVal <= 0)
+            if (currentPageNumber > 1)
             {
-                scrollVal = 0;
+                currentPageNumber = currentPageNumber - 1;
+                BindData();
             }
-            pagingDS.Clear();
-            pagingAdapter.Fill(pagingDS, scrollVal, 5, "Historial_Compras");
+           
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            scrollVal = scrollVal + 5;
-            if (scrollVal > 23)
+            if (currentPageNumber<=totalRows)
             {
-                scrollVal = 18;
-            }
-            pagingDS.Clear();
-            pagingAdapter.Fill(pagingDS, scrollVal, 5, "Historial_Compras");
+            currentPageNumber =currentPageNumber+ 1;
+            BindData();
         }
-       
+            
+        }
+        private void BindData()
+        {
+
+
+            SqlCommand myCommand = new SqlCommand("GROUP_APROVED.paginacionHistorial", DbConnection.connection.getdbconnection());
+            myCommand.CommandType = CommandType.StoredProcedure;
+
+            myCommand.Parameters.AddWithValue("@startRowIndex",currentPageNumber);
+            myCommand.Parameters.AddWithValue("@maximumRows", PAGE_SIZE);
+            myCommand.Parameters.AddWithValue("@idUsuario", CurrentUser.user.getUserId());
+            myCommand.Parameters.Add("@totalRows", SqlDbType.Int, 4);
+            myCommand.Parameters["@totalRows"].Direction = ParameterDirection.Output;
+
+            SqlDataAdapter ad = new SqlDataAdapter(myCommand);
+
+          
+            DataTable ds = new DataTable();
+            
+            ad.Fill(ds);
+            
+            dataGridView1.DataSource = ds;
+            totalRows = (int)myCommand.Parameters["@totalRows"].Value;
+            label1.Text = currentPageNumber.ToString(); 
+            label2.Text = CalculateTotalPages(totalRows+1).ToString();
+
+        }
+        private int CalculateTotalPages(double totalRows)
+        {
+            int totalPages = (int)Math.Ceiling(totalRows / PAGE_SIZE);
+
+            return totalPages;
+        }
     }
     public class DbQueryHandlerHistorial
     {
-        //public SqlDataReader getInfoCompras()
-        //{
-          //  string cadena = "select Compra_Fecha,Publicacion_Desc,Compra_Cantidad,( GROUP_APROVED.usuarioYaCalifico(c.ID_Compra)) Calificado ,GROUP_APROVED.getCalificacion(c.ID_Compra)Calificacion from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod)" /*where c.Id_Usuario=" + CurrentUser.user.getUserId()*/;//sacar luego los /**/ de la consulta
-            //SqlCommand comando = new SqlCommand(cadena, DbConnection.connection.getdbconnection());
-            //SqlDataReader registros = comando.ExecuteReader();
-            //return registros;
-       // }
         
     }
 }

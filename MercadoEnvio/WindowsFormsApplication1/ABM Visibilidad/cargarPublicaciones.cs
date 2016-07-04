@@ -20,22 +20,15 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
        
         public cargarPublicaciones()
         {
-            InitializeComponent();    
-            cargar(0);
-            
-        }
-        
-        public void cargar(int cod)
-        {
+            InitializeComponent();
             dataAdapter = new SqlDataAdapter();
             tablaDatos = new DataTable();
-            //dataAdapter.SelectCommand = dbQueryHandler.consultaPublicaciones(CurrentUser.user.getUserId());
-            dataAdapter.SelectCommand = dbQueryHandler.consultaPublicaciones(38);
+            dataAdapter.SelectCommand = dbQueryHandler.consultaPublicaciones(CurrentUser.user.getUserId());
+            //dataAdapter.SelectCommand = dbQueryHandler.consultaPublicaciones(38);
             dataAdapter.Fill(tablaDatos);
             dataGridView1.DataSource = tablaDatos;
             dataGridView1.CellClick += dataGridView1_CellClick;
-            if (cod == 0)
-            {
+            
                 DataGridViewButtonColumn ModVis = new DataGridViewButtonColumn();
                 ModVis.Name = "Modificación Visibilidad";
                 ModVis.Text = "Modificación Visibilidad";
@@ -45,7 +38,23 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
                 int columnIndex = dataGridView1.ColumnCount;
                 if (dataGridView1.Columns["Modificación Visibilidad"] == null) { dataGridView1.Columns.Insert(columnIndex, ModVis); }
                 else { dataGridView1.Columns["Modificación Visibilidad"].DisplayIndex = dataGridView1.ColumnCount - 1; };
-            }
+            
+            
+        }
+        
+        public void cargar(int cod)
+        {
+            dataAdapter = null;
+            tablaDatos = null;
+
+            dataAdapter = new SqlDataAdapter();
+            tablaDatos = new DataTable();
+            dataAdapter.SelectCommand = dbQueryHandler.consultaPublicaciones(CurrentUser.user.getUserId());
+            //dataAdapter.SelectCommand = dbQueryHandler.consultaPublicaciones(38);
+            dataAdapter.Fill(tablaDatos);
+            dataGridView1.DataSource = tablaDatos;
+            dataGridView1.CellClick += dataGridView1_CellClick;
+            
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)

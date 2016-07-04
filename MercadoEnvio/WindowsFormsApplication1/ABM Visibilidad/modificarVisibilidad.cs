@@ -107,11 +107,6 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
 
         public bool actualizarVisibilidad(int codPublic, int codVisib, bool envio)
         {
-            /*SqlCommand comand = new SqlCommand(@"   update GROUP_APROVED.Publicaciones
-                                                    set		Visibilidad_Cod = "+codVisib+" where Publicacion_Cod ="+codPublic, DbConnection.connection.getdbconnection());
-		                                             //      ", envio = "+envio+
-                                                    //"where Publicacion_Cod ="+codPublic, DbConnection.connection.getdbconnection());
-             */
             char pubEnvio;
             if (envio == true) { pubEnvio = 'V'; } else pubEnvio = 'F';
             SqlCommand comand = new SqlCommand(" update GROUP_APROVED.Publicaciones set Visibilidad_Cod = " + codVisib + ",Publicacion_Acepta_Envio = '"+pubEnvio+"'  where Publicacion_Cod = " + codPublic, DbConnection.connection.getdbconnection());

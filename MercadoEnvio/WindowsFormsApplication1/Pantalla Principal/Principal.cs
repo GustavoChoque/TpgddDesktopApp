@@ -62,7 +62,7 @@ namespace WindowsFormsApplication1.Pantalla_Principal
 
         private void buttonVisibilidadPublicacion_Click(object sender, EventArgs e)
         {
-            ABM_Visibilidad.Form1 pantallaABMVisibilidad = new ABM_Visibilidad.Form1();
+            ABM_Visibilidad.cargarPublicaciones pantallaABMVisibilidad = new ABM_Visibilidad.cargarPublicaciones();
             pantallaABMVisibilidad.Show();
         }
 

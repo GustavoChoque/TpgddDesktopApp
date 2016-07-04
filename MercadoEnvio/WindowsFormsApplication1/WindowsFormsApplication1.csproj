@@ -152,11 +152,17 @@
     <Compile Include="ABM Usuario\modificacionUsuarioEmpresa.designer.cs">
       <DependentUpon>modificacionUsuarioEmpresa.cs</DependentUpon>
     </Compile>
-    <Compile Include="ABM Visibilidad\Form1.cs">
+    <Compile Include="ABM Visibilidad\cargarPublicaciones.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM Visibilidad\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ABM Visibilidad\cargarPublicaciones.Designer.cs">
+      <DependentUpon>cargarPublicaciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM Visibilidad\modificarVisibilidad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM Visibilidad\modificarVisibilidad.Designer.cs">
+      <DependentUpon>modificarVisibilidad.cs</DependentUpon>
     </Compile>
     <Compile Include="Calificar\Form1.cs">
       <SubType>Form</SubType>
@@ -273,6 +279,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ABM Usuario\modificacionUsuarioEmpresa.resx">
       <DependentUpon>modificacionUsuarioEmpresa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM Visibilidad\cargarPublicaciones.resx">
+      <DependentUpon>cargarPublicaciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM Visibilidad\modificarVisibilidad.resx">
+      <DependentUpon>modificarVisibilidad.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Facturas\ListarFacturas.resx">
       <DependentUpon>ListarFacturas.cs</DependentUpon>

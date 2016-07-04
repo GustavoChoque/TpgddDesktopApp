@@ -94,6 +94,7 @@ CREATE TABLE GROUP_APROVED.Visibilidades(
 	Visibilidad_Desc nvarchar(255),
 	Visibilidad_Precio numeric(18,2),
 	Visibilidad_Porcentaje numeric(18,2),
+	Visibilidad_Costo_Envio numeric(18,2) default 100
 	
 )
 
@@ -125,6 +126,7 @@ CREATE TABLE GROUP_APROVED.Publicaciones(
 	Publicacion_Estado INT REFERENCES GROUP_APROVED.Estado_Publ,
 	Id_Rubro numeric(18,0) REFERENCES GROUP_APROVED.Rubros,
 	Id_Usuario INT REFERENCES GROUP_APROVED.Usuarios,
+	Publicacion_Acepta_Envio char default 'F' check (Publicacion_Acepta_Envio in ('V','F'))
 
 )
 

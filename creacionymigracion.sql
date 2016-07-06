@@ -207,7 +207,7 @@ begin transaction dropTables
 	DROP TABLE GROUP_APROVED.Roles
 	DROP TABLE GROUP_APROVED.Funciones
 	DROP SCHEMA [GROUP_APROVED]
-commit transaction
+commit transaction dropTables
 */
 go
 /*CREACION DE STORED PROCEDURES / TRIGGERS*/
@@ -608,7 +608,77 @@ SET ROWCOUNT 0
 SELECT @totalRows = COUNT(ID_Compra)from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod) where c.Id_Usuario=@idUsuario
 end
 GO
+/*drop procedure GROUP_APROVED.consultarFacturas*/
+CREATE PROCEDURE GROUP_APROVED.consultarFacturas
+@startRowIndex int,
+@maximumRows int,
+@idUsuario int,
+@textoABuscar varchar(255),
+@importeInicio int,
+@importeFin int,
+@dias int,
+@totalRows int OUTPUT
 
+AS
+
+DECLARE @first_id int, @startRow int
+
+SET @startRowIndex =  (@startRowIndex - 1)  * @maximumRows
+
+IF @startRowIndex = 0 
+SET @startRowIndex = 1
+
+SET ROWCOUNT @startRowIndex
+if exists (select 1 from GROUP_APROVED.RolesxUsuario RU join GROUP_APROVED.Roles R On(RU.Id_Roles=R.Id_Rol) where R.Desc_Rol='Administrador' and RU.Id_Usr=@idUsuario)
+begin 
+SELECT @first_id = Nro_Fact from GROUP_APROVED.Facturas where (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between getdate()-@dias and getdate())order by Nro_Fact
+PRINT @first_id
+
+SET ROWCOUNT @maximumRows
+
+select distinct(f.Nro_Fact),Id_Usuario ,Fact_Fecha,Fact_Total,Fact_Forma_Pago,Item_Tipo
+from GROUP_APROVED.Facturas f 
+join GROUP_APROVED.Publicaciones p on(f.Publicacion_Cod=p.Publicacion_Cod)
+join GROUP_APROVED.Items i on(f.Nro_Fact=i.Nro_Fact)
+WHERE f.Nro_Fact >= @first_id and Item_Tipo like '%'+@textoABuscar+'%' 
+and (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between getdate()-@dias and getdate())
+ORDER BY f.Nro_Fact
+ 
+SET ROWCOUNT 0
+
+--GEt total filas
+
+SELECT @totalRows = COUNT(Nro_Fact)from GROUP_APROVED.Facturas where (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between getdate()-@dias and getdate())
+
+end else --usuarios cliente y empresa
+begin
+SELECT @first_id = Nro_Fact from GROUP_APROVED.Facturas f 
+join GROUP_APROVED.Publicaciones p on(f.Publicacion_Cod=p.Publicacion_Cod)
+where Id_Usuario=@idUsuario and (Fact_Total between @importeInicio and @importeFin)
+ and (Fact_Fecha between getdate()-@dias and getdate()) order by Nro_Fact
+
+PRINT @first_id
+
+SET ROWCOUNT @maximumRows
+
+select distinct(f.Nro_Fact),Fact_Fecha,Fact_Total,Fact_Forma_Pago,Item_Tipo
+from GROUP_APROVED.Facturas f 
+join GROUP_APROVED.Publicaciones p on(f.Publicacion_Cod=p.Publicacion_Cod)
+join GROUP_APROVED.Items i on(f.Nro_Fact=i.Nro_Fact) 
+WHERE f.Nro_Fact >= @first_id 
+and p.Id_Usuario=@idUsuario and Item_Tipo like '%'+@textoABuscar+'%' 
+and (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between getdate()-@dias and getdate())
+ORDER BY f.Nro_Fact
+ 
+SET ROWCOUNT 0
+
+-- GEt total filas
+
+SELECT @totalRows = COUNT(Nro_Fact)from GROUP_APROVED.Facturas f Join GROUP_APROVED.Publicaciones p On (f.Publicacion_Cod=p.Publicacion_Cod)
+where p.Id_Usuario=@idUsuario and (Fact_Total between @importeInicio and @importeFin) 
+and (Fact_Fecha between getdate()-@dias and getdate())
+end
+GO
 
 
 /*drop Procedure GROUP_APROVED.LoginUsuario*/

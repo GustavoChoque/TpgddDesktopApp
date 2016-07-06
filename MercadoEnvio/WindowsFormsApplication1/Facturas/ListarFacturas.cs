@@ -13,6 +13,9 @@ namespace WindowsFormsApplication1.Facturas
     public partial class ListarFacturas : Form
     {
         DbQueryHandlerListarFacturas dbQueryHandler = new DbQueryHandlerListarFacturas();
+        public int currentPageNumber = 1;
+        public const int PAGE_SIZE = 5;
+        double totalRows;
         public ListarFacturas()
         {
             InitializeComponent();
@@ -25,16 +28,10 @@ namespace WindowsFormsApplication1.Facturas
 
         private void button2_Click(object sender, EventArgs e)
         {
-            dataGridView1.Rows.Clear();
+            
+            BindData();
+           
 
-            string texto = textBox1.Text;
-            SqlDataReader registros = dbQueryHandler.getFacturas(texto);
-            while (registros.Read())
-            {
-                //dataGridView1.Rows.Add(registros["Nro_Fact"].ToString(), registros["Fact_Fecha"].ToString(), registros["Fact_Total"].ToString(), registros["Fact_Forma_Pago"].ToString());
-                dataGridView1.Rows.Add(registros["Publicacion_Cod"].ToString());
-            }
-            registros.Close(); 
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -49,7 +46,7 @@ namespace WindowsFormsApplication1.Facturas
 
         private void ListarFacturas_Load(object sender, EventArgs e)
         {
-            comboBox1.Items.Add("Maximo");
+            comboBox1.Items.Add("Todo");
             comboBox1.Items.Add("15000-50000");
             comboBox1.Items.Add("5000-15000");
             comboBox1.Items.Add("0-5000");
@@ -65,15 +62,91 @@ namespace WindowsFormsApplication1.Facturas
         {
 
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (currentPageNumber > 1)
+            {
+                currentPageNumber = currentPageNumber - 1;
+                BindData();
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (currentPageNumber<=totalRows)
+            {
+            currentPageNumber =currentPageNumber+ 1;
+            BindData();
+            }
+        }
+            private void BindData()
+        {
+                string textoABuscar=textBox1.Text;
+                int importeInicio = 0;
+                int importeFin=0;
+                int dias=0;
+                switch(comboBox1.Text){
+                    case "0-5000": importeInicio = 0;
+                        importeFin = 5000;
+                        break;
+                    case "5000-15000": importeInicio = 5000;
+                        importeFin = 15000;
+                        break;
+                    case "15000-50000": importeInicio = 15000;
+                        importeFin = 50000;
+                        break;
+                    default: importeInicio = 0;
+                        importeFin = 99999999;
+                        break;
+                }
+                switch (comboBox2.Text)
+                {
+                    case "ultimos 2 dias": dias = 2;
+                        break;
+                    case "ultimos 15 dias": dias = 15;
+                        break;
+                    case "ultimos 30 dias": dias = 30;
+                        break;
+                    default: dias = 36500;
+                        break;
+                }
+
+                SqlCommand myCommand = new SqlCommand("GROUP_APROVED.consultarFacturas", DbConnection.connection.getdbconnection());
+            myCommand.CommandType = CommandType.StoredProcedure;
+
+            myCommand.Parameters.AddWithValue("@startRowIndex",currentPageNumber);
+            myCommand.Parameters.AddWithValue("@maximumRows", PAGE_SIZE);
+            myCommand.Parameters.AddWithValue("@idUsuario", CurrentUser.user.getUserId());
+            myCommand.Parameters.AddWithValue("@textoABuscar", textoABuscar);
+            myCommand.Parameters.AddWithValue("@importeInicio", importeInicio);
+            myCommand.Parameters.AddWithValue("@importeFin", importeFin);
+            myCommand.Parameters.AddWithValue("@dias", dias);
+            myCommand.Parameters.Add("@totalRows", SqlDbType.Int, 4);
+            myCommand.Parameters["@totalRows"].Direction = ParameterDirection.Output;
+
+            SqlDataAdapter ad = new SqlDataAdapter(myCommand);
+
+          
+            DataTable ds = new DataTable();
+            
+            ad.Fill(ds);
+            
+            dataGridView1.DataSource = ds;
+            totalRows = (int)myCommand.Parameters["@totalRows"].Value;
+            label5.Text = currentPageNumber.ToString(); 
+            label7.Text = CalculateTotalPages(totalRows+1).ToString();
+
+        }
+        private int CalculateTotalPages(double totalRows)
+        {
+            int totalPages = (int)Math.Ceiling(totalRows / PAGE_SIZE);
+
+            return totalPages;
+        }
     }
     public class DbQueryHandlerListarFacturas
     {
-        public SqlDataReader getFacturas(string texto) {
-            //string cadena = "select Nro_Fact,Fact_Fecha,Fact_Total,Fact_Forma_Pago from GROUP_APROVED.Facturas where Fact_Forma_Pago LIKE '%" + texto + "%'";
-            string cadena = "select Publicacion_Cod from GROUP_APROVED.Publicaciones";
-            SqlCommand comando = new SqlCommand(cadena, DbConnection.connection.getdbconnection());
-            SqlDataReader registros = comando.ExecuteReader();
-            return registros;
-        }
+        
     }
 }

@@ -24,7 +24,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
             bool rta = true;
             string mjeError = "";
             if (textBoxNuevoUsuario.Text == "")
-            { mjeError = mjeError + "Ingresar Id Usuario\n"; rta = false; };
+            { mjeError = mjeError + "Ingresar Nombre de Usuario\n"; rta = false; };
             if (textBoxNuevoUsuarioPassw.Text == "")
             { mjeError = mjeError + "Ingresar contraseña\n"; rta = false; };
             if (textBoxPasswConf.Text == "")
@@ -33,7 +33,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
             { mjeError = mjeError + "Las contraseñas no coinciden\n"; rta = false; };
             if ((!(radioButEmpresa.Checked) & !(radioButCliente.Checked)))
             { mjeError = mjeError + "Seleccionar Rol a asignar\n"; rta = false; };
-            if (!(idUserExiste(textBoxNuevoUsuario.Text))) { mjeError = mjeError + "Id de usuario en uso\n"; rta = false; };
+            if (!(idUserExiste(textBoxNuevoUsuario.Text))) { mjeError = mjeError + "Nombre de usuario en uso\n"; rta = false; };
             if (rta == false) { MessageBox.Show(mjeError); }
             return rta;
 

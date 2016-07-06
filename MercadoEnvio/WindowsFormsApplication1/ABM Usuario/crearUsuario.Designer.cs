@@ -63,9 +63,9 @@
             this.labNuevoUsuario.AutoSize = true;
             this.labNuevoUsuario.Location = new System.Drawing.Point(42, 24);
             this.labNuevoUsuario.Name = "labNuevoUsuario";
-            this.labNuevoUsuario.Size = new System.Drawing.Size(89, 13);
+            this.labNuevoUsuario.Size = new System.Drawing.Size(101, 13);
             this.labNuevoUsuario.TabIndex = 2;
-            this.labNuevoUsuario.Text = "Id nuevo usuario:";
+            this.labNuevoUsuario.Text = "Nombre de Usuario:";
             // 
             // labNuevoUsuarioPassw
             // 

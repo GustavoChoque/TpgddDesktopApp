@@ -41,7 +41,7 @@ namespace WindowsFormsApplication1.Facturas
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            Limpiar();
         }
 
         private void ListarFacturas_Load(object sender, EventArgs e)
@@ -143,6 +143,13 @@ namespace WindowsFormsApplication1.Facturas
             int totalPages = (int)Math.Ceiling(totalRows / PAGE_SIZE);
 
             return totalPages;
+        }
+        public void Limpiar() {
+            textBox1.Text = "";
+            comboBox1.SelectedIndex = 0;
+            comboBox2.SelectedIndex = 0;
+            dataGridView1.DataSource = null;
+            
         }
     }
     public class DbQueryHandlerListarFacturas

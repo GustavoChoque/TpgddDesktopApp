@@ -419,7 +419,7 @@ while @@FETCH_STATUS =0
 	begin
 		
 		
-		if @Publicacion_Tipo = 'Compra Inmediata'
+		/*if @Publicacion_Tipo = 'Compra Inmediata'
 			begin
 				if @Publicacion_Fecha_Venc < getdate()
 					begin
@@ -429,7 +429,7 @@ while @@FETCH_STATUS =0
 		else
 			begin
 				select @Id_Pub_Estado = Id_Est from GROUP_APROVED.Estado_Publ WHERE  Descripcion ='Activa';
-			end;
+			end;*/
 	
 		select @Id_Rubro = Id_Rubro from GROUP_APROVED.Rubros WHERE Rubro_Desc_Completa = @Publicacion_Rubro_Descripcion
 
@@ -437,18 +437,18 @@ while @@FETCH_STATUS =0
 			begin
 			select @ID_usr = Id_Usuario from GROUP_APROVED.Clientes where Dni_Cli = @Publ_Cli_Dni
 			
-			insert into GROUP_APROVED.Publicaciones(Publicacion_Desc,Publicacion_Stock,Publicacion_Fecha,Publicacion_Fecha_Venc,Publicacion_Precio,Publicacion_Tipo,Visibilidad_Cod,Publicacion_Estado,Id_Rubro,Id_Usuario)
+			insert into GROUP_APROVED.Publicaciones(Publicacion_Desc,Publicacion_Stock,Publicacion_Fecha,Publicacion_Fecha_Venc,Publicacion_Precio,Publicacion_Tipo,Visibilidad_Cod,/*Publicacion_Estado,*/Id_Rubro,Id_Usuario)
 
-			values(@Publicacion_Descripcion,@Publicacion_Stock, @Publicacion_Fecha, @Publicacion_Fecha_Venc, @Publicacion_Precio,@Publicacion_Tipo,@Publicacion_Visibilidad_Cod,@Id_Pub_Estado,@Id_Rubro,@ID_usr)
+			values(@Publicacion_Descripcion,@Publicacion_Stock, @Publicacion_Fecha, @Publicacion_Fecha_Venc, @Publicacion_Precio,@Publicacion_Tipo,@Publicacion_Visibilidad_Cod,/*@Id_Pub_Estado,*/@Id_Rubro,@ID_usr)
 			
 			end;
 		else
 			begin
 			select @ID_usr = Id_Usuario from GROUP_APROVED.Empresas where Empresa_Razon_Social = @Publ_Empresa_Razon_Social and Empresa_Cuit = @Publ_Empresa_Cuit
 			
-			insert into GROUP_APROVED.Publicaciones(Publicacion_Desc,Publicacion_Stock,Publicacion_Fecha,Publicacion_Fecha_Venc,Publicacion_Precio,Publicacion_Tipo,Visibilidad_Cod,Publicacion_Estado,Id_Rubro,Id_Usuario)
+			insert into GROUP_APROVED.Publicaciones(Publicacion_Desc,Publicacion_Stock,Publicacion_Fecha,Publicacion_Fecha_Venc,Publicacion_Precio,Publicacion_Tipo,Visibilidad_Cod,/*Publicacion_Estado,*/Id_Rubro,Id_Usuario)
 
-			values(@Publicacion_Descripcion,@Publicacion_Stock, @Publicacion_Fecha, @Publicacion_Fecha_Venc, @Publicacion_Precio,@Publicacion_Tipo,@Publicacion_Visibilidad_Cod,@Id_Pub_Estado,@Id_Rubro,@ID_usr)
+			values(@Publicacion_Descripcion,@Publicacion_Stock, @Publicacion_Fecha, @Publicacion_Fecha_Venc, @Publicacion_Precio,@Publicacion_Tipo,@Publicacion_Visibilidad_Cod,/*@Id_Pub_Estado,*/@Id_Rubro,@ID_usr)
 			
 			end;
 		fetch next from publCursr into @Publ_Cod,@Publ_Cli_Dni,@Publ_Empresa_Razon_Social,@Publ_Empresa_Cuit, @Publicacion_Rubro_Descripcion,@Publicacion_Visibilidad_Cod,@Publicacion_Descripcion,@Publicacion_Fecha,@Publicacion_Fecha_Venc ,@Publicacion_Precio ,@Publicacion_Stock ,@Publicacion_Tipo;

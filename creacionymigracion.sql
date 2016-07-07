@@ -1032,7 +1032,38 @@ end;
 
 go
 
-/*drop procedure GROUP_APROVED.usrCreationCli
+CREATE Procedure GROUP_APROVED.DesCorta
+as
+	begin
+		declare @Id_Actual INT;
+		declare @Desc_Larga nvarchar(255);
+	
+		declare descCursor cursor for
+		select Id_Rubro,Rubro_Desc_Completa from GROUP_APROVED.Rubros;
+	
+		open descCursor;
+		fetch next from descCursor into @Id_Actual, @Desc_Larga;
+	
+		while @@FETCH_STATUS = 0
+			begin 
+				update GROUP_APROVED.Rubros
+				set Rubro_Desc_Corta = concat(substring(@Desc_Larga,0,2),substring(@Desc_Larga,6,2))    /*la descripcion corta del rubro se forma con las primeros 2 caracteres y los 2 caracteres 6 posiciones corridas*/
+				where Id_Rubro = @Id_Actual;
+
+				fetch next from descCursor into @Id_Actual, @Desc_Larga;
+			end;
+		close descCursor;
+		deallocate descCursor;
+	end;
+
+
+go
+
+
+
+/*
+drop procedure GROUP_APROVED.DesCorta
+drop procedure GROUP_APROVED.usrCreationCli
 drop procedure GROUP_APROVED.usrCreationEmp
 drop procedure GROUP_APROVED.funcionesAdmin
 drop procedure GROUP_APROVED.funcionesCliente
@@ -1130,6 +1161,12 @@ select distinct Publicacion_Visibilidad_Cod, Publicacion_Visibilidad_Desc, Publi
 		/*rubros*/
 insert into GROUP_APROVED.Rubros(Rubro_Desc_Completa)
 select distinct Publicacion_Rubro_Descripcion from gd_esquema.Maestra
+
+
+go
+exec GROUP_APROVED.DesCorta
+
+go
 
 
 		/*Estados_publicaciones*/

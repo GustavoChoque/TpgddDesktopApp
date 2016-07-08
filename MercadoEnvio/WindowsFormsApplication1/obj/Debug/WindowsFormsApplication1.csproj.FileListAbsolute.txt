@@ -201,3 +201,23 @@ C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\Mer
 L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Calificar.calificarVendedor.resources
 L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Calificar.darCalificacion.resources
 L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Calificar.historial.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.abmUsuarioPrincipal.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.agregarUsuarioCliente.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.agregarUsuarioEmpresa.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.BajaUsuario.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.BajaUsuarioCliente.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.BajaUsuarioEmpresa.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.crearUsuario.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.FormularioModificacionCliente.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.FormularioModificacionEmpresa.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.ModificacionUsuario.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.modificacionUsuarioCliente.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.modificacionUsuarioEmpresa.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Visibilidad.cargarPublicaciones.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Visibilidad.modificarVisibilidad.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Calificar.calificarVendedor.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Calificar.darCalificacion.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Calificar.historial.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Facturas.ListarFacturas.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Historial_Cliente.Historial.resources
+C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ComprarOfertar.Form1.resources

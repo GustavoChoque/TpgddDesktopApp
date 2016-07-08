@@ -41,9 +41,12 @@ namespace WindowsFormsApplication1.Generar_Publicación
             String visib = visibilidades[comboBox3.Text].ToString();
             String rubro = rubros[comboBox4.Text].ToString();
             String estado = dbQueryHandler.cargarEstado("Borrador");
+            String envios = "V";
+
+            if (radioButton2.Checked == true)
+                envios = "F";
             
-            
-            Int32 pubId = dbQueryHandler.createPub(desc, stock,precio,tipo,visib,rubro,estado);
+            Int32 pubId = dbQueryHandler.createPub(desc, stock,precio,tipo,visib,rubro,estado,envios);
 
             if (pubId > 0)
             {
@@ -80,7 +83,7 @@ namespace WindowsFormsApplication1.Generar_Publicación
    
     class DbQueryHandlerCreate {
 
-        public Int32 createPub(String desc, String stock, String precio, String tipo, String visib, String Id_Rubro,String estado)
+        public Int32 createPub(String desc, String stock, String precio, String tipo, String visib, String Id_Rubro,String estado,String envios)
         {
 
             DateTime myDateTime = DateTime.Now;
@@ -88,7 +91,9 @@ namespace WindowsFormsApplication1.Generar_Publicación
             DateTime myDateTime2 = DateTime.Now.AddDays(30);
 
             string sqlFormattedDate2 = myDateTime2.ToString("yyyy-MM-dd");
-            SqlCommand cmd = new SqlCommand("insert into GROUP_APROVED.publicaciones values ('" + desc + "'," + stock + ",'" + sqlFormattedDate + "','" + sqlFormattedDate2 + "'," + precio + ",'" + tipo + "'," + visib + "," + estado + "," + Id_Rubro + "," + CurrentUser.user.getUserId() + ");SELECT Publicacion_Cod FROM GROUP_APROVED.Publicaciones WHERE Publicacion_Cod = @@Identity", DbConnection.connection.getdbconnection());
+            SqlCommand cmd = new SqlCommand("insert into GROUP_APROVED.publicaciones values ('" + desc + "'," + stock + ",'" + sqlFormattedDate + "','" 
+                + sqlFormattedDate2 + "'," + precio + ",'" + tipo + "'," + visib + "," + estado + "," + Id_Rubro + "," + CurrentUser.user.getUserId() +
+                ",'"+envios+"');SELECT Publicacion_Cod FROM GROUP_APROVED.Publicaciones WHERE Publicacion_Cod = @@Identity", DbConnection.connection.getdbconnection());
             Int32 Publicacion_Cod = (Int32)cmd.ExecuteScalar();
 
             return Publicacion_Cod;

@@ -58,6 +58,7 @@ namespace WindowsFormsApplication1.Generar_Publicación
             String visib = dataReader.GetDecimal(6).ToString();
             String est = dataReader.GetInt32(7).ToString();
             String rub = dataReader.GetDecimal(8).ToString();
+            String envios = dataReader.GetString(9);
 
             richTextBox1.Text = dataReader.GetString(0);
             stock.Text = dataReader.GetDecimal(1).ToString();
@@ -65,6 +66,12 @@ namespace WindowsFormsApplication1.Generar_Publicación
             fecCrea.Text = dataReader.GetDateTime(2).ToString("yyyy-MM-dd");
             fecVenc.Text = dataReader.GetDateTime(3).ToString("yyyy-MM-dd");
             tipo.Text = dataReader.GetString(5);
+
+            if (envios == "V")
+                radioButton1.Checked = true;
+            if (envios == "F")
+                radioButton2.Checked = true;
+
             dataReader.Close();
 
             tipoVisib.Text = dbQueryHandler.cargarVisibilidad(visib);
@@ -84,9 +91,14 @@ namespace WindowsFormsApplication1.Generar_Publicación
             String strvisib = visibilidades[tipoVisib.Text].ToString();
             String strrubro = rubros[rubro.Text].ToString();
             String strestado = dbQueryHandler.getEstado("Activa");
+            String strenvios = "V";
+
+            if (radioButton2.Checked == true)
+                strenvios = "F";
+            
 
 
-            Int32  result = dbQueryHandler.updatePub(strdesc,strstock,strprecio,strtipo,strvisib,strrubro,strestado,pubId.ToString());
+            Int32  result = dbQueryHandler.updatePub(strdesc,strstock,strprecio,strtipo,strvisib,strrubro,strestado,pubId.ToString(),strenvios);
 
             
 
@@ -117,9 +129,12 @@ namespace WindowsFormsApplication1.Generar_Publicación
             String strtipo = tipo.Text;
             String strvisib = visibilidades[tipoVisib.Text].ToString();
             String strrubro = rubros[rubro.Text].ToString();
+            String strenvios = "V";
 
+            if (radioButton2.Checked == true)
+                strenvios = "F";
 
-            Int32 result = dbQueryHandler.updatePub(strdesc, strstock, strprecio, strtipo, strvisib, strrubro, pubId.ToString());
+            Int32 result = dbQueryHandler.updatePub(strdesc, strstock, strprecio, strtipo, strvisib, strrubro, pubId.ToString(), strenvios);
 
 
 
@@ -129,13 +144,18 @@ namespace WindowsFormsApplication1.Generar_Publicación
                 this.Close();
             }
         }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 
     class DbQueryHandlerModify {
         public SqlDataReader cargarPublicacion(String pubId)
         {
 
-            SqlCommand cmd = new SqlCommand("select Publicacion_Desc,Publicacion_Stock,Publicacion_Fecha,Publicaicon_Fecha_Venc,Publicacion_Precio,Publicacion_Tipo,Visibilidad_Cod,Publicacion_Estado,Id_Rubro from GROUP_APROVED.publicaciones where Publicacion_cod = " + pubId,DbConnection.connection.getdbconnection());
+            SqlCommand cmd = new SqlCommand("select Publicacion_Desc,Publicacion_Stock,Publicacion_Fecha,Publicacion_Fecha_Venc,Publicacion_Precio,Publicacion_Tipo,Visibilidad_Cod,Publicacion_Estado,Id_Rubro,Publicacion_Acepta_Envio from GROUP_APROVED.publicaciones where Publicacion_cod = " + pubId,DbConnection.connection.getdbconnection());
             SqlDataReader dataReader = cmd.ExecuteReader();
 
             return dataReader;
@@ -204,17 +224,17 @@ namespace WindowsFormsApplication1.Generar_Publicación
             return estado;
 
         }
-        public Int32 updatePub(String desc, String stock, String precio, String tipo, String visib, String Id_Rubro, String estado, String pubId)
+        public Int32 updatePub(String desc, String stock, String precio, String tipo, String visib, String Id_Rubro, String estado, String pubId, String envios)
         {
-            SqlCommand cmd = new SqlCommand("update GROUP_APROVED.Publicaciones set Publicacion_Desc = '" + desc + "',Publicacion_Stock= " + stock + ",Publicacion_Precio = " + precio + ",Publicacion_Tipo= '" + tipo + "',Visibilidad_Cod= " + visib + ",Publicacion_Estado= " + estado + ",Id_Rubro= " + Id_Rubro + "where Publicacion_cod = " + pubId, DbConnection.connection.getdbconnection());
+            SqlCommand cmd = new SqlCommand("update GROUP_APROVED.Publicaciones set Publicacion_Desc = '" + desc + "',Publicacion_Stock= " + stock + ",Publicacion_Precio = " + precio + ",Publicacion_Tipo= '" + tipo + "',Visibilidad_Cod= " + visib + ",Publicacion_Estado= " + estado + ",Id_Rubro= " + Id_Rubro + ",Publicacion_Acepta_Envio = '" + envios + "' where Publicacion_cod = " + pubId, DbConnection.connection.getdbconnection());
 
             Int32 result = cmd.ExecuteNonQuery();
 
             return result;
         }
-        public Int32 updatePub(String desc, String stock, String precio, String tipo, String visib, String Id_Rubro, String pubId)
+        public Int32 updatePub(String desc, String stock, String precio, String tipo, String visib, String Id_Rubro, String pubId, String envios)
         {
-            SqlCommand cmd = new SqlCommand("update GROUP_APROVED.Publicaciones set Publicacion_Desc = '" + desc + "',Publicacion_Stock= " + stock + ",Publicacion_Precio = " + precio + ",Publicacion_Tipo= '" + tipo + "',Visibilidad_Cod= " + visib + ",Id_Rubro= " + Id_Rubro + "where Publicacion_cod = " + pubId, DbConnection.connection.getdbconnection());
+            SqlCommand cmd = new SqlCommand("update GROUP_APROVED.Publicaciones set Publicacion_Desc = '" + desc + "',Publicacion_Stock= " + stock + ",Publicacion_Precio = " + precio + ",Publicacion_Tipo= '" + tipo + "',Visibilidad_Cod= " + visib + ",Id_Rubro= " + Id_Rubro + ",Publicacion_Acepta_Envio = '" + envios + "' where Publicacion_cod = " + pubId, DbConnection.connection.getdbconnection());
 
             Int32 result = cmd.ExecuteNonQuery();
 

@@ -307,6 +307,9 @@
     <EmbeddedResource Include="Calificar\historial.resx">
       <DependentUpon>historial.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ComprarOfertar\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Facturas\ListarFacturas.resx">
       <DependentUpon>ListarFacturas.cs</DependentUpon>
     </EmbeddedResource>

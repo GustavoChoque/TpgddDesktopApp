@@ -571,41 +571,65 @@ SET @startRowIndex = 1
 SET ROWCOUNT @startRowIndex
 if exists (select 1 from GROUP_APROVED.RolesxUsuario RU join GROUP_APROVED.Roles R On(RU.Id_Roles=R.Id_Rol) where R.Desc_Rol='Administrador' and RU.Id_Usr=@idUsuario)
 begin 
-SELECT @first_id = ID_Compra from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod) order by ID_Compra
+SELECT @first_id = ID from (SELECT 'Compra' "Compra/Oferta",ID_Compra ID
+from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod) 
+union
+SELECT 'Oferta' "Compra/Oferta",ID_Oferta ID
+from GROUP_APROVED.Ofertas o Join GROUP_APROVED.Publicaciones p On (o.Publicacion_Cod=p.Publicacion_Cod) ) as historial
+order by ID
 
 PRINT @first_id
 
 SET ROWCOUNT @maximumRows
 
-SELECT ID_Compra,c.Id_Usuario,Publicacion_Desc,Compra_Cantidad,( GROUP_APROVED.usuarioYaCalifico(c.ID_Compra)) Calificado ,GROUP_APROVED.getCalificacion(c.ID_Compra)Calificacion 
+select * from (SELECT 'Compra' "Compra/Oferta",ID_Compra ID,c.Id_Usuario,Publicacion_Desc,Compra_Cantidad,( GROUP_APROVED.usuarioYaCalifico(c.ID_Compra)) Calificado ,GROUP_APROVED.getCalificacion(c.ID_Compra)Calificacion 
 from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod) 
-WHERE ID_Compra >= @first_id
-ORDER BY ID_Compra
+union
+SELECT 'Oferta' "Compra/Oferta",ID_Oferta ID,o.Id_Usuario,Publicacion_Desc,Oferta_Monto,( GROUP_APROVED.usuarioYaCalifico(o.ID_Oferta)) Calificado ,GROUP_APROVED.getCalificacion(o.ID_Oferta)Calificacion 
+from GROUP_APROVED.Ofertas o Join GROUP_APROVED.Publicaciones p On (o.Publicacion_Cod=p.Publicacion_Cod) ) as historial
+WHERE ID >= @first_id
+ORDER BY ID
  
 SET ROWCOUNT 0
 
 --GEt total filas
 
-SELECT @totalRows = COUNT(ID_Compra)from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod)
-
+SELECT @totalRows = count(ID) from (SELECT 'Compra' "Compra/Oferta",ID_Compra ID
+from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod) 
+union
+SELECT 'Oferta' "Compra/Oferta",ID_Oferta ID
+from GROUP_APROVED.Ofertas o Join GROUP_APROVED.Publicaciones p On (o.Publicacion_Cod=p.Publicacion_Cod) ) as historial
 end else ---usuarios Clientes y empresas
 begin
-SELECT @first_id = ID_Compra from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod) where c.Id_Usuario=@idUsuario order by ID_Compra
+SELECT @first_id = ID from (SELECT 'Compra' "Compra/Oferta",ID_Compra ID,c.Id_Usuario IdU
+from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod) 
+union
+SELECT 'Oferta' "Compra/Oferta",ID_Oferta ID,o.Id_Usuario IdU
+from GROUP_APROVED.Ofertas o Join GROUP_APROVED.Publicaciones p On (o.Publicacion_Cod=p.Publicacion_Cod) ) as historial
+ where Idu=@idUsuario order by ID
 
 PRINT @first_id
 
 SET ROWCOUNT @maximumRows
 
-SELECT ID_Compra,Publicacion_Desc,Compra_Cantidad,( GROUP_APROVED.usuarioYaCalifico(c.ID_Compra)) Calificado ,GROUP_APROVED.getCalificacion(c.ID_Compra)Calificacion 
+select * from (SELECT 'Compra' "Compra/Oferta",ID_Compra ID,c.Id_Usuario IdU,Publicacion_Desc,Compra_Cantidad,( GROUP_APROVED.usuarioYaCalifico(c.ID_Compra)) Calificado ,GROUP_APROVED.getCalificacion(c.ID_Compra)Calificacion 
 from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod) 
-WHERE ID_Compra >= @first_id and c.Id_Usuario=@idUsuario
-ORDER BY ID_Compra
+union
+SELECT 'Oferta' "Compra/Oferta",ID_Oferta ID,o.Id_Usuario IdU,Publicacion_Desc,Oferta_Monto,( GROUP_APROVED.usuarioYaCalifico(o.ID_Oferta)) Calificado ,GROUP_APROVED.getCalificacion(o.ID_Oferta)Calificacion 
+from GROUP_APROVED.Ofertas o Join GROUP_APROVED.Publicaciones p On (o.Publicacion_Cod=p.Publicacion_Cod) ) as historial 
+WHERE ID >= @first_id and IdU=@idUsuario
+ORDER BY ID
  
 SET ROWCOUNT 0
 
 -- GEt total filas
 
-SELECT @totalRows = COUNT(ID_Compra)from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod) where c.Id_Usuario=@idUsuario
+SELECT @totalRows =  count(ID) from (SELECT 'Compra' "Compra/Oferta",ID_Compra ID,c.Id_Usuario IdU
+from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod) 
+union
+SELECT 'Oferta' "Compra/Oferta",ID_Oferta ID,o.Id_Usuario IdU
+from GROUP_APROVED.Ofertas o Join GROUP_APROVED.Publicaciones p On (o.Publicacion_Cod=p.Publicacion_Cod) ) as historial
+where IdU=@idUsuario
 end
 GO
 /*drop function GROUP_APROVED.descripcionFactura*/

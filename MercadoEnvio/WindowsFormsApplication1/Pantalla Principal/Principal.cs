@@ -80,7 +80,7 @@ namespace WindowsFormsApplication1.Pantalla_Principal
 
         private void buttonCalificarVendedor_Click(object sender, EventArgs e)
         {
-            Calificar.Form1 pantallaCalificar = new Calificar.Form1();
+            Calificar.calificarVendedor pantallaCalificar = new Calificar.calificarVendedor();
             pantallaCalificar.Show();
         }
 

@@ -30,6 +30,9 @@ namespace WindowsFormsApplication1.Facturas
 
         private void button2_Click(object sender, EventArgs e)
         {
+            ad = null;
+            dataGridView1.DataSource = null;
+            currentPageNumber = 1;
             
             BindData();
             panel1.Show();

@@ -226,3 +226,5 @@ C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\TPLAST\gddDesktop
 C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\TPLAST\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
 C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ComprarOfertar.Form1.resources
 C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Listado_Estadistico.listado.resources
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ComprarOfertar.Form1.resources
+L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Listado_Estadistico.listado.resources

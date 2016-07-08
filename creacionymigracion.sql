@@ -577,7 +577,7 @@ PRINT @first_id
 
 SET ROWCOUNT @maximumRows
 
-SELECT ID_Compra,Publicacion_Desc,Compra_Cantidad,( GROUP_APROVED.usuarioYaCalifico(c.ID_Compra)) Calificado ,GROUP_APROVED.getCalificacion(c.ID_Compra)Calificacion 
+SELECT ID_Compra,c.Id_Usuario,Publicacion_Desc,Compra_Cantidad,( GROUP_APROVED.usuarioYaCalifico(c.ID_Compra)) Calificado ,GROUP_APROVED.getCalificacion(c.ID_Compra)Calificacion 
 from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod) 
 WHERE ID_Compra >= @first_id
 ORDER BY ID_Compra
@@ -588,7 +588,7 @@ SET ROWCOUNT 0
 
 SELECT @totalRows = COUNT(ID_Compra)from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod)
 
-end else 
+end else ---usuarios Clientes y empresas
 begin
 SELECT @first_id = ID_Compra from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod) where c.Id_Usuario=@idUsuario order by ID_Compra
 
@@ -608,6 +608,16 @@ SET ROWCOUNT 0
 SELECT @totalRows = COUNT(ID_Compra)from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod) where c.Id_Usuario=@idUsuario
 end
 GO
+/*drop function GROUP_APROVED.descripcionFactura*/
+create function GROUP_APROVED.descripcionFactura(@Nro_Factura numeric(18,0) )
+returns varchar(255) as
+begin 
+DECLARE @valores VARCHAR(255)
+SELECT @valores= COALESCE(@valores + ' • ', '•') + descripcion  
+FROM (select '$'+convert(varchar(255),Item_Monto)+', '+convert(varchar(255),Item_Cantidad)+' '+Item_Tipo descripcion from GROUP_APROVED.Items where Nro_Fact=@Nro_Factura)items
+return @valores
+end
+go
 /*drop procedure GROUP_APROVED.consultarFacturas*/
 CREATE PROCEDURE GROUP_APROVED.consultarFacturas
 @startRowIndex int,
@@ -631,16 +641,15 @@ SET @startRowIndex = 1
 SET ROWCOUNT @startRowIndex
 if exists (select 1 from GROUP_APROVED.RolesxUsuario RU join GROUP_APROVED.Roles R On(RU.Id_Roles=R.Id_Rol) where R.Desc_Rol='Administrador' and RU.Id_Usr=@idUsuario)
 begin 
-SELECT @first_id = Nro_Fact from GROUP_APROVED.Facturas where (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between getdate()-@dias and getdate())order by Nro_Fact
+SELECT @first_id = Nro_Fact from GROUP_APROVED.Facturas where (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between getdate()-@dias and getdate())  and GROUP_APROVED.descripcionFactura(Nro_Fact) like '%'+@textoABuscar+'%' order by Nro_Fact
 PRINT @first_id
 
 SET ROWCOUNT @maximumRows
 
-select distinct(f.Nro_Fact),Id_Usuario ,Fact_Fecha,Fact_Total,Fact_Forma_Pago,Item_Tipo
+select f.Nro_Fact,Id_Usuario ,Fact_Fecha,Fact_Total,Fact_Forma_Pago,(GROUP_APROVED.descripcionFactura(f.Nro_Fact)) descripcion
 from GROUP_APROVED.Facturas f 
 join GROUP_APROVED.Publicaciones p on(f.Publicacion_Cod=p.Publicacion_Cod)
-join GROUP_APROVED.Items i on(f.Nro_Fact=i.Nro_Fact)
-WHERE f.Nro_Fact >= @first_id and Item_Tipo like '%'+@textoABuscar+'%' 
+WHERE f.Nro_Fact >= @first_id and (GROUP_APROVED.descripcionFactura(f.Nro_Fact)) like '%'+@textoABuscar+'%' 
 and (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between getdate()-@dias and getdate())
 ORDER BY f.Nro_Fact
  
@@ -648,25 +657,24 @@ SET ROWCOUNT 0
 
 --GEt total filas
 
-SELECT @totalRows = COUNT(Nro_Fact)from GROUP_APROVED.Facturas where (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between getdate()-@dias and getdate())
+SELECT @totalRows = COUNT(Nro_Fact)from GROUP_APROVED.Facturas where (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between getdate()-@dias and getdate()) and dbo.descripcionFactura(Nro_Fact) like '%'+@textoABuscar+'%'
 
 end else --usuarios cliente y empresa
 begin
 SELECT @first_id = Nro_Fact from GROUP_APROVED.Facturas f 
 join GROUP_APROVED.Publicaciones p on(f.Publicacion_Cod=p.Publicacion_Cod)
 where Id_Usuario=@idUsuario and (Fact_Total between @importeInicio and @importeFin)
- and (Fact_Fecha between getdate()-@dias and getdate()) order by Nro_Fact
+ and (Fact_Fecha between getdate()-@dias and getdate()) and (GROUP_APROVED.descripcionFactura(f.Nro_Fact))  like '%'+@textoABuscar+'%'order by Nro_Fact
 
 PRINT @first_id
 
 SET ROWCOUNT @maximumRows
 
-select distinct(f.Nro_Fact),Fact_Fecha,Fact_Total,Fact_Forma_Pago,Item_Tipo
-from GROUP_APROVED.Facturas f 
+select f.Nro_Fact,Fact_Fecha,Fact_Total,Fact_Forma_Pago,(GROUP_APROVED.descripcionFactura(f.Nro_Fact)) descripcion
+from  GROUP_APROVED.Facturas f 
 join GROUP_APROVED.Publicaciones p on(f.Publicacion_Cod=p.Publicacion_Cod)
-join GROUP_APROVED.Items i on(f.Nro_Fact=i.Nro_Fact) 
 WHERE f.Nro_Fact >= @first_id 
-and p.Id_Usuario=@idUsuario and Item_Tipo like '%'+@textoABuscar+'%' 
+and p.Id_Usuario=@idUsuario  and (GROUP_APROVED.descripcionFactura(f.Nro_Fact))  like '%'+@textoABuscar+'%'
 and (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between getdate()-@dias and getdate())
 ORDER BY f.Nro_Fact
  
@@ -676,7 +684,7 @@ SET ROWCOUNT 0
 
 SELECT @totalRows = COUNT(Nro_Fact)from GROUP_APROVED.Facturas f Join GROUP_APROVED.Publicaciones p On (f.Publicacion_Cod=p.Publicacion_Cod)
 where p.Id_Usuario=@idUsuario and (Fact_Total between @importeInicio and @importeFin) 
-and (Fact_Fecha between getdate()-@dias and getdate())
+and (Fact_Fecha between getdate()-@dias and getdate()) and (GROUP_APROVED.descripcionFactura(f.Nro_Fact))  like '%'+@textoABuscar+'%'
 end
 GO
 
@@ -1073,6 +1081,8 @@ drop trigger GROUP_APROVED.quitarRol_Usuario
 drop function GROUP_APROVED.usuarioYaCalifico
 drop function GROUP_APROVED.getCalificacion
 drop procedure GROUP_APROVED.paginacionHistorial
+drop function GROUP_APROVED.descripcionFactura
+drop procedure GROUP_APROVED.consultarFacturas
 drop Procedure GROUP_APROVED.LoginUsuario
 drop procedure GROUP_APROVED.bajaLogicaUsuario
 drop procedure GROUP_APROVED.CrearUsuarioCliente

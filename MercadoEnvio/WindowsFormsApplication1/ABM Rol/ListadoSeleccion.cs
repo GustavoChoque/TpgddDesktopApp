@@ -20,6 +20,7 @@ namespace WindowsFormsApplication1.ABM_Rol
             InitializeComponent();
             dataGridView1.Columns[0].Visible = false;
             dataGridView1.Columns[2].Visible = false;
+            
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
@@ -29,7 +30,8 @@ namespace WindowsFormsApplication1.ABM_Rol
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex.Equals(3))
+
+            if (e.ColumnIndex.Equals(3) && dataGridView1.Rows[e.RowIndex].Cells[0].Value != null)
             {
                 FormularioDeModificacion FdM = new FormularioDeModificacion();
                 //guardo el numero de la fila

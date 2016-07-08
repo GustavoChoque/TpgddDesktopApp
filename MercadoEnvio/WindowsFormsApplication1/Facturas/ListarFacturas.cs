@@ -16,9 +16,11 @@ namespace WindowsFormsApplication1.Facturas
         public int currentPageNumber = 1;
         public const int PAGE_SIZE = 5;
         double totalRows;
+        SqlDataAdapter ad;
         public ListarFacturas()
         {
             InitializeComponent();
+            panel1.Hide();
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -30,7 +32,7 @@ namespace WindowsFormsApplication1.Facturas
         {
             
             BindData();
-           
+            panel1.Show();
 
         }
 
@@ -42,6 +44,9 @@ namespace WindowsFormsApplication1.Facturas
         private void button1_Click(object sender, EventArgs e)
         {
             Limpiar();
+            panel1.Hide();
+
+           
         }
 
         private void ListarFacturas_Load(object sender, EventArgs e)
@@ -125,7 +130,7 @@ namespace WindowsFormsApplication1.Facturas
             myCommand.Parameters.Add("@totalRows", SqlDbType.Int, 4);
             myCommand.Parameters["@totalRows"].Direction = ParameterDirection.Output;
 
-            SqlDataAdapter ad = new SqlDataAdapter(myCommand);
+             ad = new SqlDataAdapter(myCommand);
 
           
             DataTable ds = new DataTable();
@@ -148,7 +153,9 @@ namespace WindowsFormsApplication1.Facturas
             textBox1.Text = "";
             comboBox1.SelectedIndex = 0;
             comboBox2.SelectedIndex = 0;
+            ad = null;
             dataGridView1.DataSource = null;
+            currentPageNumber = 1;
             
         }
     }

@@ -17,7 +17,7 @@ namespace WindowsFormsApplication1.Facturas
         public const int PAGE_SIZE = 5;
         double totalRows;
         SqlDataAdapter ad;
-        DateTime fechaActual=new DateTime(2016,01,08, 0,00,00,000);
+        DateTime fechaActual = Convert.ToDateTime(CustomDate.date.getDate());
         public ListarFacturas()
         {
             InitializeComponent();
@@ -61,6 +61,8 @@ namespace WindowsFormsApplication1.Facturas
             comboBox1.Items.Add("0-5000");
             comboBox1.SelectedIndex = 0;
             comboBox2.Items.Add("Historico");
+            comboBox2.Items.Add("ultimos 6 meses");
+            comboBox2.Items.Add("ultimos 3 meses");
             comboBox2.Items.Add("ultimos 30 dias");
             comboBox2.Items.Add("ultimos 15 dias");
             comboBox2.Items.Add("ultimos 2 dias");
@@ -116,6 +118,10 @@ namespace WindowsFormsApplication1.Facturas
                     case "ultimos 15 dias": dias = 15;
                         break;
                     case "ultimos 30 dias": dias = 30;
+                        break;
+                    case "ultimos 3 meses": dias = 90;
+                        break;
+                    case "ultimos 6 meses": dias = 180;
                         break;
                     default: dias = 36500;
                         break;

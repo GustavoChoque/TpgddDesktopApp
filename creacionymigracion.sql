@@ -336,6 +336,16 @@ begin
 
 	insert into GROUP_APROVED.FuncionesxRol(Id_Rol,Id_Func)
 	values(@Id_Rol,@ID_Func);
+	
+	set @ID_Func = ( select Id_Func from GROUP_APROVED.Funciones where Desc_Func = 'l');
+
+	insert into GROUP_APROVED.FuncionesxRol(Id_Rol,Id_Func)
+	values(@Id_Rol,@ID_Func);
+
+	set @ID_Func = ( select Id_Func from GROUP_APROVED.Funciones where Desc_Func = 'v');
+
+	insert into GROUP_APROVED.FuncionesxRol(Id_Rol,Id_Func)
+	values(@Id_Rol,@ID_Func);
 
 
 end;
@@ -367,7 +377,10 @@ begin
 	insert into GROUP_APROVED.FuncionesxRol(Id_Rol,Id_Func)
 	values(@Id_Rol,@ID_Func);
 
+	set @ID_Func = ( select Id_Func from GROUP_APROVED.Funciones where Desc_Func = 'o');
 
+	insert into GROUP_APROVED.FuncionesxRol(Id_Rol,Id_Func)
+	values(@Id_Rol,@ID_Func);
 
 end;
 go
@@ -1127,12 +1140,21 @@ insert into GROUP_APROVED.Funciones(Desc_Func)  values ('b')
 insert into GROUP_APROVED.Funciones(Desc_Func)  values ('p')
 insert into GROUP_APROVED.Funciones(Desc_Func)  values ('f')
 insert into GROUP_APROVED.Funciones(Desc_Func)  values ('c')
-
+insert into GROUP_APROVED.Funciones(Desc_Func) values('h')
+insert into GROUP_APROVED.Funciones(Desc_Func) values('l')
+insert into GROUP_APROVED.Funciones(Desc_Func) values('v')
+insert into GROUP_APROVED.Funciones(Desc_Func) values('o')
 
 	/*	r = 1 = abm rol			p = 4 = publicacion
 		u = 2 = abm usuario		f = 5 = consultar facturas
-		b = 3 = abm rubro		c = 6 = calificar*/
-
+		b = 3 = abm rubro		c = 6 = calificar
+		
+								7 = h=historial cliente
+                                8 = l=listado estadistico
+                                9 = v=abm visibilidad
+                              
+                                10 = o=comprar/ofertar
+        */
 
 
 	/*roles*/

@@ -95,7 +95,7 @@ CREATE TABLE GROUP_APROVED.Visibilidades(
 	Visibilidad_Precio numeric(18,2),
 	Visibilidad_Porcentaje numeric(18,2),
 	Visibilidad_Costo_Envio numeric(18,2) default 100,
-	Visibilidad_Admite_Envio smallint default 0,     /*  0 no acepta, 1 acepta   */        
+	/*Visibilidad_Admite_Envio smallint default 0,      este campo no resulta necesario, cada publicacion indica si acepta o no  */        
 	
 )
 

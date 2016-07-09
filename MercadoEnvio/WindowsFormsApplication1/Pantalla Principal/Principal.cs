@@ -92,7 +92,7 @@ namespace WindowsFormsApplication1.Pantalla_Principal
 
         private void buttonListadoEstadistico_Click(object sender, EventArgs e)
         {
-            Listado_Estadistico.Form1 pantallaListadoEstadistico = new Listado_Estadistico.Form1();
+            Listado_Estadistico.listado pantallaListadoEstadistico = new Listado_Estadistico.listado();
             pantallaListadoEstadistico.Show();
         }
         public void verificarAccesos()

@@ -35,6 +35,8 @@ namespace WindowsFormsApplication1.Listado_Estadistico
 
         private void llenarTablaPorTrimestre(int anio, int mesin, int mesFin)
         {
+            SqlDataAdapter dataAdapter = null;
+            DataTable tablaDatos = null;
             try
             {
                 dataAdapter = new SqlDataAdapter();
@@ -48,6 +50,8 @@ namespace WindowsFormsApplication1.Listado_Estadistico
 
         private void llenarTablaPorTrimestreConRubro(int anio, int mesin, int mesFin, string rubro)
         {
+            SqlDataAdapter dataAdapter = null;
+            DataTable tablaDatos = null;
             try
             {
                 dataAdapter = new SqlDataAdapter();
@@ -61,6 +65,8 @@ namespace WindowsFormsApplication1.Listado_Estadistico
 
         private void llenarTablaPorAnoYmesVendMasFact(int anio, int mes)
         {
+            SqlDataAdapter dataAdapter = null;
+            DataTable tablaDatos = null;
             try
             {
                 dataAdapter = new SqlDataAdapter();
@@ -74,6 +80,8 @@ namespace WindowsFormsApplication1.Listado_Estadistico
 
         private void llenarTablaPorAnoYmesVendMasMonto(int anio, int mes)
         {
+            SqlDataAdapter dataAdapter = null;
+            DataTable tablaDatos = null;
             try
             {
                 dataAdapter = new SqlDataAdapter();

@@ -21,7 +21,11 @@ namespace WindowsFormsApplication1.Calificar
         public calificarVendedor()
         {
             InitializeComponent();
-            dbQueryHandler.crearVistaVendedoresSinCalificar();
+            try { dbQueryHandler.crearVistaVendedoresSinCalificar(); }
+            catch
+            {//vista ya creada
+            };
+            
             try
             {
                 dataAdapter = new SqlDataAdapter();

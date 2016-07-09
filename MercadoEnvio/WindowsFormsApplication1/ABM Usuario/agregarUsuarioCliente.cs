@@ -152,7 +152,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
             textBoxPiso.Text = "";
             textBoxTelefono.Text = "";
             comboBoxTipoDoc.SelectedIndex=-1;
-            //dateTimePickerFecNac.Value = CustomDate.date.getDate();
+            dateTimePickerFecNac.Value = Convert.ToDateTime(CustomDate.date.getDate());
         }
 
     }

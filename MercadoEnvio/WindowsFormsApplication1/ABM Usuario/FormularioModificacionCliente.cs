@@ -91,7 +91,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
             if (textBoxDepto.Text == "") { mensajeFalla = mensajeFalla + "\nDepartamento inválido"; rta = false; };
             if ((textBoxCP.Text == "") || (tieneLetras(textBoxCP.Text))) { mensajeFalla = mensajeFalla + "\nCódigo postal inválido"; rta = false; };
             if ((comboBox2.SelectedIndex) == (-1)) { mensajeFalla = mensajeFalla + "\nEstado inválido"; rta = false; };
-            if (!(DateTime.Compare(dateTimePicker1.Value, DateTime.Now) <= 0)) { mensajeFalla = mensajeFalla + "\nFecha de nacimiento inválida"; rta = false; };
+            if (!(DateTime.Compare(dateTimePicker1.Value, Convert.ToDateTime(CustomDate.date.getDate())) <= 0)) { mensajeFalla = mensajeFalla + "\nFecha de nacimiento inválida"; rta = false; };
             if ((!(textBoxDoc.Text == "") && !(tieneLetras(textBoxDoc.Text)) && !((comboBox1.SelectedIndex) == (-1))))
             {
                 if ((!(textBoxDoc.Text.Contains(datosCliente.documento.ToString()))

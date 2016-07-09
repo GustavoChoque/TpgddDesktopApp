@@ -76,7 +76,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
             datosParaCrear.setRazSoc(textBoxRazonSoc.Text);
             datosParaCrear.setRubroTrabajo(textBoxRolTrabajoEmpresa.Text);
             datosParaCrear.setTel(Convert.ToInt32(textBoxTel.Text));
-            datosParaCrear.setFecCreacion(DateTime.Now);
+            datosParaCrear.setFecCreacion(Convert.ToDateTime(CustomDate.date.getDate()));
         }
 
         private bool verificarLlenadoDatos()

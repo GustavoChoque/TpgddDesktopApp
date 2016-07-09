@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.IO;
 using WindowsFormsApplication1.Pantalla_Principal;
 
 namespace WindowsFormsApplication1
@@ -36,8 +37,18 @@ namespace WindowsFormsApplication1
             textBox1.Text = "Admin";
             textBox2.Text = "w23e";
             label3.Text = "";
-            
-            
+
+            StreamReader reader = File.OpenText("../../../date.txt");
+            String date;
+
+            if ((date = reader.ReadLine()) == null)
+            {
+                MessageBox.Show("Error al cargar la fecha");
+            }
+
+            CustomDate.date.setDate(date);
+
+            label4.Text = CustomDate.date.getDate();
            
         }
 
@@ -173,6 +184,33 @@ namespace WindowsFormsApplication1
         public SqlConnection getdbconnection()
         {
             return this.con;
+        }
+    }
+
+    class CustomDate
+    {
+        String currentDate = "";
+       
+        static CustomDate instance = new CustomDate();
+
+        CustomDate()
+        {
+
+        }
+        public static CustomDate date
+        {
+            get { return instance; }
+        }
+
+        public void setDate(String date)
+        {
+       
+            currentDate = date;
+        }
+
+        public String getDate()
+        {
+            return this.currentDate;
         }
     }
 

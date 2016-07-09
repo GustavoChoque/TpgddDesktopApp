@@ -46,9 +46,13 @@ namespace WindowsFormsApplication1
                 MessageBox.Show("Error al cargar la fecha");
             }
 
+            reader.Close();
+
             CustomDate.date.setDate(date);
 
             label4.Text = CustomDate.date.getDate();
+
+            dbQueryHandler.updatePubStates();
            
         }
 
@@ -260,6 +264,13 @@ namespace WindowsFormsApplication1
             cmd = new SqlCommand("update GROUP_APROVED.Usuarios set intentos = " + tries + " where Username = '" + user + "'", DbConnection.connection.getdbconnection());
             int res = cmd.ExecuteNonQuery();
             return res;
+        }
+
+        public void updatePubStates()
+        {
+            cmd = new SqlCommand("update GROUP_APROVED.Publicaciones  set Publicacion_Estado = CASE WHEN Publicacion_Fecha_Venc <= CAST('"+CustomDate.date.getDate()+"' AS DATE) THEN 3  ELSE 1 END ", DbConnection.connection.getdbconnection());
+            int res = cmd.ExecuteNonQuery();
+
         }
     
     }

@@ -46,7 +46,7 @@ namespace WindowsFormsApplication1.ComprarOfertar
             SqlDataReader dataReader = dbQueryHandler.cargarPublicacion(pubId.ToString());
             dataReader.Read();
             String visib = dataReader.GetDecimal(6).ToString();
-            //String est = dataReader.GetInt32(7).ToString();
+            String est = dataReader.GetInt32(7).ToString();
             String rub = dataReader.GetDecimal(8).ToString();
             String envios = dataReader.GetString(9);
 
@@ -75,7 +75,7 @@ namespace WindowsFormsApplication1.ComprarOfertar
             dataReader.Close();
 
             tipoVisib.Text = dbQueryHandler.cargarVisibilidad(visib);
-            //estado.Text = dbQueryHandler.cargarEstado(est);
+            estado.Text = dbQueryHandler.cargarEstado(est);
             rubro.Text = dbQueryHandler.cargarRubro(rub);
         }
 
@@ -84,38 +84,56 @@ namespace WindowsFormsApplication1.ComprarOfertar
             Int32 result1 = 0;
             Int32 result2 = 0;
             Decimal precio2 = Decimal.Parse(precio.Text);
-            
+            bool statusOK = true;
 
 
-            if (tipo.Text == "Subasta")
+            if (dbQueryHandler.checkUser(pubId.ToString()) == true) {
+                MessageBox.Show("No se puede comprar u ofertar a una publicación perteneciente al usuario.");
+                statusOK = false;
+            }
+
+            if (estado.Text == "Finalizada")
             {
-                Int32 precio1 = Int32.Parse(textBox1.Text);
-               
-                if (precio1 > precio2)
-                {
-                    result1 = dbQueryHandler.ofertarPub(textBox1.Text, pubId.ToString());
-                    result2 = dbQueryHandler.updateOffer(textBox1.Text, pubId.ToString());
+                MessageBox.Show("No se puede comprar u ofertar una publicación que ha finalizado");
+                statusOK = false;
+            }
 
-                    if (result1 > 0 && result2 > 0)
-                    {
-                        MessageBox.Show("Oferta correctamente realizada, ofertaste " + textBox1.Text + " pesos.");
-                        this.Close();
-                    }
-                }
-                else {
-                    MessageBox.Show("El precio ofertado debe ser mayor al actual.");
-                }
+            if (statusOK == false)
+            {
             }
             else
             {
+                if (tipo.Text == "Subasta")
+                {
+                    Int32 precio1 = Int32.Parse(textBox1.Text);
 
-                result1 = dbQueryHandler.crearFactura(precio.Text, pubId.ToString());
+                    if (precio1 > precio2)
+                    {
+                        result1 = dbQueryHandler.ofertarPub(textBox1.Text, pubId.ToString());
+                        result2 = dbQueryHandler.updateOffer(textBox1.Text, pubId.ToString());
 
-                Form3 f3 = new Form3(result1);
+                        if (result1 > 0 && result2 > 0)
+                        {
+                            MessageBox.Show("Oferta correctamente realizada, ofertaste " + textBox1.Text + " pesos.");
+                            this.Close();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("El precio ofertado debe ser mayor al actual.");
+                    }
+                }
+                else
+                {
 
-                f3.Show();
+                    result1 = dbQueryHandler.crearFactura(precio.Text, pubId.ToString());
 
-                this.Close();
+                    Form3 f3 = new Form3(result1);
+
+                    f3.Show();
+
+                    this.Close();
+                }
             }
         }
 
@@ -260,6 +278,27 @@ namespace WindowsFormsApplication1.ComprarOfertar
              return 180048;
 
             
+         }
+
+         public bool checkUser(String pubId)
+         {
+             SqlCommand cmd = new SqlCommand("select Id_Usuario from GROUP_APROVED.Publicaciones where Publicacion_Cod = "+pubId, DbConnection.connection.getdbconnection());
+
+             SqlDataReader dataReader = cmd.ExecuteReader();
+             Int32 id;
+             bool ret = false;
+
+             dataReader.Read();
+             id = dataReader.GetInt32(0);
+             dataReader.Close();
+
+             if (id == CurrentUser.user.getUserId())
+             {
+                 ret = true;
+             }
+             else { ret = false; }
+
+             return ret;
          }
 
 

@@ -328,6 +328,7 @@ namespace WindowsFormsApplication1.ComprarOfertar
                     dataGridView1.Rows.Clear();
                     dataGridView1.Refresh();
                     dataReader = dbQueryHandler.cargarPublicacionesPorRubro(rubrosSeleccionadosId);
+                    pubIndex = 0;
                 }
 
             }
@@ -344,6 +345,7 @@ namespace WindowsFormsApplication1.ComprarOfertar
                     dataGridView1.Rows.Clear();
                     dataGridView1.Refresh();
                     dataReader = dbQueryHandler.cargarPublicacionesPorDesc(richTextBox1.Text);
+                    pubIndex = 0;
                 }
             }
 

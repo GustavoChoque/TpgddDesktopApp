@@ -651,6 +651,7 @@ CREATE PROCEDURE GROUP_APROVED.consultarFacturas
 @importeInicio int,
 @importeFin int,
 @dias int,
+@fechaActual Datetime,
 @totalRows int OUTPUT
 
 AS
@@ -665,7 +666,7 @@ SET @startRowIndex = 1
 SET ROWCOUNT @startRowIndex
 if exists (select 1 from GROUP_APROVED.RolesxUsuario RU join GROUP_APROVED.Roles R On(RU.Id_Roles=R.Id_Rol) where R.Desc_Rol='Administrador' and RU.Id_Usr=@idUsuario)
 begin 
-SELECT @first_id = Nro_Fact from GROUP_APROVED.Facturas where (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between getdate()-@dias and getdate())  and GROUP_APROVED.descripcionFactura(Nro_Fact) like '%'+@textoABuscar+'%' order by Nro_Fact
+SELECT @first_id = Nro_Fact from GROUP_APROVED.Facturas where (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between @fechaActual-@dias and @fechaActual)  and GROUP_APROVED.descripcionFactura(Nro_Fact) like '%'+@textoABuscar+'%' order by Nro_Fact
 PRINT @first_id
 
 SET ROWCOUNT @maximumRows
@@ -674,21 +675,21 @@ select f.Nro_Fact,Id_Usuario ,Fact_Fecha,Fact_Total,Fact_Forma_Pago,(GROUP_APROV
 from GROUP_APROVED.Facturas f 
 join GROUP_APROVED.Publicaciones p on(f.Publicacion_Cod=p.Publicacion_Cod)
 WHERE f.Nro_Fact >= @first_id and (GROUP_APROVED.descripcionFactura(f.Nro_Fact)) like '%'+@textoABuscar+'%' 
-and (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between getdate()-@dias and getdate())
+and (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between @fechaActual-@dias and @fechaActual)
 ORDER BY f.Nro_Fact
  
 SET ROWCOUNT 0
 
 --GEt total filas
 
-SELECT @totalRows = COUNT(Nro_Fact)from GROUP_APROVED.Facturas where (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between getdate()-@dias and getdate()) and dbo.descripcionFactura(Nro_Fact) like '%'+@textoABuscar+'%'
+SELECT @totalRows = COUNT(Nro_Fact)from GROUP_APROVED.Facturas where (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between @fechaActual-@dias and @fechaActual) and dbo.descripcionFactura(Nro_Fact) like '%'+@textoABuscar+'%'
 
 end else --usuarios cliente y empresa
 begin
 SELECT @first_id = Nro_Fact from GROUP_APROVED.Facturas f 
 join GROUP_APROVED.Publicaciones p on(f.Publicacion_Cod=p.Publicacion_Cod)
 where Id_Usuario=@idUsuario and (Fact_Total between @importeInicio and @importeFin)
- and (Fact_Fecha between getdate()-@dias and getdate()) and (GROUP_APROVED.descripcionFactura(f.Nro_Fact))  like '%'+@textoABuscar+'%'order by Nro_Fact
+ and (Fact_Fecha between @fechaActual-@dias and @fechaActual) and (GROUP_APROVED.descripcionFactura(f.Nro_Fact))  like '%'+@textoABuscar+'%'order by Nro_Fact
 
 PRINT @first_id
 
@@ -699,7 +700,7 @@ from  GROUP_APROVED.Facturas f
 join GROUP_APROVED.Publicaciones p on(f.Publicacion_Cod=p.Publicacion_Cod)
 WHERE f.Nro_Fact >= @first_id 
 and p.Id_Usuario=@idUsuario  and (GROUP_APROVED.descripcionFactura(f.Nro_Fact))  like '%'+@textoABuscar+'%'
-and (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between getdate()-@dias and getdate())
+and (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between @fechaActual-@dias and @fechaActual)
 ORDER BY f.Nro_Fact
  
 SET ROWCOUNT 0
@@ -708,7 +709,7 @@ SET ROWCOUNT 0
 
 SELECT @totalRows = COUNT(Nro_Fact)from GROUP_APROVED.Facturas f Join GROUP_APROVED.Publicaciones p On (f.Publicacion_Cod=p.Publicacion_Cod)
 where p.Id_Usuario=@idUsuario and (Fact_Total between @importeInicio and @importeFin) 
-and (Fact_Fecha between getdate()-@dias and getdate()) and (GROUP_APROVED.descripcionFactura(f.Nro_Fact))  like '%'+@textoABuscar+'%'
+and (Fact_Fecha between @fechaActual-@dias and @fechaActual) and (GROUP_APROVED.descripcionFactura(f.Nro_Fact))  like '%'+@textoABuscar+'%'
 end
 GO
 

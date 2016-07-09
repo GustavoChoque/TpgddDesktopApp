@@ -17,6 +17,7 @@ namespace WindowsFormsApplication1.Facturas
         public const int PAGE_SIZE = 5;
         double totalRows;
         SqlDataAdapter ad;
+        DateTime fechaActual=new DateTime(2016,01,08, 0,00,00,000);
         public ListarFacturas()
         {
             InitializeComponent();
@@ -130,6 +131,7 @@ namespace WindowsFormsApplication1.Facturas
             myCommand.Parameters.AddWithValue("@importeInicio", importeInicio);
             myCommand.Parameters.AddWithValue("@importeFin", importeFin);
             myCommand.Parameters.AddWithValue("@dias", dias);
+            myCommand.Parameters.AddWithValue("@fechaActual", fechaActual);
             myCommand.Parameters.Add("@totalRows", SqlDbType.Int, 4);
             myCommand.Parameters["@totalRows"].Direction = ParameterDirection.Output;
 

@@ -20,7 +20,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
         {
             InitializeComponent();
             datosParaCrear = cliente;
-            dateTimePickerFecNac.Value = DateTime.Now;
+            dateTimePickerFecNac.Value = Convert.ToDateTime(CustomDate.date.getDate());
         }
 
         private void label7_Click(object sender, EventArgs e)
@@ -75,7 +75,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
             datosParaCrear.setDpto(textBoxDpto.Text);
             datosParaCrear.setCP(Convert.ToInt32(textBoxCP.Text));
             datosParaCrear.setFecNac(dateTimePickerFecNac.Value);
-            datosParaCrear.setFecCre(DateTime.Now);
+            datosParaCrear.setFecCre(Convert.ToDateTime(CustomDate.date.getDate()));
             
         }
 
@@ -95,7 +95,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
             if ((textBoxPiso.Text == "") || (tieneLetras(textBoxPiso.Text))) { mensajeFalla = mensajeFalla + "\nNro de piso inválido"; rta = false; };
             if (textBoxDpto.Text == "") { mensajeFalla = mensajeFalla + "\nDepartamento inválido"; rta = false; };
             if ((textBoxCP.Text == "") || (tieneLetras(textBoxCP.Text))) { mensajeFalla = mensajeFalla + "\nCódigo postal inválido"; rta = false; };
-            if (!(DateTime.Compare(dateTimePickerFecNac.Value, DateTime.Now) <= 0)) { mensajeFalla = mensajeFalla + "\nFecha de nacimiento inválida"; rta = false; };
+            if (!(DateTime.Compare(dateTimePickerFecNac.Value, Convert.ToDateTime(CustomDate.date.getDate())) <= 0)) { mensajeFalla = mensajeFalla + "\nFecha de nacimiento inválida"; rta = false; };
             if ((!(textBoxNroDoc.Text == "") && !(tieneLetras(textBoxNroDoc.Text)) && !((comboBoxTipoDoc.SelectedIndex) == (-1))))
             {
                 if (!verificarUnicos(textBoxNroDoc.Text, comboBoxTipoDoc.Text)) { rta = false; mensajeFalla = mensajeFalla + "\nDocumento y tipo de documento registrados"; };
@@ -152,7 +152,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
             textBoxPiso.Text = "";
             textBoxTelefono.Text = "";
             comboBoxTipoDoc.SelectedIndex=-1;
-            dateTimePickerFecNac.Value = DateTime.Now;
+            dateTimePickerFecNac.Value = CustomDate.date.getDate();
         }
 
     }

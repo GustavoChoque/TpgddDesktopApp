@@ -179,11 +179,11 @@ CREATE TABLE GROUP_APROVED.Facturas (
 
 )
 
-SET IDENTITY_INSERT GROUP_APROVED.Facturas ON
+
 
 CREATE TABLE GROUP_APROVED.Items(
 	Nro_Fact numeric(18,0) REFERENCES GROUP_APROVED.Facturas,
-	Nro_item numeric(18,0) IDENTITY (1,1),
+	Nro_item numeric(18,0),
 	Item_Monto numeric(18,2),
 	Item_Cantidad numeric(18,0),
 	Item_Tipo varchar(255) default('publicacion'),                                    /*tipo de item, por venta, por envio por publicacion*/
@@ -540,7 +540,7 @@ begin
 	declare @id_Rol int;
 	select @id_Rol=Id_Rol,@estado=estado from inserted;
 	if(@estado='I')begin
-	delete from RolesxUsuario where Id_Roles=@id_Rol;
+	delete from GROUP_APROVED.RolesxUsuario where Id_Roles=@id_Rol;
 	end
 end
 go
@@ -1113,7 +1113,40 @@ as
 
 go
 
+create procedure GROUP_APROVED.migrarItems
+as
+begin
+	declare @facturaActual numeric(18,0), @facturaAnt numeric(18,0), @nroitem numeric(18,0), @itemMonto numeric(18,2), @itemCantidad numeric(18,0);
 
+	
+	declare cursorItems cursor for
+	select Factura_Nro, Item_Factura_Monto, Item_Factura_Cantidad from gd_esquema.Maestra where factura_nro is not null order by 1,2 ;
+
+	open cursorItems;
+	fetch next from cursorItems into @facturaActual,@itemMonto,@itemCantidad;
+	set @nroitem = 0
+	set @facturaAnt = @facturaActual;
+
+	while @@FETCH_STATUS = 0
+	 begin	
+			if @facturaActual = @facturaAnt
+			begin
+				set @nroitem = @nroitem + 1;
+			end;
+			else begin
+				set @nroitem = 1;
+			end;
+			
+			insert into GROUP_APROVED.Items(Nro_Fact, Nro_item, Item_Monto, Item_Cantidad, Item_Tipo)
+			values(@facturaActual, @nroitem,@itemMonto,@itemCantidad,'Publicacion');
+
+			set @facturaAnt = @facturaActual;
+
+			fetch next from cursorItems into @facturaActual, @itemMonto, @itemCantidad;
+		end;
+	close cursorItems;
+	deallocate cursorItems;
+end;
 
 /*
 drop procedure GROUP_APROVED.DesCorta
@@ -1138,7 +1171,7 @@ drop procedure GROUP_APROVED.updateEmpresa
 drop procedure GROUP_APROVED.migrComprasCalif
 */
 
-
+go
 /*MIGRACION*/
 	/*funciones*/
 
@@ -1266,6 +1299,8 @@ select distinct m.Oferta_Fecha,m.Oferta_Monto,c.Id_Usuario,m.Publicacion_Cod fro
 
 		/*facturas*/
 
+SET IDENTITY_INSERT GROUP_APROVED.Facturas ON
+
 insert into GROUP_APROVED.Facturas(Nro_Fact, Fact_Fecha, Fact_Total, Fact_Forma_Pago, Publicacion_Cod)
 select distinct Factura_Nro, Factura_Fecha, Factura_Total, Forma_Pago_Desc, Publicacion_Cod from gd_esquema.Maestra where Factura_Nro is not null
 
@@ -1273,9 +1308,7 @@ set IDENTITY_INSERT GROUP_APROVED.Facturas off
 
 		/* items */
 
-insert into GROUP_APROVED.Items(Nro_Fact, Item_Monto, Item_Cantidad, Item_Tipo)
-select distinct Factura_Nro, Item_Factura_Monto, Item_Factura_Cantidad, 'Publicacion' from gd_esquema.Maestra where factura_nro is not null order by 1 	
-
+EXEC GROUP_APROVED.migrarItems
 
 
 

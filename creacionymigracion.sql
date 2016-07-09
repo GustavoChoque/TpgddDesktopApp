@@ -154,24 +154,32 @@ CREATE TABLE GROUP_APROVED.Compras(
 
 )
 
+
 CREATE TABLE GROUP_APROVED.Calificaciones(
-	Calif_Cod numeric(18,0) PRIMARY KEY,
-	Calif_Cant_Est numeric(18,0),
+	Calif_Cod numeric(18,0) PRIMARY KEY IDENTITY(15185,1),
+	Calif_Cant_Est numeric(18,1),
 	Calif_Descr nvarchar(255),
 	ID_Compra numeric(18,0) REFERENCES GROUP_APROVED.Compras,       /*el usuario que hizo la calificacion se consigue de la compra*/
 
 )
 
 
+SET IDENTITY_INSERT GROUP_APROVED.Calificaciones ON
+
+
+
 CREATE TABLE GROUP_APROVED.Facturas (
-	Nro_Fact numeric(18,0) PRIMARY KEY,
+	Nro_Fact numeric(18,0) PRIMARY KEY IDENTITY(121315,1),
 	Fact_Fecha datetime,
 	Fact_Total numeric(18,2),
 	Fact_Forma_Pago nvarchar(255),
 	Publicacion_Cod INT REFERENCES GROUP_APROVED.Publicaciones,
+	Id_Compra numeric(18,0) REFERENCES GROUP_APROVED.Compras       /*algunas facturas se hacen por ventas, en cuyo caso no se vinculan con compras( no con publicaiones, publicacion_cod = NULL) q estas si vinculan a publicaicones*/
 
 
 )
+
+SET IDENTITY_INSERT GROUP_APROVED.Facturas ON
 
 CREATE TABLE GROUP_APROVED.Items(
 	Nro_Fact numeric(18,0) REFERENCES GROUP_APROVED.Facturas,
@@ -1250,6 +1258,8 @@ go*/
 
 exec GROUP_APROVED.migrComprasCalif
 
+set IDENTITY_INSERT GROUP_APROVED.Calificaciones off
+
 		/*ofertas*/
 insert into GROUP_APROVED.Ofertas(Oferta_Fecha,Oferta_Monto,Id_Usuario,Publicacion_Cod)
 select distinct m.Oferta_Fecha,m.Oferta_Monto,c.Id_Usuario,m.Publicacion_Cod from gd_esquema.Maestra m  join GROUP_APROVED.Clientes c on m.Cli_Dni = c.Dni_Cli where Oferta_Fecha is not null
@@ -1258,6 +1268,8 @@ select distinct m.Oferta_Fecha,m.Oferta_Monto,c.Id_Usuario,m.Publicacion_Cod fro
 
 insert into GROUP_APROVED.Facturas(Nro_Fact, Fact_Fecha, Fact_Total, Fact_Forma_Pago, Publicacion_Cod)
 select distinct Factura_Nro, Factura_Fecha, Factura_Total, Forma_Pago_Desc, Publicacion_Cod from gd_esquema.Maestra where Factura_Nro is not null
+
+set IDENTITY_INSERT GROUP_APROVED.Facturas off
 
 		/* items */
 

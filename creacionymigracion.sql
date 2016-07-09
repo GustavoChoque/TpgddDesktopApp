@@ -36,7 +36,7 @@ CREATE TABLE GROUP_APROVED.Usuarios (
 	Username nvarchar(255) UNIQUE,
 	Passw nvarchar(255),
 	Fecha_Creacion datetime default(getdate()),
-	intentos smallint,
+	intentos smallint default 0,
 	Estado char check(Estado IN ('H','I','B')) default('H'),     /*H habilitado I inhabilitado B baja logica*/
 )
 

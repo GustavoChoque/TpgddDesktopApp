@@ -9,34 +9,24 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
-namespace WindowsFormsApplication1.Generar_Publicación
+namespace WindowsFormsApplication1.ComprarOfertar
 {
     public partial class Form2 : Form
     {
-        Int32 pubId;
-        String type;
+        Int32 pubId = 0;
         DbQueryHandlerModify dbQueryHandler = new DbQueryHandlerModify();
-        Dictionary<String,String> rubros;
+        Dictionary<String, String> rubros;
         Dictionary<String, String> visibilidades;
 
-        public Form2(Int32 pub_Id, String tipo)
+        public Form2(Int32 pub_Id)
         {
             InitializeComponent();
             pubId = pub_Id;
-            type = tipo;
+
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            if (type == "creacion")
-            {
-                button3.Visible = false;
-            }
-            if (type == "modificacion")
-            {
-                button1.Visible = false;
-            }
-
             estado.Enabled = false;
             rubros = dbQueryHandler.cargarRubros();
             visibilidades = dbQueryHandler.cargarVisibilidades();
@@ -56,7 +46,7 @@ namespace WindowsFormsApplication1.Generar_Publicación
             SqlDataReader dataReader = dbQueryHandler.cargarPublicacion(pubId.ToString());
             dataReader.Read();
             String visib = dataReader.GetDecimal(6).ToString();
-            String est = dataReader.GetInt32(7).ToString();
+            //String est = dataReader.GetInt32(7).ToString();
             String rub = dataReader.GetDecimal(8).ToString();
             String envios = dataReader.GetString(9);
 
@@ -67,6 +57,16 @@ namespace WindowsFormsApplication1.Generar_Publicación
             fecVenc.Text = dataReader.GetDateTime(3).ToString("yyyy-MM-dd");
             tipo.Text = dataReader.GetString(5);
 
+            if (tipo.Text == "Subasta") {
+                button3.Text = "Ofertar";
+                label11.Text = "Oferta";
+            }else{
+                button3.Text = "Comprar";
+                label11.Visible = false;
+                textBox1.Visible = false;
+
+            }
+
             if (envios == "V")
                 radioButton1.Checked = true;
             if (envios == "F")
@@ -75,36 +75,46 @@ namespace WindowsFormsApplication1.Generar_Publicación
             dataReader.Close();
 
             tipoVisib.Text = dbQueryHandler.cargarVisibilidad(visib);
-            estado.Text = dbQueryHandler.cargarEstado(est);
+            //estado.Text = dbQueryHandler.cargarEstado(est);
             rubro.Text = dbQueryHandler.cargarRubro(rub);
-            
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
-            String strdesc = richTextBox1.Text;
-            String strstock = stock.Text;
-            StringBuilder sb = new StringBuilder(precio.Text);
-            sb.Replace(",",".");
-            String strprecio = sb.ToString();
-            String strtipo = tipo.Text;
-            String strvisib = visibilidades[tipoVisib.Text].ToString();
-            String strrubro = rubros[rubro.Text].ToString();
-            String strestado = dbQueryHandler.getEstado("Activa");
-            String strenvios = "V";
-
-            if (radioButton2.Checked == true)
-                strenvios = "F";
+            Int32 result1 = 0;
+            Int32 result2 = 0;
+            Decimal precio2 = Decimal.Parse(precio.Text);
             
 
 
-            Int32  result = dbQueryHandler.updatePub(strdesc,strstock,strprecio,strtipo,strvisib,strrubro,strestado,pubId.ToString(),strenvios);
-
-            
-
-           if (result > 0)
+            if (tipo.Text == "Subasta")
             {
-                MessageBox.Show("Publicacion correctamente activada");
+                Int32 precio1 = Int32.Parse(textBox1.Text);
+               
+                if (precio1 > precio2)
+                {
+                    result1 = dbQueryHandler.ofertarPub(textBox1.Text, pubId.ToString());
+                    result2 = dbQueryHandler.updateOffer(textBox1.Text, pubId.ToString());
+
+                    if (result1 > 0 && result2 > 0)
+                    {
+                        MessageBox.Show("Oferta correctamente realizada, ofertaste " + textBox1.Text + " pesos.");
+                        this.Close();
+                    }
+                }
+                else {
+                    MessageBox.Show("El precio ofertado debe ser mayor al actual.");
+                }
+            }
+            else
+            {
+
+                result1 = dbQueryHandler.crearFactura(precio.Text, pubId.ToString());
+
+                Form3 f3 = new Form3(result1);
+
+                f3.Show();
+
                 this.Close();
             }
         }
@@ -113,49 +123,13 @@ namespace WindowsFormsApplication1.Generar_Publicación
         {
             this.Close();
         }
-
-        private void fecVenc_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            String strdesc = richTextBox1.Text;
-            String strstock = stock.Text;
-            StringBuilder sb = new StringBuilder(precio.Text);
-            sb.Replace(",", ".");
-            String strprecio = sb.ToString();
-            String strtipo = tipo.Text;
-            String strvisib = visibilidades[tipoVisib.Text].ToString();
-            String strrubro = rubros[rubro.Text].ToString();
-            String strenvios = "V";
-
-            if (radioButton2.Checked == true)
-                strenvios = "F";
-
-            Int32 result = dbQueryHandler.updatePub(strdesc, strstock, strprecio, strtipo, strvisib, strrubro, pubId.ToString(), strenvios);
-
-
-
-            if (result > 0)
-            {
-                MessageBox.Show("Publicacion correctamente modificada");
-                this.Close();
-            }
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
     }
-
-    class DbQueryHandlerModify {
+    class DbQueryHandlerModify
+    {
         public SqlDataReader cargarPublicacion(String pubId)
         {
 
-            SqlCommand cmd = new SqlCommand("select Publicacion_Desc,Publicacion_Stock,Publicacion_Fecha,Publicacion_Fecha_Venc,Publicacion_Precio,Publicacion_Tipo,Visibilidad_Cod,Publicacion_Estado,Id_Rubro,Publicacion_Acepta_Envio from GROUP_APROVED.publicaciones where Publicacion_cod = " + pubId,DbConnection.connection.getdbconnection());
+            SqlCommand cmd = new SqlCommand("select Publicacion_Desc,Publicacion_Stock,Publicacion_Fecha,Publicacion_Fecha_Venc,Publicacion_Precio,Publicacion_Tipo,Visibilidad_Cod,Publicacion_Estado,Id_Rubro,Publicacion_Acepta_Envio from GROUP_APROVED.publicaciones where Publicacion_cod = " + pubId, DbConnection.connection.getdbconnection());
             SqlDataReader dataReader = cmd.ExecuteReader();
 
             return dataReader;
@@ -196,7 +170,7 @@ namespace WindowsFormsApplication1.Generar_Publicación
 
         public String cargarEstado(String Id)
         {
-            SqlCommand cmd = new SqlCommand("select Descripcion from GROUP_APROVED.Estado_Publ where ID_Est = " + Id , DbConnection.connection.getdbconnection());
+            SqlCommand cmd = new SqlCommand("select Descripcion from GROUP_APROVED.Estado_Publ where ID_Est = " + Id, DbConnection.connection.getdbconnection());
             SqlDataReader dataReader = cmd.ExecuteReader();
             dataReader.Read();
             String estado = dataReader.GetString(0);
@@ -255,5 +229,39 @@ namespace WindowsFormsApplication1.Generar_Publicación
             return estado;
 
         }
+
+         public Int32 ofertarPub(String precio, String pubId)
+        {
+            SqlCommand cmd = new SqlCommand("update GROUP_APROVED.Publicaciones set Publicacion_Precio = " + precio + " where Publicacion_cod = " + pubId, DbConnection.connection.getdbconnection());
+
+            Int32 result = cmd.ExecuteNonQuery();
+
+            return result;
+        }
+
+         public Int32 updateOffer(String precio, String pubId)
+         {
+             SqlCommand cmd = new SqlCommand("insert into GROUP_APROVED.Ofertas values(getdate()," + precio + ","+CurrentUser.user.getUserId().ToString()+"," + pubId + ")", DbConnection.connection.getdbconnection());
+
+             Int32 result = cmd.ExecuteNonQuery();
+
+             return result;
+         }
+
+         public Int32 crearFactura(String precio, String pubId)
+         {
+             SqlCommand cmd = new SqlCommand("insert into GROUP_APROVED.Facturas values(180048,getdate()," + precio.Replace(',','.') + ","+"'Efectivo', " + pubId + ");SELECT Nro_Fact FROM GROUP_APROVED.Facturas WHERE Nro_Fact = @@Identity", DbConnection.connection.getdbconnection());
+
+             //Int32 result = (Int32)cmd.ExecuteScalar();
+           
+             
+            Int32 result = cmd.ExecuteNonQuery();
+
+             return 180048;
+
+            
+         }
+
+
     }
 }

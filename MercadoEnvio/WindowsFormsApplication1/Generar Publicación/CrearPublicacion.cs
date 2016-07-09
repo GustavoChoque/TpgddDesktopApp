@@ -72,7 +72,7 @@ namespace WindowsFormsApplication1.Generar_Publicación
             }
 
             comboBox2.Items.Add("Subasta");
-            comboBox2.Items.Add("Compra directa");
+            comboBox2.Items.Add("Compra Inmediata");
         }
 
         private void button2_Click(object sender, EventArgs e)

@@ -19,6 +19,7 @@ namespace WindowsFormsApplication1.Pantalla_Principal
         public Principal()
         {
             InitializeComponent();
+            this.verificarAccesos();
         }
 
         
@@ -27,7 +28,7 @@ namespace WindowsFormsApplication1.Pantalla_Principal
         {
             label1.Text = "Usuario logueado correctamente-- Pantalla principal";
             button1.Text = "Salir";
-            //this.verificarAccesos();
+            this.verificarAccesos();
             
         }
 
@@ -97,7 +98,8 @@ namespace WindowsFormsApplication1.Pantalla_Principal
         }
         public void verificarAccesos()
         {
-            dbQueryHandler.crearVista(); //Crea una vista con los usuarios y las funciones a las que pueden acceder
+            try { dbQueryHandler.crearVista(); } //Crea una vista con los usuarios y las funciones a las que pueden acceder
+            catch { };//try por si estaba creada y no se dropeo
 
             if (dbQueryHandler.verificarAccesoFuncion(1) == false) { buttonABMRol.Hide(); };
             if (dbQueryHandler.verificarAccesoFuncion(2) == false) { buttonABMUsuario.Hide(); };

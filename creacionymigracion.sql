@@ -492,22 +492,28 @@ begin
 	declare @Id_Usr INT;
 	declare @Cli_Dni numeric(18,0);
 	declare cursorCompCalif cursor for
-	select Calificacion_Codigo, Calificacion_Cant_Estrellas, Calificacion_Descripcion, Compra_Fecha, Compra_Cantidad,Publicacion_Cod, Cli_Dni from gd_esquema.Maestra  where Compra_Fecha is not null;
-
+	select Calificacion_Codigo, Calificacion_Cant_Estrellas, Calificacion_Descripcion, Compra_Fecha, Compra_Cantidad,Publicacion_Cod, Cli_Dni from gd_esquema.Maestra  where Compra_Fecha is not null
+	order by 6,5,4
 	open cursorCompCalif;
 
-	fetch next from cursorCompCalif into @Calificacion_Codigo , @Calificacion_Cant_Estrellas, @Calificacion_Descripcion, @Compra_Fecha, @Compra_Cantidad, @Publicacion_Cod, @Cli_Dni;
+	fetch next from cursorCompCalif into @Calificacion_Codigo , @Calificacion_Cant_Estrellas, @Calificacion_Descripcion, @Compra_Fecha, @Compra_Cantidad, @Publicacion_Cod, @Cli_Dni
 
 	while @@FETCH_STATUS = 0
 	begin
 		
 		set @Id_Usr = (select Id_Usuario from GROUP_APROVED.Clientes where Dni_Cli = @Cli_Dni );
 
+		if (select 1 from GROUP_APROVED.Compras WHERE Publicacion_Cod = @Publicacion_Cod and Compra_Fecha = @Compra_Fecha and Compra_Cantidad = @Compra_Cantidad and Id_Usuario = @Id_Usr) <> 1 
+		begin
+
+		insert into GROUP_APROVED.Compras(Compra_Fecha,Compra_Cantidad,Id_Usuario,Publicacion_Cod)
+				VALUES (@Compra_Fecha,@Compra_Cantidad,@Id_Usr,@Publicacion_Cod)
+				set @Publicacion_Cod  = (select max(ID_Compra) from GROUP_APROVED.Compras);  /*el id de publ pasa a ser id de compra a medios de minimizar y reutilizar variables*/
+
+
 		if @Calificacion_Codigo is not null
 			begin 
-				insert into GROUP_APROVED.Compras(Compra_Fecha,Compra_Cantidad,Id_Usuario,Publicacion_Cod)
-				VALUES (@Compra_Fecha,@Compra_Cantidad,@Id_Usr,@Publicacion_Cod)
-				set @Publicacion_Cod  = (select max(ID_Compra) from GROUP_APROVED.Compras);    /*el id de publ pasa a ser id de compra a medios de minimizar y reutilizar variables*/
+				   
 				set @Calificacion_Cant_Estrellas = @Calificacion_Cant_Estrellas/2;
 				insert into GROUP_APROVED.Calificaciones(Calif_Cod, Calif_Cant_Est, Calif_Descr, ID_Compra)
 				values(@Calificacion_Codigo, @Calificacion_Cant_Estrellas, @Calificacion_Descripcion, @Publicacion_Cod);
@@ -515,13 +521,9 @@ begin
 
 
 			end;
-		else
-			begin
-				
-				insert into GROUP_APROVED.Compras(Compra_Fecha,Compra_Cantidad,Id_Usuario,Publicacion_Cod)
-				VALUES (@Compra_Fecha,@Compra_Cantidad,@Id_Usr,@Publicacion_Cod);
+			
+		end;
 
-			end;
 		fetch next from cursorCompCalif into @Calificacion_Codigo , @Calificacion_Cant_Estrellas, @Calificacion_Descripcion, @Compra_Fecha, @Compra_Cantidad, @Publicacion_Cod, @Cli_Dni;
 	end;
 	close cursorCompCalif;
@@ -1148,7 +1150,57 @@ begin
 	deallocate cursorItems;
 end;
 
+go
+
+CREATE procedure GROUP_APROVED.facturacionSubastasVencidas
+as
+begin	
+		declare @publCod numeric (18,0), @visCod numeric(18,0);
+		declare @usrId INT;
+		declare @monto numeric (18,2);
+		declare @estado INT;
+		declare @IdCompra numeric(18,0);
+		declare @idVenc INT;
+		declare @comprador INT;
+		declare @fechaVenc datetime;
+		declare @FactNro numeric(18,0);
+
+		set @idVenc = (select Id_Est from GROUP_APROVED.Estado_Publ WHERE Descripcion = 'Finzalizada');
+
+		declare cursorSubs cursor for 
+		select Publicacion_Cod,Visibilidad_Cod,Id_Usuario, Publicacion_Estado, Publicacion_Fecha_Venc from GROUP_APROVED.Publicaciones WHERE Publicacion_Tipo = 'Subasta' and Publicacion_Estado = @idVenc;
+
+
+		open cursorSubs
+	fetch next from cursorSubs into @publCod,@visCod,@usrId,@estado,@fechaVenc;
+
+	WHILE @@FETCH_STATUS = 0
+		begin
+			
+
+			select top 1 @monto = Oferta_Monto, @comprador = Id_Usuario from GROUP_APROVED.Ofertas where Publicacion_Cod = @publCod order by Oferta_Monto desc;
+
+			insert into GROUP_APROVED.Compras(Compra_Fecha,Compra_Cantidad,Id_Usuario,Publicacion_Cod)
+			values(@fechaVenc,1,@comprador,@publCod);
+
+			select @IdCompra = ID_Compra from GROUP_APROVED.Compras WHERE Publicacion_Cod = @publCod
+
+
+			insert into GROUP_APROVED.Facturas(Fact_Fecha, Fact_Forma_Pago,Id_Compra, Publicacion_Cod,Fact_Total)
+			values(@fechaVenc,'Efectivo',@IdCompra, @publCod,@monto)
+
+			select @FactNro = Nro_Fact from GROUP_APROVED.Facturas where Id_Compra = @IdCompra and Publicacion_Cod = @publCod;
+
+			insert into GROUP_APROVED.Items (Nro_Fact,Nro_item,Item_Monto,Item_Cantidad,Item_Tipo)
+			values ( @FactNro, 1 , @monto, 1,'venta')
+
+			fetch next from cursorSubs into @publCod,@visCod,@usrId,@estado,@fechaVenc;
+		end;
+end;
+
+
 /*
+drop procedure procedure GROUP_APROVED.facturacionSubastasVencidas
 drop procedure GROUP_APROVED.DesCorta
 drop procedure GROUP_APROVED.usrCreationCli
 drop procedure GROUP_APROVED.usrCreationEmp

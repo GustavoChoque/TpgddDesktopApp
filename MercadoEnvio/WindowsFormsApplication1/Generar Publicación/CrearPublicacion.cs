@@ -52,6 +52,12 @@ namespace WindowsFormsApplication1.Generar_Publicación
             {
                 MessageBox.Show("Publicacion creada correctamente");
                 Form2 f2 = new Form2(pubId,"creacion");
+
+                String costo = dbQueryHandler.getCostoPub(comboBox3.Text);
+                String idFactura = dbQueryHandler.crearFactura(costo.ToString(), pubId.ToString(), "NULL");
+                Decimal nroItem = dbQueryHandler.getNumeroItems(idFactura);
+
+                dbQueryHandler.crearItem(idFactura, (nroItem + 1).ToString(), costo,"1","Publicacion");
                 f2.Show();
                 this.Close();
             }
@@ -147,6 +153,62 @@ namespace WindowsFormsApplication1.Generar_Publicación
 
             return estado;
 
+        }
+
+        public String crearFactura(String precio, String pubId, String idCompra)
+        {
+            SqlCommand cmd = new SqlCommand("insert into GROUP_APROVED.Facturas values(getdate()," + precio.Replace(',', '.') + "," + "'Efectivo', " + pubId + "," + idCompra + ");SELECT Nro_Fact FROM GROUP_APROVED.Facturas WHERE Nro_Fact = @@Identity", DbConnection.connection.getdbconnection());
+
+            Decimal result = (Decimal)cmd.ExecuteScalar();
+
+
+
+            return result.ToString();
+
+
+        }
+         public String crearItem(String idFactura,String nroItem,String costo,String cantItems,String tipo)
+        {
+            SqlCommand cmd = new SqlCommand("insert into GROUP_APROVED.Items values("+idFactura+"," + nroItem + "," + costo+"," + cantItems + ",'" + tipo + "')", DbConnection.connection.getdbconnection());
+
+            Int32 result = cmd.ExecuteNonQuery();
+
+            return result.ToString();
+
+        }
+ 
+
+        public String getCostoPub(String visib)
+        {
+            SqlCommand cmd = new SqlCommand("select Visibilidad_Precio from GROUP_APROVED.Visibilidades where Visibilidad_Desc = '" + visib + "'", DbConnection.connection.getdbconnection());
+
+            SqlDataReader dataReader = cmd.ExecuteReader();
+            dataReader.Read();
+
+            String result = dataReader.GetDecimal(0).ToString().Replace(',','.');
+            dataReader.Close();
+            return result;
+        }
+
+
+        public Decimal getNumeroItems(String factId)
+        {
+            SqlCommand cmd = new SqlCommand("select max(Nro_Item) items from GROUP_APROVED.Items where Nro_Fact = " + factId, DbConnection.connection.getdbconnection());
+
+            SqlDataReader dataReader = cmd.ExecuteReader();
+
+            Decimal max = 0;
+            if (dataReader.Read())
+            {
+                if (!dataReader.IsDBNull(0))
+                {
+                    max = dataReader.GetDecimal(0);
+                }
+
+            }
+            else { max = 0; }
+            dataReader.Close();
+            return max;
         }
     }
 }

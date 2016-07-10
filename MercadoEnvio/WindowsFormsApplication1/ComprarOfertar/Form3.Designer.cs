@@ -46,9 +46,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 20);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(347, 13);
+            this.label1.Size = new System.Drawing.Size(153, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Felicitaciones por su compra. Los siguientes son los datus de su factura:";
+            this.label1.Text = "Factura generada al vendedor:";
             // 
             // label2
             // 

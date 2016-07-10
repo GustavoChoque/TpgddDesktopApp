@@ -111,7 +111,7 @@ namespace WindowsFormsApplication1.Pantalla_Principal
             if (dbQueryHandler.verificarAccesoFuncion(6) == false) { buttonCalificarVendedor.Hide(); };
             if (dbQueryHandler.verificarAccesoFuncion(10) == false) { buttonComprarOfertar.Hide(); };
             if (dbQueryHandler.verificarAccesoFuncion(5) == false) { buttonConsultaFacturas.Hide(); };
-            
+
             dbQueryHandler.dropearVista();
             /*funcionalidades:  1 = r=abm rol
                                 2 = u=abm usuario

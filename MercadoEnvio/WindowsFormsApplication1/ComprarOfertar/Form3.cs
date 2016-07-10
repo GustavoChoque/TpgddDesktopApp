@@ -15,15 +15,15 @@ namespace WindowsFormsApplication1.ComprarOfertar
     public partial class Form3 : Form
     {
 
-        Int32 factId;
+        String factId;
         dbQueryHandlerFact dbQueryHandler = new dbQueryHandlerFact();
 
-         public Form3(Int32 fact_Id)
+         public Form3(String fact_Id)
         {
             InitializeComponent();
             factId = fact_Id;
 
-            SqlDataReader dataReader = dbQueryHandler.cargarFactura(factId.ToString());
+            SqlDataReader dataReader = dbQueryHandler.cargarFactura(factId);
 
             dataReader.Read();
 

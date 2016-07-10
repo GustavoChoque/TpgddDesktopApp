@@ -31,6 +31,8 @@ namespace WindowsFormsApplication1.ComprarOfertar
             rubros = dbQueryHandler.cargarRubros();
             visibilidades = dbQueryHandler.cargarVisibilidades();
 
+            
+
             foreach (var map in rubros)
             {
                 rubro.Items.Add(map.Key);
@@ -77,6 +79,12 @@ namespace WindowsFormsApplication1.ComprarOfertar
             tipoVisib.Text = dbQueryHandler.cargarVisibilidad(visib);
             estado.Text = dbQueryHandler.cargarEstado(est);
             rubro.Text = dbQueryHandler.cargarRubro(rub);
+
+            if (tipo.Text == "Subasta")
+            {
+                textBox2.Visible = false;
+                label12.Visible = false;
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -92,6 +100,20 @@ namespace WindowsFormsApplication1.ComprarOfertar
                 statusOK = false;
             }
 
+            if (textBox2.Text == "" && tipo.Text == "Compra Inmediata")
+            {
+                MessageBox.Show("Debe ingresar la cantidad de unidades a comprar.");
+                statusOK = false;
+            }
+            else
+            {
+
+                if (Int32.Parse(textBox2.Text) > Int32.Parse(stock.Text))
+                {
+                    MessageBox.Show("No hay unidades suficientes para realizar la compra");
+                    statusOK = false;
+                }
+            }
             if (estado.Text == "Finalizada")
             {
                 MessageBox.Show("No se puede comprar u ofertar una publicación que ha finalizado");
@@ -114,6 +136,7 @@ namespace WindowsFormsApplication1.ComprarOfertar
 
                         if (result1 > 0 && result2 > 0)
                         {
+                            
                             MessageBox.Show("Oferta correctamente realizada, ofertaste " + textBox1.Text + " pesos.");
                             this.Close();
                         }
@@ -125,14 +148,45 @@ namespace WindowsFormsApplication1.ComprarOfertar
                 }
                 else
                 {
+                    String envio = "0";
 
-                    result1 = dbQueryHandler.crearFactura(precio.Text, pubId.ToString());
+                    if(radioButton1.Checked == true)
+                    { 
+                        envio = dbQueryHandler.getPrecioEnvio(tipoVisib.Text); 
+                    }
 
-                    Form3 f3 = new Form3(result1);
+                    Double total = Double.Parse(precio.Text);
+
+                    Int32 unidades = Int32.Parse(textBox2.Text);
+
+                    Double porcRecarga = 0.05;
+
+                    Decimal recargo = Decimal.Add(Decimal.Parse((total * unidades * porcRecarga).ToString()), Decimal.Parse(envio.Replace('.', ',')));
+            
+
+                    String idCompra = dbQueryHandler.crearCompra(textBox2.Text, pubId.ToString());
+
+                    String factId = dbQueryHandler.crearFactura(recargo.ToString(), pubId.ToString(), idCompra);
+
+                    Decimal nroItem = dbQueryHandler.getNumeroItems(factId);
+
+                    dbQueryHandler.crearItem(factId, (nroItem + 1).ToString(), (recargo - Decimal.Parse(envio.Replace('.', ','))).ToString(), unidades.ToString(), "Venta");
+
+                    dbQueryHandler.actualizarPub(pubId.ToString(),textBox2.Text);
+
+                    if (radioButton1.Checked == true)
+                    {
+
+                        nroItem = dbQueryHandler.getNumeroItems(factId);
+                        dbQueryHandler.crearItem(factId, (nroItem + 1).ToString(), envio, "1", "Envio");
+                    }
+
+                    Form3 f3 = new Form3(factId);
 
                     f3.Show();
-
+                    
                     this.Close();
+
                 }
             }
         }
@@ -140,6 +194,11 @@ namespace WindowsFormsApplication1.ComprarOfertar
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
     class DbQueryHandlerModify
@@ -257,6 +316,15 @@ namespace WindowsFormsApplication1.ComprarOfertar
             return result;
         }
 
+         public Int32 actualizarPub(String pubId, String cantidad)
+         {
+             SqlCommand cmd = new SqlCommand("update GROUP_APROVED.Publicaciones set Publicacion_Stock = Publicacion_Stock-" + cantidad + " where Publicacion_cod = " + pubId, DbConnection.connection.getdbconnection());
+
+             Int32 result = cmd.ExecuteNonQuery();
+
+             return result;
+         }
+
          public Int32 updateOffer(String precio, String pubId)
          {
              SqlCommand cmd = new SqlCommand("insert into GROUP_APROVED.Ofertas values(getdate()," + precio + ","+CurrentUser.user.getUserId().ToString()+"," + pubId + ")", DbConnection.connection.getdbconnection());
@@ -266,18 +334,42 @@ namespace WindowsFormsApplication1.ComprarOfertar
              return result;
          }
 
-         public Int32 crearFactura(String precio, String pubId)
+         public String getPrecioEnvio(String visib)
          {
-             SqlCommand cmd = new SqlCommand("insert into GROUP_APROVED.Facturas values(180048,getdate()," + precio.Replace(',','.') + ","+"'Efectivo', " + pubId + ");SELECT Nro_Fact FROM GROUP_APROVED.Facturas WHERE Nro_Fact = @@Identity", DbConnection.connection.getdbconnection());
+             SqlCommand cmd = new SqlCommand("select Visibilidad_Costo_Envio from GROUP_APROVED.Visibilidades where Visibilidad_Desc = '" + visib+"'", DbConnection.connection.getdbconnection());
 
-             //Int32 result = (Int32)cmd.ExecuteScalar();
-           
-             
-            Int32 result = cmd.ExecuteNonQuery();
+             SqlDataReader dataReader = cmd.ExecuteReader();
+             dataReader.Read();
 
-             return 180048;
+             String result = dataReader.GetDecimal(0).ToString().Replace(',', '.');
+             dataReader.Close();
+             return result;
+         }
+
+         public String crearFactura(String precio, String pubId, String idCompra)
+         {
+             SqlCommand cmd = new SqlCommand("insert into GROUP_APROVED.Facturas values(getdate()," + precio.Replace(',','.') + ","+"'Efectivo', " + pubId +","+idCompra+");SELECT Nro_Fact FROM GROUP_APROVED.Facturas WHERE Nro_Fact = @@Identity", DbConnection.connection.getdbconnection());
+
+             Decimal result = (Decimal)cmd.ExecuteScalar();
+
+
+
+             return result.ToString();
 
             
+         }
+
+         public String crearCompra(String cantidad,String pubId)
+         {
+             SqlCommand cmd = new SqlCommand("insert into GROUP_APROVED.Compras values(getdate()," + cantidad + "," + CurrentUser.user.getUserId() + ", " + pubId + ");SELECT ID_Compra FROM GROUP_APROVED.Compras WHERE ID_Compra = @@Identity", DbConnection.connection.getdbconnection());
+
+             Decimal result = (Decimal)cmd.ExecuteScalar();
+
+
+
+             return result.ToString();
+
+
          }
 
          public bool checkUser(String pubId)
@@ -299,6 +391,35 @@ namespace WindowsFormsApplication1.ComprarOfertar
              else { ret = false; }
 
              return ret;
+         }
+
+         public String crearItem(String idFactura, String nroItem, String costo, String cantItems, String tipo)
+         {
+             SqlCommand cmd = new SqlCommand("insert into GROUP_APROVED.Items values(" + idFactura + "," + nroItem + "," + costo.Replace(',', '.') + "," + cantItems + ",'" + tipo + "')", DbConnection.connection.getdbconnection());
+
+             Int32 result = cmd.ExecuteNonQuery();
+
+             return result.ToString();
+
+         }
+         public Decimal getNumeroItems(String factId)
+         {
+             SqlCommand cmd = new SqlCommand("select max(Nro_Item) items from GROUP_APROVED.Items where Nro_Fact = " + factId, DbConnection.connection.getdbconnection());
+
+             SqlDataReader dataReader = cmd.ExecuteReader();
+
+             Decimal max = 0;
+             if (dataReader.Read())
+             {
+                 if (!dataReader.IsDBNull(0))
+                 {
+                     max = dataReader.GetDecimal(0);
+                 }
+                    
+             }
+             else { max = 0; }
+             dataReader.Close();
+             return max;
          }
 
 

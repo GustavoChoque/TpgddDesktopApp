@@ -268,7 +268,7 @@ namespace WindowsFormsApplication1
 
         public void updatePubStates()
         {
-            cmd = new SqlCommand("update GROUP_APROVED.Publicaciones  set Publicacion_Estado = CASE WHEN Publicacion_Fecha_Venc <= CAST('"+CustomDate.date.getDate()+"' AS DATE) THEN 3  ELSE 1 END ", DbConnection.connection.getdbconnection());
+            cmd = new SqlCommand("update GROUP_APROVED.Publicaciones  set Publicacion_Estado = CASE WHEN Publicacion_Fecha_Venc <= CAST('" + CustomDate.date.getDate() + "' AS DATE)  THEN 3  ELSE CASE WHEN Publicacion_estado != 0 AND Publicacion_estado != 2 THEN 1 ELSE Publicacion_estado END END ", DbConnection.connection.getdbconnection());
             int res = cmd.ExecuteNonQuery();
 
         }

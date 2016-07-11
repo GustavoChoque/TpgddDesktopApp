@@ -1454,7 +1454,7 @@ end;
 declare @password nvarchar(255)---declarar estas variables fue la unica manera, para hacer funcionar el login
 declare @username nvarchar(255)
 set @username='Admin'
-set @password='w23e'
+set @password='admin'
 insert into GROUP_APROVED.Usuarios(Username,Passw,intentos)
 values(@username, convert(nvarchar(255),HASHBYTES('SHA2_256', @password),1),0)
 

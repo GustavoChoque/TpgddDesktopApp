@@ -1215,6 +1215,7 @@ go
 
 
 /*
+drop TRIGGER GROUP_APROVED.ofertaSubasta
 drop procedure procedure GROUP_APROVED.facturacionSubastasVencidas
 drop procedure GROUP_APROVED.DesCorta
 drop procedure GROUP_APROVED.usrCreationCli
@@ -1379,6 +1380,51 @@ set IDENTITY_INSERT GROUP_APROVED.Facturas off
 
 EXEC GROUP_APROVED.migrarItems
 
+go
+
+
+/* trigger para actualizar precio de subastas con una nueva oferta, rechaza ofertas cuyo monto sea menor al precio de la publicacion*/
+
+
+CREATE TRIGGER GROUP_APROVED.ofertaSubasta
+oN GROUP_APROVED.Ofertas
+instead of insert
+as
+begin
+		declare @ofMonto numeric (18,0);
+		declare @PubCod INT, @IdUsuario INT;
+		declare @montoPub numeric(18,2);
+		declare @OfertaFecha datetime;
+	
+	
+	
+		
+		DECLARE cursorOfertas cursor for
+		select Oferta_Fecha,Oferta_Monto,Publicacion_Cod,Id_Usuario from inserted
+
+		open cursorOfertas
+		fetch next from cursorOfertas into @OfertaFecha,@ofMonto, @PubCod,@IdUsuario;
+
+		while @@FETCH_STATUS = 0 
+			BEGIN
+				select @montoPub = Publicacion_Precio from GROUP_APROVED.Publicaciones WHERE Publicacion_Cod = @PubCod
+				
+				if ( @montoPub < @ofMonto )
+					begin
+						update GROUP_APROVED.Publicaciones
+						set Publicacion_Precio = @ofMonto
+						where Publicacion_Cod = @PubCod
+ 
+						insert into GROUP_APROVED.Ofertas(Oferta_Fecha,Oferta_Monto,Publicacion_Cod,Id_Usuario)
+						values(@OfertaFecha,@ofMonto, @PubCod,@IdUsuario)
+
+					
+					end;
+				fetch next from cursorOfertas into @OfertaFecha,@ofMonto, @PubCod,@IdUsuario;
+			end;		
+	close cursorOfertas;
+	deallocate cursorOfertas;
+end;
 
 
 

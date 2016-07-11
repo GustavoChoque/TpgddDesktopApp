@@ -1162,7 +1162,6 @@ begin
 		declare @usrId INT;
 		declare @monto numeric (18,0);
 		declare @porcent INT;
-		declare @estado INT;
 		declare @IdCompra numeric(18,0);
 		declare @idVenc INT;
 		declare @comprador INT;
@@ -1172,11 +1171,11 @@ begin
 		set @idVenc = (select Id_Est from GROUP_APROVED.Estado_Publ WHERE Descripcion = 'Finzalizada');
 
 		declare cursorSubs cursor for 
-		select Publicacion_Cod,Visibilidad_Cod,Id_Usuario, Publicacion_Estado, Publicacion_Fecha_Venc from GROUP_APROVED.Publicaciones WHERE Publicacion_Tipo = 'Subasta' and Publicacion_Estado = @idVenc;
+		select Publicacion_Cod,Visibilidad_Cod,Id_Usuario, Publicacion_Fecha_Venc from GROUP_APROVED.Publicaciones WHERE Publicacion_Tipo = 'Subasta' and Publicacion_Estado = @idVenc;
 
 
 		open cursorSubs
-	fetch next from cursorSubs into @publCod,@visCod,@usrId,@estado,@fechaVenc;
+	fetch next from cursorSubs into @publCod,@visCod,@usrId,@fechaVenc;
 
 	WHILE @@FETCH_STATUS = 0
 		begin
@@ -1204,7 +1203,7 @@ begin
 			values ( @FactNro, 1 , @monto, 1,'venta')
 			end;
 
-			fetch next from cursorSubs into @publCod,@visCod,@usrId,@estado,@fechaVenc;
+			fetch next from cursorSubs into @publCod,@visCod,@usrId,@fechaVenc;
 		end;
 		
 	close cursorSubs;

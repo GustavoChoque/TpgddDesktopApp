@@ -35,7 +35,7 @@ namespace WindowsFormsApplication1
             label1.Text = "User";
             label2.Text = "Password";
             textBox1.Text = "Admin";
-            textBox2.Text = "admin";
+            textBox2.Text = "w23e";
             label3.Text = "";
 
             StreamReader reader = File.OpenText("../../../date.txt");

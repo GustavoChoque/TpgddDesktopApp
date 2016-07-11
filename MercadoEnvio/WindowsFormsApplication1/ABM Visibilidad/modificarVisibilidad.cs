@@ -80,7 +80,7 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
                 {
 
                     if (radioButton1.Checked) { envio = true; };
-                    dbQueryHandler.IniciarTransaction();
+                    //dbQueryHandler.IniciarTransaction();
                     bool rta = dbQueryHandler.actualizarVisibilidad(codPub, codVis, envio);
                     //if (rta) { MessageBox.Show("Éxito"); dbQueryHandler.commit(); } else { MessageBox.Show("Error"); dbQueryHandler.rollback(); };
                     if (rta) { MessageBox.Show("Éxito"); } else { MessageBox.Show("Error"); };

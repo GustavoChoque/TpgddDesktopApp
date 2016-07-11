@@ -95,8 +95,7 @@ CREATE TABLE GROUP_APROVED.Visibilidades(
 	Visibilidad_Precio numeric(18,2),
 	Visibilidad_Porcentaje numeric(18,2),
 	Visibilidad_Costo_Envio numeric(18,2) default 100,
-	/*Visibilidad_Admite_Envio smallint default 0,      este campo no resulta necesario, cada publicacion indica si acepta o no  */        
-	
+	Visibilidad_Costo_Venta int default 5,
 )
 
 
@@ -140,7 +139,7 @@ go*/
 CREATE TABLE GROUP_APROVED.Ofertas (												/* se debe restringir que solo las publicaicones de tipo subasta tienen ofertas asignadas*/
 	ID_Oferta numeric(18,0) IDENTITY(1,1) PRIMARY KEY,
 	Oferta_Fecha datetime,
-	Oferta_Monto numeric(18,2),
+	Oferta_Monto numeric(18,0),
 	Id_Usuario INT REFERENCES GROUP_APROVED.Usuarios,
 	Publicacion_Cod INT REFERENCES GROUP_APROVED.Publicaciones
 	
@@ -1161,7 +1160,8 @@ as
 begin	
 		declare @publCod numeric (18,0), @visCod numeric(18,0);
 		declare @usrId INT;
-		declare @monto numeric (18,2);
+		declare @monto numeric (18,0);
+		declare @porcent INT;
 		declare @estado INT;
 		declare @IdCompra numeric(18,0);
 		declare @idVenc INT;
@@ -1181,21 +1181,20 @@ begin
 	WHILE @@FETCH_STATUS = 0
 		begin
 			
-
 			if not exists (select 1 from GROUP_APROVED.Compras WHERE Publicacion_Cod = @publCod)
 			begin
 
 			select top 1 @monto = Oferta_Monto, @comprador = Id_Usuario from GROUP_APROVED.Ofertas where Publicacion_Cod = @publCod order by Oferta_Monto desc;
-
-		
-			
 
 			insert into GROUP_APROVED.Compras(Compra_Fecha,Compra_Cantidad,Id_Usuario,Publicacion_Cod)
 			values(@fechaVenc,1,@comprador,@publCod);
 
 			select @IdCompra = ID_Compra from GROUP_APROVED.Compras WHERE Publicacion_Cod = @publCod
 
-
+			select @porcent = Visibilidad_Costo_Venta from  GROUP_APROVED.Visibilidades WHERE Visibilidad_Cod = @visCod
+			
+			set @monto = @monto * @porcent /100
+			
 			insert into GROUP_APROVED.Facturas(Fact_Fecha, Fact_Forma_Pago,Id_Compra, Publicacion_Cod,Fact_Total)
 			values(@fechaVenc,'Efectivo',@IdCompra, @publCod,@monto)
 
@@ -1203,13 +1202,16 @@ begin
 
 			insert into GROUP_APROVED.Items (Nro_Fact,Nro_item,Item_Monto,Item_Cantidad,Item_Tipo)
 			values ( @FactNro, 1 , @monto, 1,'venta')
-		end;
+			end;
 
 			fetch next from cursorSubs into @publCod,@visCod,@usrId,@estado,@fechaVenc;
 		end;
-		close cursorSubs;
-		deallocate cursorSubs;
+		
+	close cursorSubs;
+	deallocate cursorSubs;
 end;
+
+go
 
 
 /*

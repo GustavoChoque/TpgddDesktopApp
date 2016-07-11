@@ -45,17 +45,24 @@ namespace WindowsFormsApplication1.ABM_Rol
             int idFuncion = 0;
             string funcion;
             string desc = textBox1.Text;
-            dbQueryHandler.modificarNombreRol(desc,datoIdRol);                
-            if (radioButton1.Checked) {
-                //agrega una funcion  
+            //dbQueryHandler.modificarNombreRol(desc,datoIdRol);
+            if ((!radioButton1.Checked && !radioButton2.Checked) && (textBox1.ReadOnly==false)) {
+                dbQueryHandler.modificarNombreRol(desc, datoIdRol);
+                MessageBox.Show("Los cambios se efectuaron correctamente");
+                this.Close();
+            }   
+            if (radioButton1.Checked && comboBox1.Text!="Seleccione un valor") {
+                //agrega una funcion 
+                dbQueryHandler.modificarNombreRol(desc, datoIdRol);
                 funcion = comboBox1.Text;
                 idFuncion=dbQueryHandler.getIdFuncion(funcion);
                 dbQueryHandler.agregarFuncionARol(datoIdRol, idFuncion);
                 MessageBox.Show("Los cambios se efectuaron correctamente");
                 this.Close();
             }
-            if (radioButton2.Checked)
+            if (radioButton2.Checked && comboBox1.Text != "Seleccione un valor")
             {//borrar una funcion
+                dbQueryHandler.modificarNombreRol(desc, datoIdRol);
                 funcion = comboBox1.Text;
                 idFuncion = dbQueryHandler.getIdFuncion(funcion);
                 dbQueryHandler.eliminarFuncionDeRol(datoIdRol, idFuncion);
@@ -88,6 +95,11 @@ namespace WindowsFormsApplication1.ABM_Rol
             }
             registros.Close();
             comboBox1.SelectedIndex = 0;   
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            textBox1.ReadOnly = false;
         }
     }
     public class DbQueryHandlerFormModificacion

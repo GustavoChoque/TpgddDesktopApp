@@ -36,12 +36,14 @@
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(109, 27);
             this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(137, 20);
             this.textBox1.TabIndex = 0;
             // 
@@ -117,11 +119,22 @@
             this.comboBox1.Size = new System.Drawing.Size(137, 21);
             this.comboBox1.TabIndex = 8;
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(256, 27);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(47, 20);
+            this.button3.TabIndex = 9;
+            this.button3.Text = "Editar";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // FormularioDeModificacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(315, 302);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.radioButton2);
@@ -148,5 +161,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBox1;
         public System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button3;
     }
 }

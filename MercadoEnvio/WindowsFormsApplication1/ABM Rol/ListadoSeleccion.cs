@@ -45,6 +45,7 @@ namespace WindowsFormsApplication1.ABM_Rol
                     FdM.textBox1.Text = rolElegido;
                     FdM.getIdRol(idRolElegido);
                     FdM.Show();
+                    dataGridView1.Rows.Clear();
                 }
                 else
                 {

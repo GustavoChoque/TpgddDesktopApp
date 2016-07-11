@@ -13,8 +13,8 @@ namespace WindowsFormsApplication1.Calificar
 {
     public partial class historial : Form
     {
-        SqlDataAdapter dataAdapter = new SqlDataAdapter();
-        DataTable tablaDatos = new DataTable();
+        SqlDataAdapter dataAdapter;
+        DataTable tablaDatos;
         DbQueryHandlerHistorial dbQueryHandler = new DbQueryHandlerHistorial();
 
         public historial()
@@ -108,8 +108,9 @@ namespace WindowsFormsApplication1.Calificar
             SqlCommand comando = new SqlCommand(
             @"select count(cal.Calif_Cant_Est)
             from GROUP_APROVED.Calificaciones cal join GROUP_APROVED.Compras com
-            on (com.ID_Compra=cal.ID_Compra)
-            where cal.Calif_Cant_Est = "+cantidad+" and com.Id_Usuario="+userid+
+            on (com.ID_Compra=cal.ID_Compra) join GROUP_APROVED.Publicaciones p 
+			on (p.Publicacion_Cod=com.Publicacion_Cod)
+            where cal.Calif_Cant_Est = " + cantidad + " and com.Id_Usuario=" + userid +
             " and p.Publicacion_Tipo='Compra Inmediata'", DbConnection.connection.getdbconnection());
             lector = comando.ExecuteReader();
             lector.Read();
@@ -124,7 +125,8 @@ namespace WindowsFormsApplication1.Calificar
             SqlCommand comando = new SqlCommand(
             @"select count(cal.Calif_Cant_Est)
             from GROUP_APROVED.Calificaciones cal join GROUP_APROVED.Compras com
-            on (com.ID_Compra=cal.ID_Compra)
+            on (com.ID_Compra=cal.ID_Compra) join GROUP_APROVED.Publicaciones p 
+			on (p.Publicacion_Cod=com.Publicacion_Cod)
             where cal.Calif_Cant_Est = " + cantidad + " and com.Id_Usuario=" + userid +
             " and p.Publicacion_Tipo='Subasta'", DbConnection.connection.getdbconnection());
             lector = comando.ExecuteReader();

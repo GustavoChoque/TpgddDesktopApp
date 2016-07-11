@@ -15,13 +15,15 @@ namespace WindowsFormsApplication1.Calificar
     {
         int idVendedor;
         int idCompra;
+        Calificar.calificarVendedor pantallaAnterior;
         DbQueryHandlerCalif dbQueryHandler = new DbQueryHandlerCalif();
 
-        public darCalificacion(int vendedorID, int compraID)
+        public darCalificacion(int vendedorID, int compraID, Calificar.calificarVendedor pantalla)
         {
             InitializeComponent();
             idVendedor = vendedorID;
             idCompra = compraID;
+            pantallaAnterior = pantalla;
             textBox1.Text = vendedorID.ToString();
             textBox3.Text = dbQueryHandler.reputacionVend(idVendedor);
 
@@ -29,34 +31,46 @@ namespace WindowsFormsApplication1.Calificar
 
         private void button1_Click(object sender, EventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 string desc = textBox2.Text;
                 string estrellas = comboBox1.SelectedItem.ToString();
                 string idcompra = idCompra.ToString();
-                dbQueryHandler.insertarCalificacion(estrellas, desc, idcompra);
-                MessageBox.Show("Exito");
+                if (dbQueryHandler.insertarCalificacion(estrellas, desc, idcompra) == 1)
+                { MessageBox.Show("Exito"); }
+                else { MessageBox.Show("Error"); }
+                pantallaAnterior.recargar();
                 this.Close();
 
-            }
-            catch { MessageBox.Show("Error"); };
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
+            //}
+            //catch { MessageBox.Show("Error"); };
 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            pantallaAnterior.recargar();
+            this.Dispose();
             this.Close();
         }
     }
     class DbQueryHandlerCalif 
-    {
+    {       
+        /*public void insertarCalificacion(string cantEst, string desc, string idcompra)
+        {
+            SqlCommand comando = new SqlCommand(
+            @"insert into GROUP_APROVED.Calificaciones 
+            (Calif_Cant_Est,Calif_Descr,ID_Compra)
+            values ("+cantEst+", "+desc+", "+idcompra+")", DbConnection.connection.getdbconnection());
+        }*/
+
         public string reputacionVend(int idvend) 
         {
+            try
+            {
+                int totalEst;
+                int rta;
+                int totVtas;
             SqlDataReader lector;
             SqlCommand comandoTotalCalif = new SqlCommand(
                 @"select sum(cal.Calif_Cant_Est) 
@@ -65,27 +79,42 @@ namespace WindowsFormsApplication1.Calificar
                 where pub.Id_Usuario = "+idvend, DbConnection.connection.getdbconnection());
             lector = comandoTotalCalif.ExecuteReader();
             lector.Read();
-            int totalEst = lector.GetInt32(0);
-            lector.Close();
-            
+
+            SqlDataReader lector2;
             SqlCommand comandoCantidadVentas = new SqlCommand(
                 @"select count(pub.Publicacion_Cod)
                 from GROUP_APROVED.Publicaciones pub
                 where pub.Id_Usuario ="+idvend, DbConnection.connection.getdbconnection());
-            lector = comandoCantidadVentas.ExecuteReader();
-            lector.Read();
-            int totVtas = lector.GetInt32(0);
+            lector2 = comandoCantidadVentas.ExecuteReader();
+            lector2.Read();
+            totalEst = lector.GetInt32(0);
+            totVtas = lector2.GetInt32(0);
+
+            lector2.Close();
             lector.Close();
             
-            int rta = totalEst / totVtas;
-            return rta.ToString();
+            rta = 0;
+                return rta.ToString();
+            }
+            catch { int rta = 0; return rta.ToString(); };
         }
-        public void insertarCalificacion(string cantEst, string desc, string idcompra)
+
+        public int insertarCalificacion(string cantEst, string desc, string idcompra)
         {
-            SqlCommand comando = new SqlCommand(
-            @"insert into GROUP_APROVED.Calificaciones 
-            (Calif_Cant_Est,Calif_Descr,ID_Compra)
-            values ("+cantEst+", "+desc+", "+idcompra+")", DbConnection.connection.getdbconnection());
+            SqlCommand comando = new SqlCommand("GROUP_APROVED.insertarCalificacion", DbConnection.connection.getdbconnection());
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.AddWithValue("@cantEstrellas", cantEst);
+            comando.Parameters.AddWithValue("@descrip", desc);
+            comando.Parameters.AddWithValue("@idcompra", idcompra);
+
+            SqlParameter retVal = new SqlParameter("@rta", SqlDbType.Int);
+            comando.Parameters.Add(retVal);
+            retVal.Direction = ParameterDirection.Output;
+            comando.ExecuteNonQuery();
+            int mensajeRespuesta = Convert.ToInt32(comando.Parameters["@rta"].Value);
+            return mensajeRespuesta;
+
+
         }
     }
 }

@@ -25,14 +25,12 @@ namespace WindowsFormsApplication1.Calificar
             catch
             {//vista ya creada
             };
-            
-            try
-            {
+
                 dataAdapter = new SqlDataAdapter();
                 tablaDatos = new DataTable();
                 dataAdapter.SelectCommand = dbQueryHandler.consultaVendedoresSinCalificar(CurrentUser.user.getUserId());
-                //dataAdapter.SelectCommand = dbQueryHandler.consultaPublicaciones(38);
-                dataAdapter.Fill(tablaDatos);
+                try { dataAdapter.Fill(tablaDatos); }
+                catch { };
                 dataGridView1.DataSource = tablaDatos;
                 dataGridView1.CellClick += dataGridView1_CellClick;
 
@@ -45,10 +43,27 @@ namespace WindowsFormsApplication1.Calificar
                 int columnIndex = dataGridView1.ColumnCount;
                 if (dataGridView1.Columns["Calificar"] == null) { dataGridView1.Columns.Insert(columnIndex, calificar); }
                 else { dataGridView1.Columns["Calificar"].DisplayIndex = dataGridView1.ColumnCount - 1; };
+        }
 
-                
-            }
-            catch { MessageBox.Show("aca rompe todo"); };
+        public void recargar() 
+        {
+            dataAdapter = new SqlDataAdapter();
+            tablaDatos = new DataTable();
+            dataAdapter.SelectCommand = dbQueryHandler.consultaVendedoresSinCalificar(CurrentUser.user.getUserId());
+            try { dataAdapter.Fill(tablaDatos); }
+            catch { };
+            dataGridView1.DataSource = tablaDatos;
+            dataGridView1.CellClick += dataGridView1_CellClick;
+
+            DataGridViewButtonColumn calificar = new DataGridViewButtonColumn();
+            calificar.Name = "Calificar";
+            calificar.Text = "Calificar";
+            calificar.Name = "Calificar";
+            calificar.UseColumnTextForButtonValue = true;
+
+            int columnIndex = dataGridView1.ColumnCount;
+            if (dataGridView1.Columns["Calificar"] == null) { dataGridView1.Columns.Insert(columnIndex, calificar); }
+            else { dataGridView1.Columns["Calificar"].DisplayIndex = dataGridView1.ColumnCount - 1; };
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -56,19 +71,24 @@ namespace WindowsFormsApplication1.Calificar
             try
             {
                 if (e.ColumnIndex == dataGridView1.Columns["Calificar"].Index)
-                 {
-                     int vendedorId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[1].Value);
-                     int compraID = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[2].Value);
-                     darCalificacion pantallaDarCalificacion = new darCalificacion(vendedorId,compraID);
-                     pantallaDarCalificacion.Show();
-                 }
-                
+                {
+                    int vendedorId = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[1].Value);
+                    int compraID = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[2].Value);
+                    darCalificacion pantallaDarCalificacion = new darCalificacion(vendedorId, compraID,this);
+                    pantallaDarCalificacion.Show();
+                }
             }
-            catch { }
+            catch { };
+                
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            dbQueryHandler.dropVistaVendedoresSinCalificar();
+            tablaDatos = null;
+            dataAdapter = null;
+
+            try { dbQueryHandler.dropVistaVendedoresSinCalificar(); }
+            catch { };
+            this.Dispose();
             this.Close();
         }
 
@@ -77,6 +97,7 @@ namespace WindowsFormsApplication1.Calificar
             historial pantallaHistorialReciente = new historial();
             pantallaHistorialReciente.Show();
         }
+
     }
     class DbQueryHandlerCalificar 
     { 

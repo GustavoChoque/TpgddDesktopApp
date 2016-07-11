@@ -164,22 +164,22 @@
     <Compile Include="ABM Visibilidad\modificarVisibilidad.Designer.cs">
       <DependentUpon>modificarVisibilidad.cs</DependentUpon>
     </Compile>
-    <Compile Include="Calificar\darCalificacion.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Calificar\darCalificacion.Designer.cs">
-      <DependentUpon>darCalificacion.cs</DependentUpon>
-    </Compile>
     <Compile Include="Calificar\calificarVendedor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Calificar\calificarVendedor.Designer.cs">
+    <Compile Include="Calificar\calificarVendedor.designer.cs">
       <DependentUpon>calificarVendedor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Calificar\darCalificacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Calificar\darCalificacion.designer.cs">
+      <DependentUpon>darCalificacion.cs</DependentUpon>
     </Compile>
     <Compile Include="Calificar\historial.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Calificar\historial.Designer.cs">
+    <Compile Include="Calificar\historial.designer.cs">
       <DependentUpon>historial.cs</DependentUpon>
     </Compile>
     <Compile Include="ComprarOfertar\Form1.cs">

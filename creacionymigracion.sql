@@ -1214,9 +1214,27 @@ end;
 go
 
 
+CREATE PROCEDURE GROUP_APROVED.insertarCalificacion
+@cantEstrellas int,
+@descrip nvarchar(255),
+@idcompra int,
+@rta int output
+as
+begin
+begin try
+insert into GROUP_APROVED.Calificaciones 
+(Calif_Cant_Est,Calif_Descr,ID_Compra)
+values (@cantEstrellas, @descrip, @idcompra)
+set @rta = 1
+end try
+begin catch
+set @rta = 0
+end catch
+end
+
 /*
 drop TRIGGER GROUP_APROVED.ofertaSubasta
-drop procedure procedure GROUP_APROVED.facturacionSubastasVencidas
+drop procedure GROUP_APROVED.facturacionSubastasVencidas
 drop procedure GROUP_APROVED.DesCorta
 drop procedure GROUP_APROVED.usrCreationCli
 drop procedure GROUP_APROVED.usrCreationEmp
@@ -1237,6 +1255,7 @@ drop procedure GROUP_APROVED.CrearUsuarioEmpresa
 drop procedure GROUP_APROVED.updateClientes
 drop procedure GROUP_APROVED.updateEmpresa
 drop procedure GROUP_APROVED.migrComprasCalif
+drop procedure GROUP_APROVED.insertarCalificacion
 */
 
 go

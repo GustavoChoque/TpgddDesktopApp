@@ -170,7 +170,7 @@ namespace WindowsFormsApplication1
 
         DbConnection()
         {
-            con = new SqlConnection("data source = .\\SQLSERVER2012; database =GD1C2016;user = gd; password = gd2016");
+            con = new SqlConnection("data source = .\\SQLSERVER2012; database =GD1C2016;user = gd; password = gd2016;MultipleActiveResultSets=True");
 
             con.Open(); 
 

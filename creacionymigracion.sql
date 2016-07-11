@@ -1155,63 +1155,52 @@ end;
 
 go
 
-CREATE procedure GROUP_APROVED.facturacionSubastasVencidas
+Create Procedure GROUP_APROVED.facturacionSubastasVencidas
 as
-begin	
-		declare @publCod numeric (18,0), @visCod numeric(18,0);
-		declare @usrId INT;
-		declare @monto numeric (18,0);
-		declare @porcent INT;
-		declare @IdCompra numeric(18,0);
-		declare @idVenc INT;
-		declare @comprador INT;
-		declare @fechaVenc datetime;
-		declare @FactNro numeric(18,0);
+begin
 
-		set @idVenc = (select Id_Est from GROUP_APROVED.Estado_Publ WHERE Descripcion = 'Finalizada');
+declare @pubId int
+declare cpubs cursor 
+LOCAL STATIC READ_ONLY FORWARD_ONLY
+for
+select Publicacion_Cod from GROUP_APROVED.Publicaciones 
+where Publicacion_Estado = 3
+and Publicacion_Tipo = 'Subasta' 
+and Publicacion_Cod NOT IN (select Publicacion_Cod from GROUP_APROVED.Compras)
+and Publicacion_Cod IN (select Publicacion_Cod from GROUP_APROVED.Ofertas)
 
-		declare cursorSubs cursor for 
-		select Publicacion_Cod,Visibilidad_Cod,Id_Usuario, Publicacion_Fecha_Venc from GROUP_APROVED.Publicaciones WHERE Publicacion_Tipo = 'Subasta' and Publicacion_Estado = @idVenc;
+open cpubs 
 
+fetch next from cpubs into
+@pubId
 
-		open cursorSubs
-	fetch next from cursorSubs into @publCod,@visCod,@usrId,@fechaVenc;
+while @@FETCH_STATUS = 0
+	begin
+		declare @id_usr int
+		declare @monto numeric(18,0)
+		declare @id_compra numeric(18,0)
+		declare @id_fact numeric(18,0)
 
-	WHILE @@FETCH_STATUS = 0
-		begin
-			
-			if not exists (select 1 from GROUP_APROVED.Compras WHERE Publicacion_Cod = @publCod)
-			begin
+		select top 1  @id_usr = Id_Usuario, @monto = Oferta_Monto from GROUP_APROVED.Ofertas
+		where Publicacion_Cod = @pubId
+		order by Oferta_Monto desc
 
-			select top 1 @monto = Oferta_Monto, @comprador = Id_Usuario from GROUP_APROVED.Ofertas where Publicacion_Cod = @publCod order by Oferta_Monto desc;
+		insert into GROUP_APROVED.Compras values(getdate(),1,@id_usr,@pubId)
+		select   @id_compra = ID_Compra  from GROUP_APROVED.Compras where Publicacion_Cod = @pubId
 
-			insert into GROUP_APROVED.Compras(Compra_Fecha,Compra_Cantidad,Id_Usuario,Publicacion_Cod)
-			values(@fechaVenc,1,@comprador,@publCod);
+		insert into GROUP_APROVED.Facturas values(getdate(),@monto,'Efectivo',@pubId,@id_compra);
+		select  @id_fact = Nro_Fact from GROUP_APROVED.Facturas where Publicacion_Cod = @pubId
 
-			select @IdCompra = ID_Compra from GROUP_APROVED.Compras WHERE Publicacion_Cod = @publCod
+		insert into GROUP_APROVED.Items values(@id_fact,1,@monto,1,'Venta')
 
-			select @porcent = Visibilidad_Costo_Venta from  GROUP_APROVED.Visibilidades WHERE Visibilidad_Cod = @visCod
-			
-			set @monto = @monto * @porcent /100
-			
-			insert into GROUP_APROVED.Facturas(Fact_Fecha, Fact_Forma_Pago,Id_Compra, Publicacion_Cod,Fact_Total)
-			values(@fechaVenc,'Efectivo',@IdCompra, @publCod,@monto)
-
-			select @FactNro = Nro_Fact from GROUP_APROVED.Facturas where Id_Compra = @IdCompra and Publicacion_Cod = @publCod;
-
-			insert into GROUP_APROVED.Items (Nro_Fact,Nro_item,Item_Monto,Item_Cantidad,Item_Tipo)
-			values ( @FactNro, 1 , @monto, 1,'venta')
-			end;
-
-			fetch next from cursorSubs into @publCod,@visCod,@usrId,@fechaVenc;
-		end;
-		
-	close cursorSubs;
-	deallocate cursorSubs;
-end;
+		fetch next from cpubs into
+		@pubId
+	end
+close cpubs
+deallocate cpubs
+end	
 
 go
-
 
 CREATE PROCEDURE GROUP_APROVED.insertarCalificacion
 @cantEstrellas int,
@@ -1430,50 +1419,6 @@ go
 
 /* trigger para actualizar precio de subastas con una nueva oferta, rechaza ofertas cuyo monto sea menor al precio de la publicacion*/
 
-
-CREATE TRIGGER GROUP_APROVED.ofertaSubasta
-oN GROUP_APROVED.Ofertas
-instead of insert
-as
-begin
-		declare @ofMonto numeric (18,0);
-		declare @PubCod INT, @IdUsuario INT;
-		declare @montoPub numeric(18,2);
-		declare @OfertaFecha datetime;
-	
-	
-	
-		
-		DECLARE cursorOfertas cursor for
-		select Oferta_Fecha,Oferta_Monto,Publicacion_Cod,Id_Usuario from inserted
-
-		open cursorOfertas
-		fetch next from cursorOfertas into @OfertaFecha,@ofMonto, @PubCod,@IdUsuario;
-
-		while @@FETCH_STATUS = 0 
-			BEGIN
-				select @montoPub = Publicacion_Precio from GROUP_APROVED.Publicaciones WHERE Publicacion_Cod = @PubCod
-				
-				if ( @montoPub < @ofMonto )
-					begin
-						update GROUP_APROVED.Publicaciones
-						set Publicacion_Precio = @ofMonto
-						where Publicacion_Cod = @PubCod
- 
-						insert into GROUP_APROVED.Ofertas(Oferta_Fecha,Oferta_Monto,Publicacion_Cod,Id_Usuario)
-						values(@OfertaFecha,@ofMonto, @PubCod,@IdUsuario)
-
-					
-					end;
-				fetch next from cursorOfertas into @OfertaFecha,@ofMonto, @PubCod,@IdUsuario;
-			end;		
-	close cursorOfertas;
-	deallocate cursorOfertas;
-end;
-
-
-
-go
 
 
 /*----hice cambios aqui------------- */

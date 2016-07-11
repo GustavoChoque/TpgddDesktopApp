@@ -1168,7 +1168,7 @@ begin
 		declare @fechaVenc datetime;
 		declare @FactNro numeric(18,0);
 
-		set @idVenc = (select Id_Est from GROUP_APROVED.Estado_Publ WHERE Descripcion = 'Finzalizada');
+		set @idVenc = (select Id_Est from GROUP_APROVED.Estado_Publ WHERE Descripcion = 'Finalizada');
 
 		declare cursorSubs cursor for 
 		select Publicacion_Cod,Visibilidad_Cod,Id_Usuario, Publicacion_Fecha_Venc from GROUP_APROVED.Publicaciones WHERE Publicacion_Tipo = 'Subasta' and Publicacion_Estado = @idVenc;

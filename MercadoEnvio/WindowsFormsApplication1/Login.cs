@@ -271,6 +271,15 @@ namespace WindowsFormsApplication1
             cmd = new SqlCommand("update GROUP_APROVED.Publicaciones  set Publicacion_Estado = CASE WHEN Publicacion_Fecha_Venc <= CAST('" + CustomDate.date.getDate() + "' AS DATE)  THEN 3  ELSE CASE WHEN Publicacion_estado != 0 AND Publicacion_estado != 2 THEN 1 ELSE Publicacion_estado END END ", DbConnection.connection.getdbconnection());
             int res = cmd.ExecuteNonQuery();
 
+            /*using (var command = new SqlCommand("GROUP_APROVED.facturacionSubastasVencidas", DbConnection.connection.getdbconnection())
+            {
+                CommandType = CommandType.StoredProcedure
+
+            })
+            {  
+            res = command.ExecuteNonQuery();
+            } */
+
         }
     
     }

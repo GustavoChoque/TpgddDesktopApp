@@ -51,6 +51,7 @@ namespace WindowsFormsApplication1.ComprarOfertar
             String est = dataReader.GetInt32(7).ToString();
             String rub = dataReader.GetDecimal(8).ToString();
             String envios = dataReader.GetString(9);
+            String preguntas = dataReader.GetString(10);
 
             richTextBox1.Text = dataReader.GetString(0);
             stock.Text = dataReader.GetDecimal(1).ToString();
@@ -58,6 +59,12 @@ namespace WindowsFormsApplication1.ComprarOfertar
             fecCrea.Text = dataReader.GetDateTime(2).ToString("yyyy-MM-dd");
             fecVenc.Text = dataReader.GetDateTime(3).ToString("yyyy-MM-dd");
             tipo.Text = dataReader.GetString(5);
+
+            if (preguntas == "v") 
+            {
+                radioButton4.Checked = true;
+            }
+            else { radioButton3.Checked = true; }
 
             if (tipo.Text == "Subasta") {
                 button3.Text = "Ofertar";
@@ -108,11 +115,7 @@ namespace WindowsFormsApplication1.ComprarOfertar
             else
             {
 
-                if (Int32.Parse(textBox2.Text) > Int32.Parse(stock.Text))
-                {
-                    MessageBox.Show("No hay unidades suficientes para realizar la compra");
-                    statusOK = false;
-                }
+                
             }
             if (estado.Text == "Finalizada")
             {
@@ -206,7 +209,7 @@ namespace WindowsFormsApplication1.ComprarOfertar
         public SqlDataReader cargarPublicacion(String pubId)
         {
 
-            SqlCommand cmd = new SqlCommand("select Publicacion_Desc,Publicacion_Stock,Publicacion_Fecha,Publicacion_Fecha_Venc,Publicacion_Precio,Publicacion_Tipo,Visibilidad_Cod,Publicacion_Estado,Id_Rubro,Publicacion_Acepta_Envio from GROUP_APROVED.publicaciones where Publicacion_cod = " + pubId, DbConnection.connection.getdbconnection());
+            SqlCommand cmd = new SqlCommand("select Publicacion_Desc,Publicacion_Stock,Publicacion_Fecha,Publicacion_Fecha_Venc,Publicacion_Precio,Publicacion_Tipo,Visibilidad_Cod,Publicacion_Estado,Id_Rubro,Publicacion_Acepta_Envio,Publicacion_Acepta_Preguntas from GROUP_APROVED.publicaciones where Publicacion_cod = " + pubId, DbConnection.connection.getdbconnection());
             SqlDataReader dataReader = cmd.ExecuteReader();
 
             return dataReader;

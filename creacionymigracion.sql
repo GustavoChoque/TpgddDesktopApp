@@ -1160,10 +1160,17 @@ as
 begin
 
 declare @pubId int
+declare @id_usr int
+declare @monto numeric(18,0)
+declare @id_compra numeric(18,0)
+declare @id_fact numeric(18,0)
+declare @visib_costo VARCHAR(255)
+declare @visib_cod numeric(18,0)
+declare @total  numeric(18,0)
 declare cpubs cursor 
 LOCAL STATIC READ_ONLY FORWARD_ONLY
 for
-select Publicacion_Cod from GROUP_APROVED.Publicaciones 
+select Publicacion_Cod,Visibilidad_Cod from GROUP_APROVED.Publicaciones 
 where Publicacion_Estado = 3
 and Publicacion_Tipo = 'Subasta' 
 and Publicacion_Cod NOT IN (select Publicacion_Cod from GROUP_APROVED.Compras)
@@ -1172,29 +1179,33 @@ and Publicacion_Cod IN (select Publicacion_Cod from GROUP_APROVED.Ofertas)
 open cpubs 
 
 fetch next from cpubs into
-@pubId
+@pubId,@visib_cod
 
 while @@FETCH_STATUS = 0
 	begin
-		declare @id_usr int
-		declare @monto numeric(18,0)
-		declare @id_compra numeric(18,0)
-		declare @id_fact numeric(18,0)
+		
 
 		select top 1  @id_usr = Id_Usuario, @monto = Oferta_Monto from GROUP_APROVED.Ofertas
 		where Publicacion_Cod = @pubId
 		order by Oferta_Monto desc
 
+
+		select @visib_costo = Visibilidad_Costo_Venta from GROUP_APROVED.Visibilidades where Visibilidad_Cod = @visib_cod
+
 		insert into GROUP_APROVED.Compras values(getdate(),1,@id_usr,@pubId)
+
 		select   @id_compra = ID_Compra  from GROUP_APROVED.Compras where Publicacion_Cod = @pubId
 
-		insert into GROUP_APROVED.Facturas values(getdate(),@monto,'Efectivo',@pubId,@id_compra);
+		set @total = @monto*@visib_costo*0.01
+
+		insert into GROUP_APROVED.Facturas values(getdate(),@total,'Efectivo',@pubId,@id_compra);
+
 		select  @id_fact = Nro_Fact from GROUP_APROVED.Facturas where Publicacion_Cod = @pubId
 
-		insert into GROUP_APROVED.Items values(@id_fact,1,@monto,1,'Venta')
+		insert into GROUP_APROVED.Items values(@id_fact,1,@total,1,'Venta')
 
 		fetch next from cpubs into
-		@pubId
+		@pubId,@visib_cod
 	end
 close cpubs
 deallocate cpubs

@@ -136,11 +136,22 @@ namespace WindowsFormsApplication1.Generar_Publicación
         public Int32 createPub(String desc, String stock, String precio, String tipo, String visib, String Id_Rubro,String estado,String envios,String preguntas)
         {
 
-            DateTime myDateTime = DateTime.Now;
+            /*DateTime myDateTime = DateTime.Now;
             string sqlFormattedDate = myDateTime.ToString("yyyy-MM-dd");
             DateTime myDateTime2 = DateTime.Now.AddDays(30);
+            string sqlFormattedDate2 = myDateTime2.ToString("yyyy-MM-dd");*/
 
-            string sqlFormattedDate2 = myDateTime2.ToString("yyyy-MM-dd");
+
+
+            DateTime myDateTime = DateTime.ParseExact(CustomDate.date.getDate(), "yyyy-MM-dd",
+                                       System.Globalization.CultureInfo.InvariantCulture);
+
+            String sqlFormattedDate = myDateTime.ToString("yyyy-dd-MM");
+
+            DateTime myDateTime2 = myDateTime.AddDays(30);
+
+            String sqlFormattedDate2 = myDateTime2.ToString("yyyy-dd-MM");
+
             SqlCommand cmd = new SqlCommand("insert into GROUP_APROVED.publicaciones values ('" + desc + "'," + stock + ",'" + sqlFormattedDate + "','" 
                 + sqlFormattedDate2 + "'," + precio + ",'" + tipo + "'," + visib + "," + estado + "," + Id_Rubro + "," + CurrentUser.user.getUserId() +
                 ",'"+envios+"'"+",'"+preguntas+"');SELECT Publicacion_Cod FROM GROUP_APROVED.Publicaciones WHERE Publicacion_Cod = @@Identity", DbConnection.connection.getdbconnection());
@@ -201,7 +212,12 @@ namespace WindowsFormsApplication1.Generar_Publicación
 
         public String crearFactura(String precio, String pubId, String idCompra)
         {
-            SqlCommand cmd = new SqlCommand("insert into GROUP_APROVED.Facturas values(getdate()," + precio.Replace(',', '.') + "," + "'Efectivo', " + pubId + "," + idCompra + ");SELECT Nro_Fact FROM GROUP_APROVED.Facturas WHERE Nro_Fact = @@Identity", DbConnection.connection.getdbconnection());
+            DateTime myDateTime = DateTime.ParseExact(CustomDate.date.getDate(), "yyyy-MM-dd",
+                                       System.Globalization.CultureInfo.InvariantCulture);
+
+            String sqlFormattedDate = myDateTime.ToString("yyyy-dd-MM");
+
+            SqlCommand cmd = new SqlCommand("insert into GROUP_APROVED.Facturas values('" + sqlFormattedDate + "'," + precio.Replace(',', '.') + "," + "'Efectivo', " + pubId + "," + idCompra + ");SELECT Nro_Fact FROM GROUP_APROVED.Facturas WHERE Nro_Fact = @@Identity", DbConnection.connection.getdbconnection());
 
             Decimal result = (Decimal)cmd.ExecuteScalar();
 

@@ -149,7 +149,7 @@ namespace WindowsFormsApplication1.Facturas
             ad.Fill(ds);
             
             dataGridView1.DataSource = ds;
-            totalRows = (int)myCommand.Parameters["@totalRows"].Value;
+            //totalRows = (int)myCommand.Parameters["@totalRows"].Value;
             label5.Text = currentPageNumber.ToString(); 
             label7.Text = CalculateTotalPages(totalRows+1).ToString();
 

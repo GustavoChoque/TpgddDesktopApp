@@ -1156,6 +1156,7 @@ end;
 go
 
 Create Procedure GROUP_APROVED.facturacionSubastasVencidas
+@date varchar(20)
 as
 begin
 
@@ -1192,13 +1193,13 @@ while @@FETCH_STATUS = 0
 
 		select @visib_costo = Visibilidad_Costo_Venta from GROUP_APROVED.Visibilidades where Visibilidad_Cod = @visib_cod
 
-		insert into GROUP_APROVED.Compras values(getdate(),1,@id_usr,@pubId)
+		insert into GROUP_APROVED.Compras values(CAST(@date as DATE),1,@id_usr,@pubId)
 
 		select   @id_compra = ID_Compra  from GROUP_APROVED.Compras where Publicacion_Cod = @pubId
 
 		set @total = @monto*@visib_costo*0.01
 
-		insert into GROUP_APROVED.Facturas values(getdate(),@total,'Efectivo',@pubId,@id_compra);
+		insert into GROUP_APROVED.Facturas values(CAST(@date as DATE),@total,'Efectivo',@pubId,@id_compra);
 
 		select  @id_fact = Nro_Fact from GROUP_APROVED.Facturas where Publicacion_Cod = @pubId
 
@@ -1209,7 +1210,7 @@ while @@FETCH_STATUS = 0
 	end
 close cpubs
 deallocate cpubs
-end	
+end		
 
 go
 

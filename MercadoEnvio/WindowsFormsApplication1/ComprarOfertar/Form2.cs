@@ -336,8 +336,12 @@ namespace WindowsFormsApplication1.ComprarOfertar
 
          public Int32 updateOffer(String precio, String pubId)
          {
-  
-             SqlCommand cmd = new SqlCommand("insert into GROUP_APROVED.Ofertas values(getdate(),"+precio+","+CurrentUser.user.getUserId().ToString()+","+pubId+")", DbConnection.connection.getdbconnection());
+             DateTime myDateTime = DateTime.ParseExact(CustomDate.date.getDate(), "yyyy-MM-dd",
+                                       System.Globalization.CultureInfo.InvariantCulture);
+
+             String sqlFormattedDate = myDateTime.ToString("yyyy-dd-MM");
+
+             SqlCommand cmd = new SqlCommand("insert into GROUP_APROVED.Ofertas values('" + sqlFormattedDate + "'," + precio + "," + CurrentUser.user.getUserId().ToString() + "," + pubId + ")", DbConnection.connection.getdbconnection());
              
              Int32 result = cmd.ExecuteNonQuery();
 
@@ -370,7 +374,12 @@ namespace WindowsFormsApplication1.ComprarOfertar
 
          public String crearFactura(String precio, String pubId, String idCompra)
          {
-             SqlCommand cmd = new SqlCommand("insert into GROUP_APROVED.Facturas values(getdate()," + precio.Replace(',','.') + ","+"'Efectivo', " + pubId +","+idCompra+");SELECT Nro_Fact FROM GROUP_APROVED.Facturas WHERE Nro_Fact = @@Identity", DbConnection.connection.getdbconnection());
+             DateTime myDateTime = DateTime.ParseExact(CustomDate.date.getDate(), "yyyy-MM-dd",
+                                       System.Globalization.CultureInfo.InvariantCulture);
+
+             String sqlFormattedDate = myDateTime.ToString("yyyy-dd-MM");
+
+             SqlCommand cmd = new SqlCommand("insert into GROUP_APROVED.Facturas values('" + sqlFormattedDate + "'," + precio.Replace(',', '.') + "," + "'Efectivo', " + pubId + "," + idCompra + ");SELECT Nro_Fact FROM GROUP_APROVED.Facturas WHERE Nro_Fact = @@Identity", DbConnection.connection.getdbconnection());
 
              Decimal result = (Decimal)cmd.ExecuteScalar();
 
@@ -383,7 +392,12 @@ namespace WindowsFormsApplication1.ComprarOfertar
 
          public String crearCompra(String cantidad,String pubId)
          {
-             SqlCommand cmd = new SqlCommand("insert into GROUP_APROVED.Compras values(getdate()," + cantidad + "," + CurrentUser.user.getUserId() + ", " + pubId + ");SELECT ID_Compra FROM GROUP_APROVED.Compras WHERE ID_Compra = @@Identity", DbConnection.connection.getdbconnection());
+             DateTime myDateTime = DateTime.ParseExact(CustomDate.date.getDate(), "yyyy-MM-dd",
+                                       System.Globalization.CultureInfo.InvariantCulture);
+
+             String sqlFormattedDate = myDateTime.ToString("yyyy-dd-MM");
+
+             SqlCommand cmd = new SqlCommand("insert into GROUP_APROVED.Compras values('" + sqlFormattedDate + "'," + cantidad + "," + CurrentUser.user.getUserId() + ", " + pubId + ");SELECT ID_Compra FROM GROUP_APROVED.Compras WHERE ID_Compra = @@Identity", DbConnection.connection.getdbconnection());
 
              Decimal result = (Decimal)cmd.ExecuteScalar();
 

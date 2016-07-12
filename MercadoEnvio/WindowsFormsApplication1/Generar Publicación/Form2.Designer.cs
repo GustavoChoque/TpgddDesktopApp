@@ -269,6 +269,7 @@
             // 
             // tipoVisib
             // 
+            this.tipoVisib.Enabled = false;
             this.tipoVisib.FormattingEnabled = true;
             this.tipoVisib.Location = new System.Drawing.Point(128, 242);
             this.tipoVisib.Name = "tipoVisib";

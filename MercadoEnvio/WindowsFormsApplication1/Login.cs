@@ -276,8 +276,10 @@ namespace WindowsFormsApplication1
                 CommandType = CommandType.StoredProcedure
 
             })
-            {  
-            res = command.ExecuteNonQuery();
+            {
+
+                command.Parameters.Add(new SqlParameter("@date", CustomDate.date.getDate()));
+                res = command.ExecuteNonQuery();
             } 
 
         }

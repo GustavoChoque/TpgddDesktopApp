@@ -49,6 +49,8 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -206,27 +208,29 @@
             // 
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
-            "A /",
-            "A P",
-            "Aor",
-            "Car",
-            "Cas",
-            "Cla",
-            "Cne",
-            "Cta",
-            "Fop",
-            "G",
-            "HTh",
-            "iy ",
-            "MMP",
-            "O c",
-            "P, ",
-            "Pct",
-            "Prr",
-            "Rdu",
-            "Sid",
-            "Ste",
-            "Tis"});
+            "Seguridad y Vigilancia - Hogar",
+            "Soportes",
+            "Accesorios para Audio y Video",
+            "Audio Portátil y Radios",
+            "Reproductores de DVD y Video",
+            "Pilas, Cargadores y Baterías",
+            "Otras categorías",
+            "Computación",
+            "GPS",
+            "Portarretratos Digitales",
+            "Calculadoras y Agendas",
+            "Componentes Electrónicos",
+            "Audio / Video Profesional y DJ",
+            "Televisores",
+            "Home Theaters",
+            "iPad y Tablets",
+            "Celulares y Teléfonos",
+            "Cámaras y Accesorios",
+            "MP3, MP4 y MP5 Players",
+            "Consolas y Videojuegos",
+            "Fotocopiadoras y Accesorios",
+            "Audio para el Hogar",
+            "Proyectores y Pantallas"});
             this.comboBox1.Location = new System.Drawing.Point(343, 81);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(77, 21);
@@ -292,11 +296,33 @@
             this.comboBox3.Size = new System.Drawing.Size(77, 21);
             this.comboBox3.TabIndex = 24;
             // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(675, 81);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(80, 23);
+            this.button8.TabIndex = 25;
+            this.button8.Text = "4to Trimestre";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(675, 53);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(80, 23);
+            this.button9.TabIndex = 26;
+            this.button9.Text = "4to Trimestre";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
             // listado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(697, 452);
+            this.ClientSize = new System.Drawing.Size(825, 452);
+            this.Controls.Add(this.button9);
+            this.Controls.Add(this.button8);
             this.Controls.Add(this.comboBox3);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.comboBox2);
@@ -349,5 +375,7 @@
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button9;
     }
 }

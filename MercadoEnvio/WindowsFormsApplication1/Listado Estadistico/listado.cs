@@ -27,7 +27,7 @@ namespace WindowsFormsApplication1.Listado_Estadistico
             try{
                 int anio = Convert.ToInt32(textBox1.Text.ToString());
                 if ((anio<2017) && (anio>1900))
-                {llenarTablaPorTrimestre(anio,1,4);};
+                {llenarTablaPorTrimestre(anio,1,3);};
             }
             catch{MessageBox.Show("Ingresar año válido");};
 
@@ -82,15 +82,13 @@ namespace WindowsFormsApplication1.Listado_Estadistico
         {
             SqlDataAdapter dataAdapter = null;
             DataTable tablaDatos = null;
-            try
-            {
+            
                 dataAdapter = new SqlDataAdapter();
                 tablaDatos = new DataTable();
                 dataAdapter.SelectCommand = dbQueryHandler.vendedoresMasMonto(anio, mes);
                 dataAdapter.Fill(tablaDatos);
                 dataGridView1.DataSource = tablaDatos;
-            }
-            catch { }
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -99,7 +97,7 @@ namespace WindowsFormsApplication1.Listado_Estadistico
             {
                 int anio = Convert.ToInt32(textBox1.Text.ToString());
                 if ((anio < 2017) && (anio > 1900))
-                { llenarTablaPorTrimestre(anio, 5, 8); };
+                { llenarTablaPorTrimestre(anio, 4, 6); };
             }
             catch { MessageBox.Show("Ingresar año válido"); };
         }
@@ -110,7 +108,7 @@ namespace WindowsFormsApplication1.Listado_Estadistico
             {
                 int anio = Convert.ToInt32(textBox1.Text.ToString());
                 if ((anio < 2017) && (anio > 1900))
-                { llenarTablaPorTrimestre(anio, 9, 12); };
+                { llenarTablaPorTrimestre(anio, 7, 9); };
             }
             catch { MessageBox.Show("Ingresar año válido"); };
         }
@@ -125,7 +123,7 @@ namespace WindowsFormsApplication1.Listado_Estadistico
                 if (comboBox1.SelectedIndex != -1) { 
                     rubro = comboBox1.SelectedItem.ToString();
                     if ((anio < 2017) && (anio > 1900))
-                    { llenarTablaPorTrimestreConRubro(anio, 1, 4, rubro); }
+                    { llenarTablaPorTrimestreConRubro(anio, 1, 3, rubro); }
                 else { MessageBox.Show("Seleccionar rubro válido"); };
                  };
             }
@@ -142,7 +140,7 @@ namespace WindowsFormsApplication1.Listado_Estadistico
                 {
                     rubro = comboBox1.SelectedItem.ToString();
                     if ((anio < 2017) && (anio > 1900))
-                    { llenarTablaPorTrimestreConRubro(anio, 1, 4, rubro); }
+                    { llenarTablaPorTrimestreConRubro(anio, 4, 6, rubro); }
                     else { MessageBox.Show("Seleccionar rubro válido"); };
                 };
             }
@@ -159,7 +157,7 @@ namespace WindowsFormsApplication1.Listado_Estadistico
                 {
                     rubro = comboBox1.SelectedItem.ToString();
                     if ((anio < 2017) && (anio > 1900))
-                    { llenarTablaPorTrimestreConRubro(anio, 1, 4, rubro); }
+                    { llenarTablaPorTrimestreConRubro(anio, 7, 9, rubro); }
                     else { MessageBox.Show("Seleccionar rubro válido"); };
                 };
             }
@@ -193,6 +191,36 @@ namespace WindowsFormsApplication1.Listado_Estadistico
             this.Close();
         }
 
+        private void button9_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int anio = Convert.ToInt32(textBox1.Text.ToString());
+                if ((anio < 2017) && (anio > 1900))
+                { llenarTablaPorTrimestre(anio, 10, 12); };
+            }
+            catch { MessageBox.Show("Ingresar año válido"); };
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int anio = Convert.ToInt32(textBox1.Text.ToString());
+                string rubro;
+                if (comboBox1.SelectedIndex != -1)
+                {
+                    rubro = comboBox1.SelectedItem.ToString();
+                    if ((anio < 2017) && (anio > 1900))
+                    { llenarTablaPorTrimestreConRubro(anio, 10, 12, rubro); }
+                    else { MessageBox.Show("Seleccionar rubro válido"); };
+                };
+            }
+            catch { MessageBox.Show("Ingresar año válido"); };
+        }
+
+        
+
 
         
     }
@@ -225,7 +253,7 @@ namespace WindowsFormsApplication1.Listado_Estadistico
             join GROUP_APROVED.Rubros r on p.Id_Rubro = r.Id_Rubro
             where year(c.Compra_Fecha) =" + añobusacod +
             "and month(c.Compra_Fecha) between " + mesinit + " and " + messfin +
-            "and r.Rubro_Desc_Corta = " + rubroelegido +
+            "and r.Rubro_Desc_Completa = " + rubroelegido +
             @"group by u.Username, c1.Cli_Apellido, c1.Cli_Nombre
             order by 2 DESC ", DbConnection.connection.getdbconnection());
             return comando;

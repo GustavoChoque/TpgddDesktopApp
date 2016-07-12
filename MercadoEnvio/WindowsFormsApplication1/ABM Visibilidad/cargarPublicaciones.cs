@@ -24,7 +24,6 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
             dataAdapter = new SqlDataAdapter();
             tablaDatos = new DataTable();
             dataAdapter.SelectCommand = dbQueryHandler.consultaPublicaciones(CurrentUser.user.getUserId());
-            //dataAdapter.SelectCommand = dbQueryHandler.consultaPublicaciones(38);
             dataAdapter.Fill(tablaDatos);
             dataGridView1.DataSource = tablaDatos;
             dataGridView1.CellClick += dataGridView1_CellClick;
@@ -42,7 +41,7 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
             
         }
         
-        public void cargar(int cod)
+        public void cargar()
         {
             dataAdapter = null;
             tablaDatos = null;
@@ -50,10 +49,8 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
             dataAdapter = new SqlDataAdapter();
             tablaDatos = new DataTable();
             dataAdapter.SelectCommand = dbQueryHandler.consultaPublicaciones(CurrentUser.user.getUserId());
-            //dataAdapter.SelectCommand = dbQueryHandler.consultaPublicaciones(38);
             dataAdapter.Fill(tablaDatos);
             dataGridView1.DataSource = tablaDatos;
-            dataGridView1.CellClick += dataGridView1_CellClick;
             
         }
 

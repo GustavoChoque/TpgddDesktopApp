@@ -54,7 +54,6 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
             {
                 //bool envio = Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells[5].Value);
                 int codVis = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[1].Value);
-
                 if (verificarSeleccionVisibilidad(codVis)) { verificado = true; };
             }
             catch { }
@@ -84,7 +83,7 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
                     bool rta = dbQueryHandler.actualizarVisibilidad(codPub, codVis, envio);
                     //if (rta) { MessageBox.Show("Éxito"); dbQueryHandler.commit(); } else { MessageBox.Show("Error"); dbQueryHandler.rollback(); };
                     if (rta) { MessageBox.Show("Éxito"); } else { MessageBox.Show("Error"); };
-                    pant.cargar(1);
+                    pant.cargar();
                     this.Close();
                 }
             }
@@ -103,15 +102,6 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
         {
             SqlCommand comand = new SqlCommand("select * from GROUP_APROVED.Visibilidades", DbConnection.connection.getdbconnection());
             return comand;
-        }
-
-        public bool actualizarVisibilidad(int codPublic, int codVisib, bool envio)
-        {
-            char pubEnvio;
-            if (envio == true) { pubEnvio = 'V'; } else pubEnvio = 'F';
-            SqlCommand comand = new SqlCommand(" update GROUP_APROVED.Publicaciones set Visibilidad_Cod = " + codVisib + ",Publicacion_Acepta_Envio = '"+pubEnvio+"'  where Publicacion_Cod = " + codPublic, DbConnection.connection.getdbconnection());
-            int filasAf = comand.ExecuteNonQuery();
-            if (filasAf == 1) { return true; } else return false;
         }
 
         public void IniciarTransaction()
@@ -134,5 +124,26 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
             command.ExecuteNonQuery();
 
         }
+        
+        public bool actualizarVisibilidad(int codPublic, int codVisib, bool envio)
+        {
+            char pubEnvio;
+            if (envio == true) { pubEnvio = 'V'; } else pubEnvio = 'F';
+
+            SqlCommand comando = new SqlCommand("GROUP_APROVED.actualizarVisibilidad", DbConnection.connection.getdbconnection());
+            comando.CommandType = CommandType.StoredProcedure;
+            comando.Parameters.AddWithValue("@codVisib", codVisib);
+            comando.Parameters.AddWithValue("@pubEnvio", pubEnvio);
+            comando.Parameters.AddWithValue("@codPublic", codPublic);
+            
+            SqlParameter retVal = new SqlParameter("@rta", SqlDbType.Int);
+            comando.Parameters.Add(retVal);
+            retVal.Direction = ParameterDirection.Output;
+            comando.ExecuteNonQuery();
+
+            int mensajeRespuesta = Convert.ToInt32(comando.Parameters["@rta"].Value);
+            if (mensajeRespuesta==1) { return true; } else { return false; };
+        }
+
     }
 }

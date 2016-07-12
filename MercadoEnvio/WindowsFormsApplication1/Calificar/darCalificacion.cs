@@ -34,14 +34,18 @@ namespace WindowsFormsApplication1.Calificar
             //try
             //{
                 string desc = textBox2.Text;
-                string estrellas = comboBox1.SelectedItem.ToString();
+                string estrellas;
+                if (comboBox1.SelectedIndex != -1)
+                { estrellas = comboBox1.SelectedItem.ToString(); }
+                else { estrellas = "nada"; }
                 string idcompra = idCompra.ToString();
+            if (estrellas != "nada"){
                 if (dbQueryHandler.insertarCalificacion(estrellas, desc, idcompra) == 1)
                 { MessageBox.Show("Exito"); }
                 else { MessageBox.Show("Error"); }
                 pantallaAnterior.recargar();
-                this.Close();
-
+                this.Close();}
+             else {MessageBox.Show("Seleccionar cantidad de estrellas");}
             //}
             //catch { MessageBox.Show("Error"); };
 

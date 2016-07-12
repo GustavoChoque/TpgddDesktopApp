@@ -1231,6 +1231,24 @@ set @rta = 0
 end catch
 end
 
+ CREATE PROCEDURE GROUP_APROVED.actualizarVisibilidad
+ @codVisib int,
+ @codPublic int,
+ @pubEnvio char,
+ @rta int output
+ as
+ begin
+ begin try
+ update GROUP_APROVED.Publicaciones 
+	set Visibilidad_Cod = @codVisib,
+		Publicacion_Acepta_Envio = @pubEnvio  where Publicacion_Cod = @codPublic
+ set @rta = '1'
+ end try
+ begin catch
+ set @rta = '0'
+ end catch
+ end
+
 /*
 drop TRIGGER GROUP_APROVED.ofertaSubasta
 drop procedure GROUP_APROVED.facturacionSubastasVencidas
@@ -1255,6 +1273,15 @@ drop procedure GROUP_APROVED.updateClientes
 drop procedure GROUP_APROVED.updateEmpresa
 drop procedure GROUP_APROVED.migrComprasCalif
 drop procedure GROUP_APROVED.insertarCalificacion
+drop procedure GROUP_APROVED.CrearUsuarioCliente
+drop procedure GROUP_APROVED.funcionesEmpresa
+drop procedure GROUP_APROVED.funcionesCliente
+drop procedure GROUP_APROVED.funcionesAdmin
+drop procedure GROUP_APROVED.CrearUsuarioEmpresa
+drop procedure GROUP_APROVED.bajaLogicaUsuario
+drop procedure GROUP_APROVED.insertarCalificacion
+drop procedure GROUP_APROVED.ActualizarPublicacion
+drop procedure GROUP_APROVED.ingresarUsuario
 */
 
 go

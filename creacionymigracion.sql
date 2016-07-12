@@ -1258,7 +1258,22 @@ go
  end catch
  end
  go
+ 
+ CREATE procedure GROUP_APROVED.fechaCreacionUsuarios
+@date varchar(20)
+as
+begin
+		update GROUP_APROVED.Usuarios 
+		SET Fecha_Creacion = cast(@date as datetime) 
+		where Fecha_Creacion IS NULL;
+
+
+end;
+
+
+go
 /*
+drop procedure GROUP_APROVED.fechaCreacionUsuarios
 drop TRIGGER GROUP_APROVED.ofertaSubasta
 drop procedure GROUP_APROVED.facturacionSubastasVencidas
 drop procedure GROUP_APROVED.DesCorta

@@ -34,23 +34,44 @@ namespace WindowsFormsApplication1.Generar_Publicación
 
         private void button1_Click(object sender, System.EventArgs e)
         {
-            String desc = richTextBox1.Text;
-            String stock = textBox3.Text;
-            String precio = textBox1.Text;
-            String tipo = comboBox2.Text;
-            String visib = visibilidades[comboBox3.Text].ToString();
-            String rubro = rubros[comboBox4.Text].ToString();
+            bool statusOk = true;
+            if (richTextBox1.Text == "" || textBox3.Text == "" || textBox1.Text == "" || comboBox2.Text == "" || comboBox4.Text == "" )
+            {
+                statusOk = false;
+                MessageBox.Show("Debe completar todos los campos");
+            }
+
+            String desc = "";
+            String stock = "";
+            String precio = "";
+            String tipo = "";
+            String visib = "";
+            String rubro = "";
             String estado = dbQueryHandler.cargarEstado("Borrador");
             String envios = "V";
             String preguntas = "V";
+            Int32 pubId = 0;
+
+            if (statusOk == true)
+            {
+                desc = richTextBox1.Text;
+                stock = textBox3.Text;
+                precio = textBox1.Text;
+                tipo = comboBox2.Text;
+                visib = visibilidades[comboBox3.Text].ToString();
+                rubro = rubros[comboBox4.Text].ToString();
+            }
+
+            
 
             if (radioButton2.Checked == true)
                 envios = "F";
 
             if (radioButton3.Checked == true)
                 preguntas = "F";
-            
-            Int32 pubId = dbQueryHandler.createPub(desc, stock,precio,tipo,visib,rubro,estado,envios,preguntas);
+
+            if(statusOk == true)
+                 pubId = dbQueryHandler.createPub(desc, stock,precio,tipo,visib,rubro,estado,envios,preguntas);
 
             if (pubId > 0)
             {

@@ -674,6 +674,7 @@ CREATE PROCEDURE GROUP_APROVED.consultarFacturas
 @maximumRows int,
 @idUsuario int,
 @textoABuscar varchar(255),
+@usuarioBuscado varchar(255),
 @importeInicio int,
 @importeFin int,
 @dias int,
@@ -692,23 +693,30 @@ SET @startRowIndex = 1
 SET ROWCOUNT @startRowIndex
 if exists (select 1 from GROUP_APROVED.RolesxUsuario RU join GROUP_APROVED.Roles R On(RU.Id_Roles=R.Id_Rol) where R.Desc_Rol='Administrador' and RU.Id_Usr=@idUsuario)
 begin 
-SELECT @first_id = Nro_Fact from GROUP_APROVED.Facturas where (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between @fechaActual-@dias and @fechaActual)  and GROUP_APROVED.descripcionFactura(Nro_Fact) like '%'+@textoABuscar+'%' order by Nro_Fact
+SELECT @first_id = Nro_Fact from GROUP_APROVED.Facturas f
+join GROUP_APROVED.Publicaciones p on(f.Publicacion_Cod=p.Publicacion_Cod)
+join GROUP_APROVED.Usuarios u on (u.Id_Usr=p.Id_Usuario)
+where (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between @fechaActual-@dias and @fechaActual)  and GROUP_APROVED.descripcionFactura(Nro_Fact) like '%'+@textoABuscar+'%' and u.Username like '%'+@usuarioBuscado+'%' order by Nro_Fact
 PRINT @first_id
 
 SET ROWCOUNT @maximumRows
 
-select f.Nro_Fact,Id_Usuario ,Fact_Fecha,Fact_Total,Fact_Forma_Pago,(GROUP_APROVED.descripcionFactura(f.Nro_Fact)) descripcion
+select f.Nro_Fact,u.Username Usuario,Fact_Fecha,Fact_Total,Fact_Forma_Pago,(GROUP_APROVED.descripcionFactura(f.Nro_Fact)) descripcion
 from GROUP_APROVED.Facturas f 
 join GROUP_APROVED.Publicaciones p on(f.Publicacion_Cod=p.Publicacion_Cod)
+join GROUP_APROVED.Usuarios u on (u.Id_Usr=p.Id_Usuario)
 WHERE f.Nro_Fact >= @first_id and (GROUP_APROVED.descripcionFactura(f.Nro_Fact)) like '%'+@textoABuscar+'%' 
-and (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between @fechaActual-@dias and @fechaActual)
+and (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between @fechaActual-@dias and @fechaActual) and u.Username like '%'+@usuarioBuscado+'%'
 ORDER BY f.Nro_Fact
  
 SET ROWCOUNT 0
 
 --GEt total filas
 
-SELECT @totalRows = COUNT(Nro_Fact)from GROUP_APROVED.Facturas where (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between @fechaActual-@dias and @fechaActual) and dbo.descripcionFactura(Nro_Fact) like '%'+@textoABuscar+'%'
+SELECT @totalRows = COUNT(Nro_Fact)from GROUP_APROVED.Facturas f
+join GROUP_APROVED.Publicaciones p on(f.Publicacion_Cod=p.Publicacion_Cod)
+join GROUP_APROVED.Usuarios u on (u.Id_Usr=p.Id_Usuario)
+where (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between @fechaActual-@dias and @fechaActual) and dbo.descripcionFactura(Nro_Fact) like '%'+@textoABuscar+'%' and u.Username like '%'+@usuarioBuscado+'%'
 
 end else --usuarios cliente y empresa
 begin
@@ -1231,7 +1239,7 @@ begin catch
 set @rta = 0
 end catch
 end
-
+go
  CREATE PROCEDURE GROUP_APROVED.actualizarVisibilidad
  @codVisib int,
  @codPublic int,
@@ -1249,7 +1257,7 @@ end
  set @rta = '0'
  end catch
  end
-
+ go
 /*
 drop TRIGGER GROUP_APROVED.ofertaSubasta
 drop procedure GROUP_APROVED.facturacionSubastasVencidas
@@ -1283,6 +1291,8 @@ drop procedure GROUP_APROVED.bajaLogicaUsuario
 drop procedure GROUP_APROVED.insertarCalificacion
 drop procedure GROUP_APROVED.ActualizarPublicacion
 drop procedure GROUP_APROVED.ingresarUsuario
+drop procedure GROUP_APROVED.migrarItems
+drop procedure GROUP_APROVED.actualizarVisibilidad
 */
 
 go

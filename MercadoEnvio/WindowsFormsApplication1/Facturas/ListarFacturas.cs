@@ -22,6 +22,9 @@ namespace WindowsFormsApplication1.Facturas
         {
             InitializeComponent();
             panel1.Hide();
+            if (dbQueryHandler.esAdministrador()) {
+                panel2.Show();
+            }
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -93,6 +96,7 @@ namespace WindowsFormsApplication1.Facturas
         }
             private void BindData()
         {
+                string usuarioBuscado = textBox2.Text;
                 string textoABuscar=textBox1.Text;
                 int importeInicio = 0;
                 int importeFin=0;
@@ -134,6 +138,7 @@ namespace WindowsFormsApplication1.Facturas
             myCommand.Parameters.AddWithValue("@maximumRows", PAGE_SIZE);
             myCommand.Parameters.AddWithValue("@idUsuario", CurrentUser.user.getUserId());
             myCommand.Parameters.AddWithValue("@textoABuscar", textoABuscar);
+            myCommand.Parameters.AddWithValue("@usuarioBuscado", usuarioBuscado);
             myCommand.Parameters.AddWithValue("@importeInicio", importeInicio);
             myCommand.Parameters.AddWithValue("@importeFin", importeFin);
             myCommand.Parameters.AddWithValue("@dias", dias);
@@ -149,7 +154,7 @@ namespace WindowsFormsApplication1.Facturas
             ad.Fill(ds);
             
             dataGridView1.DataSource = ds;
-            //totalRows = (int)myCommand.Parameters["@totalRows"].Value;
+            totalRows = (int)myCommand.Parameters["@totalRows"].Value;
             label5.Text = currentPageNumber.ToString(); 
             label7.Text = CalculateTotalPages(totalRows+1).ToString();
 
@@ -162,6 +167,7 @@ namespace WindowsFormsApplication1.Facturas
         }
         public void Limpiar() {
             textBox1.Text = "";
+            textBox2.Text = "";
             comboBox1.SelectedIndex = 0;
             comboBox2.SelectedIndex = 0;
             ad = null;
@@ -172,6 +178,26 @@ namespace WindowsFormsApplication1.Facturas
     }
     public class DbQueryHandlerListarFacturas
     {
-        
+       public bool esAdministrador() {
+            int valor=-1;
+            SqlCommand comando = new SqlCommand("select valor=case when 'Administrador' in (select Desc_Rol from GROUP_APROVED.Usuarios u join GROUP_APROVED.RolesxUsuario ru on(u.Id_Usr=ru.Id_Usr) join GROUP_APROVED.Roles r on(r.Id_Rol=ru.Id_Roles) where  u.Id_Usr="+CurrentUser.user.getUserId()+") then 0 else 1 end", DbConnection.connection.getdbconnection());
+
+            SqlDataReader registros = comando.ExecuteReader();
+            while (registros.Read())
+            {
+                valor= (Convert.ToInt32(registros["valor"]));
+
+            }
+
+            registros.Close();
+            if (valor == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

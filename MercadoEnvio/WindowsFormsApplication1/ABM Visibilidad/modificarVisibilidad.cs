@@ -57,10 +57,8 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
                 if ((e.ColumnIndex == dataGridView1.Columns["Seleccionar Visibilidad"].Index) && (e.RowIndex >= 0))
                 {
                     this.codVisibilidadAcambiar= Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[1].Value);
-                    textBox1.Text = codVisibilidad.ToString();
                     int cod = codVisibilidadAcambiar;
                     if (verificarSeleccionVisibilidad(cod)) { verificado = true; };
-                    textBox1.Text = codVisibilidadAcambiar.ToString();
                 }
             }
             catch { }
@@ -78,17 +76,15 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (!(radioButton1.Checked) && !(radioButton2.Checked)) { MessageBox.Show("Elegir modalidad envío"); textBox1.Text = codVisibilidad.ToString(); }
+            if (!(radioButton1.Checked) && !(radioButton2.Checked)) { MessageBox.Show("Elegir modalidad envío");  }
             else
             {
-                textBox1.Text = codVisibilidad.ToString();
                 if (verificado == false) { MessageBox.Show("Elegir visibilidad"); }
                 else
                 {
 
                     if (radioButton1.Checked) { envio = true; };
                     //dbQueryHandler.IniciarTransaction();
-                    textBox1.Text = codVisibilidad.ToString();
                     bool rta = dbQueryHandler.actualizarVisibilidad(codPub, codVisibilidadAcambiar, envio);
                     //if (rta) { MessageBox.Show("Éxito"); dbQueryHandler.commit(); } else { MessageBox.Show("Error"); dbQueryHandler.rollback(); };
                     if (rta) { MessageBox.Show("Éxito"); } else { MessageBox.Show("Error"); };

@@ -31,9 +31,10 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.label11 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
@@ -56,7 +57,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -114,24 +114,14 @@
             this.groupBox1.Text = "Datos de la publicacion";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
-            // label11
+            // panel1
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(11, 396);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(94, 13);
-            this.label11.TabIndex = 29;
-            this.label11.Text = "Acepta preguntas:";
-            // 
-            // radioButton3
-            // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(60, 3);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(39, 17);
-            this.radioButton3.TabIndex = 28;
-            this.radioButton3.Text = "No";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.panel1.Controls.Add(this.radioButton4);
+            this.panel1.Controls.Add(this.radioButton3);
+            this.panel1.Location = new System.Drawing.Point(128, 393);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(108, 24);
+            this.panel1.TabIndex = 30;
             // 
             // radioButton4
             // 
@@ -144,6 +134,25 @@
             this.radioButton4.TabStop = true;
             this.radioButton4.Text = "Si";
             this.radioButton4.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(60, 3);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(39, 17);
+            this.radioButton3.TabIndex = 28;
+            this.radioButton3.Text = "No";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(11, 396);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(94, 13);
+            this.label11.TabIndex = 29;
+            this.label11.Text = "Acepta preguntas:";
             // 
             // label9
             // 
@@ -273,6 +282,7 @@
             this.tipo.Name = "tipo";
             this.tipo.Size = new System.Drawing.Size(121, 21);
             this.tipo.TabIndex = 11;
+            this.tipo.SelectedIndexChanged += new System.EventHandler(this.tipo_SelectedIndexChanged);
             // 
             // richTextBox1
             // 
@@ -337,15 +347,6 @@
             this.button3.Text = "Modificar";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.radioButton4);
-            this.panel1.Controls.Add(this.radioButton3);
-            this.panel1.Location = new System.Drawing.Point(128, 393);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(108, 24);
-            this.panel1.TabIndex = 30;
             // 
             // Form2
             // 

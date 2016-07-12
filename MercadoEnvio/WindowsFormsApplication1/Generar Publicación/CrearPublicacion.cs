@@ -89,6 +89,25 @@ namespace WindowsFormsApplication1.Generar_Publicación
         {
             this.Close();
         }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox2.Text == "Subasta") 
+            {
+                textBox3.Text = "1";
+                textBox3.Enabled = false;
+
+                radioButton1.Enabled = false;
+                radioButton2.Enabled = false;
+                radioButton2.Checked = true;
+            }
+            if (comboBox2.Text == "Compra Inmediata") 
+            {
+                textBox3.Enabled = true;
+                radioButton1.Enabled = true;
+                radioButton2.Enabled = true;
+            }
+        }
     }
    
     class DbQueryHandlerCreate {

@@ -162,6 +162,25 @@ namespace WindowsFormsApplication1.Generar_Publicación
         {
 
         }
+
+        private void tipo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tipo.Text == "Subasta")
+            {
+                stock.Text = "1";
+                stock.Enabled = false;
+
+                radioButton1.Enabled = false;
+                radioButton2.Enabled = false;
+                radioButton2.Checked = true;
+            }
+            if (tipo.Text == "Compra Inmediata")
+            {
+                stock.Enabled = true;
+                radioButton1.Enabled = true;
+                radioButton2.Enabled = true;
+            }
+        }
     }
 
     class DbQueryHandlerModify {

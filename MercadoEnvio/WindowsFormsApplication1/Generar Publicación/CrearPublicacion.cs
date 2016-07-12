@@ -187,7 +187,7 @@ namespace WindowsFormsApplication1.Generar_Publicación
 
              while (dataReader.Read())
              {
-                 rubros[dataReader.GetString(1)] = dataReader.GetDecimal(0).ToString();
+                 rubros[dataReader.GetString(2)] = dataReader.GetDecimal(0).ToString();
              }
 
              dataReader.Close();

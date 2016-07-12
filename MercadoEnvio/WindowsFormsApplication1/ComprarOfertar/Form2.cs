@@ -245,7 +245,7 @@ namespace WindowsFormsApplication1.ComprarOfertar
 
             while (dataReader.Read())
             {
-                rubros[dataReader.GetString(1)] = dataReader.GetDecimal(0).ToString();
+                rubros[dataReader.GetString(2)] = dataReader.GetDecimal(0).ToString();
             }
 
             dataReader.Close();
@@ -292,7 +292,7 @@ namespace WindowsFormsApplication1.ComprarOfertar
         }
         public String cargarRubro(String Id)
         {
-            SqlCommand cmd = new SqlCommand("select Rubro_Desc_Corta from GROUP_APROVED.Rubros where Id_Rubro = " + Id, DbConnection.connection.getdbconnection());
+            SqlCommand cmd = new SqlCommand("select Rubro_Desc_Completa from GROUP_APROVED.Rubros where Id_Rubro = " + Id, DbConnection.connection.getdbconnection());
             SqlDataReader dataReader = cmd.ExecuteReader();
             dataReader.Read();
             String estado = dataReader.GetString(0);

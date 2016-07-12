@@ -123,6 +123,12 @@ namespace WindowsFormsApplication1.ComprarOfertar
                 statusOK = false;
             }
 
+            if (estado.Text == "Pausada")
+            {
+                MessageBox.Show("No se puede comprar u ofertar una publicación pausada");
+                statusOK = false;
+            }
+
             if (statusOK == false)
             {
             }
@@ -162,7 +168,7 @@ namespace WindowsFormsApplication1.ComprarOfertar
 
                     Int32 unidades = Int32.Parse(textBox2.Text);
 
-                    Double porcRecarga = 0.05;
+                    Double porcRecarga = dbQueryHandler.getPorcentajeRecarga(tipoVisib.Text) * 0.01;
 
                     Decimal recargo = Decimal.Add(Decimal.Parse((total * unidades * porcRecarga).ToString()), Decimal.Parse(envio.Replace('.', ',')));
             
@@ -330,8 +336,9 @@ namespace WindowsFormsApplication1.ComprarOfertar
 
          public Int32 updateOffer(String precio, String pubId)
          {
-             SqlCommand cmd = new SqlCommand("insert into GROUP_APROVED.Ofertas values(getdate()," + precio + ","+CurrentUser.user.getUserId().ToString()+"," + pubId + ")", DbConnection.connection.getdbconnection());
-
+  
+             SqlCommand cmd = new SqlCommand("insert into GROUP_APROVED.Ofertas values(getdate(),"+precio+","+CurrentUser.user.getUserId().ToString()+","+pubId+")", DbConnection.connection.getdbconnection());
+             
              Int32 result = cmd.ExecuteNonQuery();
 
              return result;
@@ -345,6 +352,18 @@ namespace WindowsFormsApplication1.ComprarOfertar
              dataReader.Read();
 
              String result = dataReader.GetDecimal(0).ToString().Replace(',', '.');
+             dataReader.Close();
+             return result;
+         }
+
+         public Int32 getPorcentajeRecarga(String visib)
+         {
+             SqlCommand cmd = new SqlCommand("select Visibilidad_Costo_Venta from GROUP_APROVED.Visibilidades where Visibilidad_Desc = '" + visib + "'", DbConnection.connection.getdbconnection());
+
+             SqlDataReader dataReader = cmd.ExecuteReader();
+             dataReader.Read();
+
+             Int32 result = dataReader.GetInt32(0);
              dataReader.Close();
              return result;
          }

@@ -25,6 +25,7 @@ namespace WindowsFormsApplication1.Generar_Publicación
         {
             CrearPublicacion cp = new CrearPublicacion();
             cp.Show();
+            this.Close();
         }
 
         private void Form1_Load(object sender, EventArgs e)

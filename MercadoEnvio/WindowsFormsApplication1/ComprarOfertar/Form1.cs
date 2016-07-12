@@ -529,7 +529,7 @@ namespace WindowsFormsApplication1.ComprarOfertar
 
 
 
-            SqlCommand cmd = new SqlCommand("select Publicacion_Cod, Publicacion_Desc,Publicacion_Precio,Publicacion_Acepta_Envio,Id_Rubro,Visibilidad_Cod,Publicacion_Tipo from GROUP_APROVED.Publicaciones where Id_Rubro in(" + rubros + ") order by Visibilidad_Cod", DbConnection.connection.getdbconnection());
+            SqlCommand cmd = new SqlCommand("select Publicacion_Cod, Publicacion_Desc,Publicacion_Precio,Publicacion_Acepta_Envio,Id_Rubro,Visibilidad_Cod,Publicacion_Tipo from GROUP_APROVED.Publicaciones where Id_Rubro in(" + rubros + ") and Publicacion_Estado != 0 order by Visibilidad_Cod", DbConnection.connection.getdbconnection());
             SqlDataReader dataReader = cmd.ExecuteReader();
 
             return dataReader;
@@ -538,7 +538,7 @@ namespace WindowsFormsApplication1.ComprarOfertar
         public SqlDataReader cargarPublicacionesPorDesc(String desc)
         {
 
-            SqlCommand cmd = new SqlCommand("select Publicacion_Cod, Publicacion_Desc,Publicacion_Precio,Publicacion_Acepta_Envio,Id_Rubro,Visibilidad_Cod,Publicacion_Tipo from GROUP_APROVED.Publicaciones where Publicacion_Desc like '%" + desc + "%' order by Visibilidad_Cod", DbConnection.connection.getdbconnection());
+            SqlCommand cmd = new SqlCommand("select Publicacion_Cod, Publicacion_Desc,Publicacion_Precio,Publicacion_Acepta_Envio,Id_Rubro,Visibilidad_Cod,Publicacion_Tipo from GROUP_APROVED.Publicaciones where Publicacion_Desc like '%" + desc + "%' and Publicacion_Estado != 0 order by Visibilidad_Cod", DbConnection.connection.getdbconnection());
             SqlDataReader dataReader = cmd.ExecuteReader();
            
             return dataReader;
@@ -547,7 +547,7 @@ namespace WindowsFormsApplication1.ComprarOfertar
         public SqlDataReader cargarPublicaciones()
         {
 
-            SqlCommand cmd = new SqlCommand("select Publicacion_Cod, Publicacion_Desc,Publicacion_Precio,Publicacion_Acepta_Envio,Id_Rubro,Visibilidad_Cod,Publicacion_Tipo from GROUP_APROVED.Publicaciones order by Visibilidad_Cod", DbConnection.connection.getdbconnection());
+            SqlCommand cmd = new SqlCommand("select Publicacion_Cod, Publicacion_Desc,Publicacion_Precio,Publicacion_Acepta_Envio,Id_Rubro,Visibilidad_Cod,Publicacion_Tipo from GROUP_APROVED.Publicaciones where Publicacion_Estado != 0 order by Visibilidad_Cod", DbConnection.connection.getdbconnection());
             SqlDataReader dataReader = cmd.ExecuteReader();
 
             return dataReader;

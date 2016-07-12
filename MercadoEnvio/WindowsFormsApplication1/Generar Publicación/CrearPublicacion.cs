@@ -41,6 +41,24 @@ namespace WindowsFormsApplication1.Generar_Publicación
                 MessageBox.Show("Debe completar todos los campos");
             }
 
+            int stck;
+
+            if (!int.TryParse(textBox3.Text, out stck) && statusOk == true)
+            {
+                statusOk = false;
+                MessageBox.Show("El stock debe ser un numero entero.");
+            }
+
+            Decimal prec;
+
+            if (!Decimal.TryParse(textBox1.Text, out prec) && statusOk == true)
+            {
+                statusOk = false;
+                MessageBox.Show("El precio debe ser un numero.");
+            }
+
+
+
             String desc = "";
             String stock = "";
             String precio = "";
@@ -56,7 +74,7 @@ namespace WindowsFormsApplication1.Generar_Publicación
             {
                 desc = richTextBox1.Text;
                 stock = textBox3.Text;
-                precio = textBox1.Text;
+                precio = textBox1.Text.Replace(",",".");
                 tipo = comboBox2.Text;
                 visib = visibilidades[comboBox3.Text].ToString();
                 rubro = rubros[comboBox4.Text].ToString();

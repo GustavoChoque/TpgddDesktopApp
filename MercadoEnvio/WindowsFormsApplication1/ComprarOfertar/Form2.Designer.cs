@@ -31,9 +31,10 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.label13 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -59,7 +60,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -119,25 +119,14 @@
             this.groupBox1.Text = "Datos de la publicacion";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
-            // label13
+            // panel1
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(11, 402);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(94, 13);
-            this.label13.TabIndex = 32;
-            this.label13.Text = "Acepta preguntas:";
-            // 
-            // radioButton3
-            // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Enabled = false;
-            this.radioButton3.Location = new System.Drawing.Point(60, 8);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(39, 17);
-            this.radioButton3.TabIndex = 31;
-            this.radioButton3.Text = "No";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.panel1.Controls.Add(this.radioButton4);
+            this.panel1.Controls.Add(this.radioButton3);
+            this.panel1.Location = new System.Drawing.Point(125, 394);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(123, 28);
+            this.panel1.TabIndex = 33;
             // 
             // radioButton4
             // 
@@ -151,6 +140,26 @@
             this.radioButton4.TabStop = true;
             this.radioButton4.Text = "Si";
             this.radioButton4.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Enabled = false;
+            this.radioButton3.Location = new System.Drawing.Point(60, 8);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(39, 17);
+            this.radioButton3.TabIndex = 31;
+            this.radioButton3.Text = "No";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(11, 402);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(94, 13);
+            this.label13.TabIndex = 32;
+            this.label13.Text = "Acepta preguntas:";
             // 
             // textBox2
             // 
@@ -262,6 +271,7 @@
             // 
             // rubro
             // 
+            this.rubro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.rubro.Enabled = false;
             this.rubro.FormattingEnabled = true;
             this.rubro.Location = new System.Drawing.Point(128, 269);
@@ -288,6 +298,7 @@
             // 
             // tipoVisib
             // 
+            this.tipoVisib.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tipoVisib.Enabled = false;
             this.tipoVisib.FormattingEnabled = true;
             this.tipoVisib.Location = new System.Drawing.Point(128, 242);
@@ -297,6 +308,7 @@
             // 
             // tipo
             // 
+            this.tipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tipo.Enabled = false;
             this.tipo.FormattingEnabled = true;
             this.tipo.Location = new System.Drawing.Point(128, 215);
@@ -374,15 +386,6 @@
             this.label11.Size = new System.Drawing.Size(41, 13);
             this.label11.TabIndex = 12;
             this.label11.Text = "label11";
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.radioButton4);
-            this.panel1.Controls.Add(this.radioButton3);
-            this.panel1.Location = new System.Drawing.Point(125, 394);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(123, 28);
-            this.panel1.TabIndex = 33;
             // 
             // Form2
             // 

@@ -88,26 +88,65 @@ namespace WindowsFormsApplication1.Generar_Publicación
 
         private void button1_Click(object sender, EventArgs e)
         {
-            String strdesc = richTextBox1.Text;
-            String strstock = stock.Text;
-            StringBuilder sb = new StringBuilder(precio.Text);
-            sb.Replace(",",".");
-            String strprecio = sb.ToString();
+           
+            bool statusOk = true;
+            if (richTextBox1.Text == "" || stock.Text == "" || precio.Text == "")
+            {
+                statusOk = false;
+                MessageBox.Show("Debe completar todos los campos");
+            }
+
+
             String strtipo = tipo.Text;
             String strvisib = visibilidades[tipoVisib.Text].ToString();
             String strrubro = rubros[rubro.Text].ToString();
-            String strestado = dbQueryHandler.getEstado("Activa");
             String strenvios = "V";
             String strpreguntas = "V";
+            String strestado = dbQueryHandler.getEstado("Activa");
+            String strdesc = "";
+
+            String strstock = "";
+
+            String strprecio = "";
+
+            if (statusOk == true)
+            {
+                strdesc = richTextBox1.Text;
+                strstock = stock.Text;
+                StringBuilder sb = new StringBuilder(precio.Text);
+                sb.Replace(",", ".");
+                strprecio = sb.ToString();
+
+            }
 
             if (radioButton2.Checked == true)
                 strenvios = "F";
+
             if (radioButton3.Checked == true)
                 strpreguntas = "F";
-            
 
 
-            Int32  result = dbQueryHandler.updatePub(strdesc,strstock,strprecio,strtipo,strvisib,strrubro,strestado,pubId.ToString(),strenvios,strpreguntas);
+
+            int stck;
+
+            if (!int.TryParse(stock.Text, out stck) && statusOk == true)
+            {
+                statusOk = false;
+                MessageBox.Show("El stock debe ser un numero entero.");
+            }
+
+            Decimal prec;
+
+            if (!Decimal.TryParse(precio.Text, out prec) && statusOk == true)
+            {
+                statusOk = false;
+                MessageBox.Show("El precio debe ser un numero.");
+            }
+
+            Int32  result = 0;
+
+            if(statusOk == true)
+                result = dbQueryHandler.updatePub(strdesc,strstock,strprecio,strtipo,strvisib,strrubro,strestado,pubId.ToString(),strenvios,strpreguntas);
 
             
 
@@ -130,16 +169,36 @@ namespace WindowsFormsApplication1.Generar_Publicación
 
         private void button3_Click(object sender, EventArgs e)
         {
-            String strdesc = richTextBox1.Text;
-            String strstock = stock.Text;
-            StringBuilder sb = new StringBuilder(precio.Text);
-            sb.Replace(",", ".");
-            String strprecio = sb.ToString();
+
+            bool statusOk = true;
+            if (richTextBox1.Text == "" || stock.Text == "" || precio.Text == "")
+            {
+                statusOk = false;
+                MessageBox.Show("Debe completar todos los campos");
+            }
+
+           
             String strtipo = tipo.Text;
             String strvisib = visibilidades[tipoVisib.Text].ToString();
             String strrubro = rubros[rubro.Text].ToString();
             String strenvios = "V";
             String strpreguntas = "V";
+
+            String strdesc = "";
+                
+            String strstock = "";
+         
+            String strprecio = "";
+
+            if (statusOk == true)
+            {
+                strdesc = richTextBox1.Text;
+                strstock = stock.Text;
+                StringBuilder sb = new StringBuilder(precio.Text);
+                sb.Replace(",", ".");
+                strprecio = sb.ToString();
+
+            }
 
             if (radioButton2.Checked == true)
                 strenvios = "F";
@@ -147,7 +206,29 @@ namespace WindowsFormsApplication1.Generar_Publicación
             if (radioButton3.Checked == true)
                 strpreguntas = "F";
 
-            Int32 result = dbQueryHandler.updatePub(strdesc, strstock, strprecio, strtipo, strvisib, strrubro, pubId.ToString(), strenvios, strpreguntas);
+
+
+            int stck;
+
+            if (!int.TryParse(stock.Text, out stck) && statusOk == true)
+            {
+                statusOk = false;
+                MessageBox.Show("El stock debe ser un numero entero.");
+            }
+
+            Decimal prec;
+
+            if (!Decimal.TryParse(precio.Text, out prec) && statusOk == true)
+            {
+                statusOk = false;
+                MessageBox.Show("El precio debe ser un numero.");
+            }
+
+
+            Int32 result = 0;
+
+            if(statusOk == true)
+                result = dbQueryHandler.updatePub(strdesc, strstock, strprecio, strtipo, strvisib, strrubro, pubId.ToString(), strenvios, strpreguntas);
 
 
 

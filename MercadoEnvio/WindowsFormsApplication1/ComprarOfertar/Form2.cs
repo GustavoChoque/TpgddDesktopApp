@@ -101,6 +101,22 @@ namespace WindowsFormsApplication1.ComprarOfertar
             Decimal precio2 = Decimal.Parse(precio.Text);
             bool statusOK = true;
 
+            int cant;
+
+            if (!int.TryParse(textBox2.Text, out cant) && statusOK == true && tipo.Text == "Compra Inmediata")
+            {
+                statusOK = false;
+                MessageBox.Show("La cantidad debe ser un numero entero.");
+            }
+
+            int cant2;
+
+            if (!int.TryParse(textBox1.Text, out cant2) && statusOK == true && tipo.Text == "Subasta")
+            {
+                statusOK = false;
+                MessageBox.Show("La cantidad ofertada debe ser un numero entero.");
+            }
+
 
             if (dbQueryHandler.checkUser(pubId.ToString()) == true) {
                 MessageBox.Show("No se puede comprar u ofertar a una publicación perteneciente al usuario.");

@@ -245,6 +245,7 @@
             // 
             // rubro
             // 
+            this.rubro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.rubro.FormattingEnabled = true;
             this.rubro.Location = new System.Drawing.Point(128, 269);
             this.rubro.Name = "rubro";
@@ -269,6 +270,7 @@
             // 
             // tipoVisib
             // 
+            this.tipoVisib.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tipoVisib.Enabled = false;
             this.tipoVisib.FormattingEnabled = true;
             this.tipoVisib.Location = new System.Drawing.Point(128, 242);
@@ -278,6 +280,7 @@
             // 
             // tipo
             // 
+            this.tipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tipo.FormattingEnabled = true;
             this.tipo.Location = new System.Drawing.Point(128, 215);
             this.tipo.Name = "tipo";

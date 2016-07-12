@@ -49,13 +49,14 @@ namespace WindowsFormsApplication1.ABM_Usuario
         {
             if (verificarLlenado())
             {
-                dbQueryHandler.IniciarTransaction();
+                //dbQueryHandler.IniciarTransaction();
                 ModificacionUsuarioEmpresa datosModificados = new ModificacionUsuarioEmpresa();
                 cargarDatosEnDataObject(datosModificados);
-                string mjeRta = dbQueryHandler.grabarDatos(datosModificados,Convert.ToInt32(ID));
-                if (mjeRta.Contains("AC")) { MessageBox.Show("Exito"); dbQueryHandler.endTransaction(); this.Close(); } else { MessageBox.Show("Error SQL"); dbQueryHandler.rollbackear(); };
-                if (mjeRta.Contains('B')){MessageBox.Show("Error tabla clientes");};
-                if (mjeRta.Contains('D')){MessageBox.Show("Error tabla usuarios");};
+                string mjeRta = dbQueryHandler.grabarDatos(datosModificados, Convert.ToInt32(ID));
+                //if (mjeRta.Contains("AC")) { MessageBox.Show("Exito"); dbQueryHandler.endTransaction(); this.Close(); } else { MessageBox.Show("Error SQL"); dbQueryHandler.rollbackear(); };
+                if (mjeRta.Contains("AC")) { MessageBox.Show("Exito"); this.Close(); } else { MessageBox.Show("Error SQL"); };
+                if (mjeRta.Contains('B')) { MessageBox.Show("Error tabla clientes"); };
+                if (mjeRta.Contains('D')) { MessageBox.Show("Error tabla usuarios"); };
 
             }
         }

@@ -33,8 +33,8 @@ namespace WindowsFormsApplication1.ABM_Usuario
         {
             if (verificarLlenadoDatos())
             {
-                string mjeError = "";
-                dbQueryHandler.IniciarTransaction();
+                string mjeError = "Error";
+                //dbQueryHandler.IniciarTransaction();
                 cargarDatosEnDataObject();
                 string resultado = dbQueryHandler.crearUsuario(datosParaCrear);
                 //A inserto en usuarios 
@@ -45,17 +45,17 @@ namespace WindowsFormsApplication1.ABM_Usuario
                 //D no inserto rol
 
                 if (resultado.Contains("ACE")) { mensajeExito(); this.Close(); };
-                if (resultado.Contains('B')) { mjeError = mjeError + "Error en tabla usuarios\n"; };
-                if (resultado.Contains('F')) { mjeError = mjeError + "Error en tabla clientes\n"; };
-                if (resultado.Contains('D')) { mjeError = mjeError + "Error en tabla roles\n"; };
-                if (mjeError != "") { dbQueryHandler.rollbackear(); MessageBox.Show(mjeError + ("Se hizo un rollback transaction automático")); };
+                if (resultado.Contains('B')) { MessageBox.Show(mjeError); };
+                if (resultado.Contains('F')) { MessageBox.Show(mjeError); };
+                if (resultado.Contains('D')) { MessageBox.Show(mjeError); };
+                //if (mjeError != "") { dbQueryHandler.rollbackear(); MessageBox.Show(mjeError + ("Se hizo un rollback transaction automático")); };
                 datosParaCrear = null;
             };
         }
 
         private void mensajeExito()
         {
-            dbQueryHandler.endTransaction();
+            //dbQueryHandler.endTransaction();
             MessageBox.Show("Éxito");
             datosParaCrear = null;
         }

@@ -29,20 +29,20 @@ namespace WindowsFormsApplication1.ABM_Usuario
 
         private void llenarTextBoxs(ModificacionUsuarioEmpresa datos)
         {
-            textBoxCalle.Text = datos.calle;
-            textBoxCP.Text = datos.codigopostal.ToString();
-            textBoxDepto.Text = datos.dpto;
-            textBoxEmail.Text = datos.email;
-            textBoxNCalle.Text = datos.nrocalle.ToString();
-            textBoxTel.Text = datos.telefono.ToString();
-            textBoxPiso.Text = datos.piso.ToString();
-            comboBox2.SelectedItem = datos.estado;
+            if (datos.calle != null) { textBoxCalle.Text = datos.calle; };
+            if (datos.codigopostal != -1) { textBoxCP.Text = datos.codigopostal.ToString();};
+            if (datos.dpto != null) { textBoxDepto.Text = datos.dpto;};
+            if (datos.email != null) { textBoxEmail.Text = datos.email;};
+            if (datos.nrocalle != -1) { textBoxNCalle.Text = datos.nrocalle.ToString();};
+            if (datos.telefono != -1) { textBoxTel.Text = datos.telefono.ToString();};
+            if (datos.piso != -200) { textBoxPiso.Text = datos.piso.ToString();};
+            if (datos.estado != null) { comboBox2.SelectedItem = datos.estado;};
             textBox1.Text = ID;
             textBox2.Text = usuario;
-            textBoxCuit.Text = datos.cuit;
-            textBoxNomCon.Text = datos.nombreContacto;
-            textBoxRS.Text = datos.razonSocial;
-            textBoxRubro.Text = datos.rubroTrabajoEmpresa;
+            if (datos.cuit != null) { textBoxCuit.Text = datos.cuit;};
+            if (datos.nombreContacto != null) { textBoxNomCon.Text = datos.nombreContacto;};
+            if (datos.razonSocial != null) { textBoxRS.Text = datos.razonSocial;};
+            if (datos.rubroTrabajoEmpresa != null) { textBoxRubro.Text = datos.rubroTrabajoEmpresa; };
 
         }
         private void button1_Click(object sender, EventArgs e)
@@ -189,18 +189,18 @@ namespace WindowsFormsApplication1.ABM_Usuario
 
             ModificacionUsuarioEmpresa datosCliente = new ModificacionUsuarioEmpresa();
 
-            datosCliente.setCalle(lector.GetValue(3).ToString());
-            datosCliente.setCP(Convert.ToInt32(lector.GetValue(8)));
-            datosCliente.setCuit(lector.GetValue(1).ToString());
-            datosCliente.setDpto(lector.GetValue(5).ToString());
-            datosCliente.setEmail(lector.GetValue(2).ToString());
-            datosCliente.setPiso(Convert.ToInt32(lector.GetValue(4)));
-            datosCliente.setNCalle(Convert.ToInt32(lector.GetValue(7)));
-            datosCliente.setTel(Convert.ToInt32(lector.GetValue(10)));
-            datosCliente.setEstado(lector.GetValue(13).ToString());
-            datosCliente.setNombreCont(lector.GetValue(11).ToString());
-            datosCliente.setRazSoc(lector.GetValue(0).ToString());
-            datosCliente.setRubroTrabajo(lector.GetValue(12).ToString());
+            if (!lector.IsDBNull(3)) { datosCliente.setCalle(lector.GetValue(3).ToString()); };
+            if (!lector.IsDBNull(8)) { datosCliente.setCP(Convert.ToInt32(lector.GetValue(8)));}else datosCliente.setCP(-1);
+            if (!lector.IsDBNull(1)) { datosCliente.setCuit(lector.GetValue(1).ToString());};
+            if (!lector.IsDBNull(5)) { datosCliente.setDpto(lector.GetValue(5).ToString());};
+            if (!lector.IsDBNull(2)) { datosCliente.setEmail(lector.GetValue(2).ToString());};
+            if (!lector.IsDBNull(4)) { datosCliente.setPiso(Convert.ToInt32(lector.GetValue(4))); } else datosCliente.setPiso(-200);
+            if (!lector.IsDBNull(7)) { datosCliente.setNCalle(Convert.ToInt32(lector.GetValue(7))); } else datosCliente.setNCalle(-1);
+            if (!lector.IsDBNull(10)) { datosCliente.setTel(Convert.ToInt32(lector.GetValue(10))); } else datosCliente.setTel(-1);
+            if (!lector.IsDBNull(13)) { datosCliente.setEstado(lector.GetValue(13).ToString());};
+            if (!lector.IsDBNull(11)) { datosCliente.setNombreCont(lector.GetValue(11).ToString());};
+            if (!lector.IsDBNull(0)) { datosCliente.setRazSoc(lector.GetValue(0).ToString());};
+            if (!lector.IsDBNull(12)) { datosCliente.setRubroTrabajo(lector.GetValue(12).ToString()); };
             lector.Close();
 
             return datosCliente;

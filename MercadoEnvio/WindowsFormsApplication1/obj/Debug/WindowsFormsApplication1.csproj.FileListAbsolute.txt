@@ -359,7 +359,6 @@ C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\gdd
 C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
 C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
 C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
 C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.ABM_Rol.resources
 C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.EliminarRol.resources
 C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.FormularioDeModificacion.resources

@@ -311,7 +311,7 @@
             this.comboBox1.Items.AddRange(new object[] {
             "DNI",
             "CI",
-            "LC",
+            "LE",
             "DNIEXT"});
             this.comboBox1.Location = new System.Drawing.Point(117, 124);
             this.comboBox1.Name = "comboBox1";

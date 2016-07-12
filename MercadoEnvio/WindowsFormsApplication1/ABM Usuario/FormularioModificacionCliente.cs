@@ -30,19 +30,19 @@ namespace WindowsFormsApplication1.ABM_Usuario
 
         private void llenarTextBoxs(ModificacionUsuarioCliente datos)
         {
-            textBoxAp.Text = datos.apellido;
-            textBoxCalle.Text = datos.calle;
-            textBoxCP.Text = datos.codigopostal.ToString();
-            textBoxDepto.Text = datos.dpto;
-            textBoxDoc.Text = datos.documento.ToString();
-            textBoxEmail.Text = datos.email;
-            textBoxNCalle.Text = datos.nrocalle.ToString();
-            textBoxNom.Text = datos.nombre;
-            textBoxPiso.Text = datos.piso.ToString();
-            textBoxTel.Text = datos.telefono.ToString();
-            comboBox1.SelectedItem = datos.tipoDoc;
-            comboBox2.SelectedItem = datos.estado;
-            dateTimePicker1.Value = datos.fechaNac;
+            if (datos.apellido != null) { textBoxAp.Text = datos.apellido; };
+            if (datos.calle != null) { textBoxCalle.Text = datos.calle; };
+            if (datos.codigopostal != -1) { textBoxCP.Text = datos.codigopostal.ToString(); };
+            if (datos.dpto != null) { textBoxDepto.Text = datos.dpto; };
+            if (datos.documento != -1) { textBoxDoc.Text = datos.documento.ToString(); };
+            if (datos.email != null) { textBoxEmail.Text = datos.email; };
+            if (datos.nrocalle != -1) { textBoxNCalle.Text = datos.nrocalle.ToString(); };
+            if (datos.nombre != null) { textBoxNom.Text = datos.nombre; };
+            if (datos.piso != -200) { textBoxPiso.Text = datos.piso.ToString(); };
+            if (datos.telefono != -1) { textBoxTel.Text = datos.telefono.ToString(); };
+            if (datos.tipoDoc != null) { comboBox1.SelectedItem = datos.tipoDoc; };
+            if (datos.estado != null) { comboBox2.SelectedItem = datos.estado; };
+            if (datos.fechaNac != null) { dateTimePicker1.Value = datos.fechaNac; };
             textBox1.Text = ID;
             textBox2.Text = usuario;
 
@@ -160,20 +160,20 @@ namespace WindowsFormsApplication1.ABM_Usuario
             lector.Read();
 
             ModificacionUsuarioCliente datosCliente= new ModificacionUsuarioCliente();
-
-            datosCliente.setApellido(lector.GetValue(3).ToString());
-            datosCliente.setNombre(lector.GetValue(2).ToString());
-            datosCliente.setTipoDoc(lector.GetValue(1).ToString());
-            datosCliente.setDoc(Convert.ToInt32(lector.GetValue(0)));
-            datosCliente.setEmail(lector.GetValue(6).ToString());
-            datosCliente.setCalle(lector.GetValue(7).ToString());
-            datosCliente.setPiso(Convert.ToInt32(lector.GetValue(9)));
-            datosCliente.setNCalle(Convert.ToInt32(lector.GetValue(8)));
-            datosCliente.setTel(Convert.ToInt32(lector.GetValue(5)));
-            datosCliente.setDpto(lector.GetValue(10).ToString());
-            datosCliente.setCP(Convert.ToInt32(lector.GetValue(11)));
-            datosCliente.setFecNac(lector.GetDateTime(4));
-            datosCliente.setEstado(lector.GetValue(13).ToString());
+            //DBNull.Value   lector.IsDBNull(5) 
+            if (!lector.IsDBNull(3)) { datosCliente.setApellido(lector.GetValue(3).ToString()); } else { datosCliente.setApellido(null); };
+             if (!lector.IsDBNull(2)) { datosCliente.setNombre(lector.GetValue(2).ToString());} else { datosCliente.setNombre(null); };
+             if (!lector.IsDBNull(1)) { datosCliente.setTipoDoc(lector.GetValue(1).ToString());} else { datosCliente.setTipoDoc(null); };
+             if (!lector.IsDBNull(0)) { datosCliente.setDoc(Convert.ToInt32(lector.GetValue(0)));} else { datosCliente.setDoc(-1); };
+             if (!lector.IsDBNull(6)) { datosCliente.setEmail(lector.GetValue(6).ToString());} else { datosCliente.setEmail(null); };
+             if (!lector.IsDBNull(7)) { datosCliente.setCalle(lector.GetValue(7).ToString());} else { datosCliente.setCalle(null); };
+             if (!lector.IsDBNull(9)) { datosCliente.setPiso(Convert.ToInt32(lector.GetValue(9)));} else { datosCliente.setPiso(-200); };
+             if (!lector.IsDBNull(8)) { datosCliente.setNCalle(Convert.ToInt32(lector.GetValue(8)));} else { datosCliente.setNCalle(-1); };
+            if (!lector.IsDBNull(5)) { datosCliente.setTel(Convert.ToInt32(lector.GetValue(5))); } else { datosCliente.setTel(-1); };
+             if (!lector.IsDBNull(10)) { datosCliente.setDpto(lector.GetValue(10).ToString());} else { datosCliente.setDpto(null); };
+             if (!lector.IsDBNull(11)) { datosCliente.setCP(Convert.ToInt32(lector.GetValue(11)));} else { datosCliente.setCP(-1); };
+             if (!lector.IsDBNull(4)) { datosCliente.setFecNac(lector.GetDateTime(4)); };
+             if (!lector.IsDBNull(13)) { datosCliente.setEstado(lector.GetValue(13).ToString()); } else { datosCliente.setEstado(null); };
             lector.Close();
 
             return datosCliente;

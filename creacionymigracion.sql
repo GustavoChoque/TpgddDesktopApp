@@ -618,10 +618,10 @@ PRINT @first_id
 
 SET ROWCOUNT @maximumRows
 
-select * from (SELECT 'Compra' "Compra/Oferta",ID_Compra ID,c.Id_Usuario,Publicacion_Desc,Compra_Cantidad,( GROUP_APROVED.usuarioYaCalifico(c.ID_Compra)) Calificado ,GROUP_APROVED.getCalificacion(c.ID_Compra)Calificacion 
+select [Compra/Oferta],ID,Comprador,Vendedor,Descripcion,Cantidad,Calificado,Calificacion from (SELECT 'Compra' "Compra/Oferta",ID_Compra ID,c.Id_Usuario,(select Username from GROUP_APROVED.Usuarios where Id_Usr=c.Id_Usuario) Comprador,(select Username from GROUP_APROVED.Usuarios where Id_Usr=(select Id_Usuario from GROUP_APROVED.Publicaciones where Publicacion_Cod=c.Publicacion_Cod)) Vendedor,Publicacion_Desc Descripcion,Compra_Cantidad Cantidad,( GROUP_APROVED.usuarioYaCalifico(c.ID_Compra)) Calificado ,GROUP_APROVED.getCalificacion(c.ID_Compra)Calificacion 
 from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod) 
 union
-SELECT 'Oferta' "Compra/Oferta",ID_Oferta ID,o.Id_Usuario,Publicacion_Desc,Oferta_Monto,( GROUP_APROVED.usuarioYaCalifico(o.ID_Oferta)) Calificado ,GROUP_APROVED.getCalificacion(o.ID_Oferta)Calificacion 
+SELECT 'Oferta' "Compra/Oferta",ID_Oferta ID,o.Id_Usuario,(select Username from GROUP_APROVED.Usuarios where Id_Usr=o.Id_Usuario)Comprador,(select Username from GROUP_APROVED.Usuarios where Id_Usr=(select Id_Usuario from GROUP_APROVED.Publicaciones where Publicacion_Cod=o.Publicacion_Cod)) Vendedor,Publicacion_Desc Descripcion,Oferta_Monto Cantidad,'-' Calificado ,'-'Calificacion 
 from GROUP_APROVED.Ofertas o Join GROUP_APROVED.Publicaciones p On (o.Publicacion_Cod=p.Publicacion_Cod) ) as historial
 WHERE ID >= @first_id
 ORDER BY ID
@@ -648,10 +648,10 @@ PRINT @first_id
 
 SET ROWCOUNT @maximumRows
 
-select * from (SELECT 'Compra' "Compra/Oferta",ID_Compra ID,c.Id_Usuario IdU,Publicacion_Desc,Compra_Cantidad,( GROUP_APROVED.usuarioYaCalifico(c.ID_Compra)) Calificado ,GROUP_APROVED.getCalificacion(c.ID_Compra)Calificacion 
+select [Compra/Oferta],ID,Vendedor,Descripcion,Cantidad,Calificado,Calificacion from (SELECT 'Compra' "Compra/Oferta",ID_Compra ID,c.Id_Usuario IdU,(select Username from GROUP_APROVED.Usuarios where Id_Usr=(select Id_Usuario from GROUP_APROVED.Publicaciones where Publicacion_Cod=c.Publicacion_Cod)) Vendedor,Publicacion_Desc Descripcion,Compra_Cantidad Cantidad,( GROUP_APROVED.usuarioYaCalifico(c.ID_Compra)) Calificado ,GROUP_APROVED.getCalificacion(c.ID_Compra)Calificacion 
 from GROUP_APROVED.Compras c Join GROUP_APROVED.Publicaciones p On (c.Publicacion_Cod=p.Publicacion_Cod) 
 union
-SELECT 'Oferta' "Compra/Oferta",ID_Oferta ID,o.Id_Usuario IdU,Publicacion_Desc,Oferta_Monto,( GROUP_APROVED.usuarioYaCalifico(o.ID_Oferta)) Calificado ,GROUP_APROVED.getCalificacion(o.ID_Oferta)Calificacion 
+SELECT 'Oferta' "Compra/Oferta",ID_Oferta ID,o.Id_Usuario IdU,(select Username from GROUP_APROVED.Usuarios where Id_Usr=(select Id_Usuario from GROUP_APROVED.Publicaciones where Publicacion_Cod=o.Publicacion_Cod)) Vendedor,Publicacion_Desc Descripcion,Oferta_Monto Cantidad,'-' Calificado ,'-'Calificacion 
 from GROUP_APROVED.Ofertas o Join GROUP_APROVED.Publicaciones p On (o.Publicacion_Cod=p.Publicacion_Cod) ) as historial 
 WHERE ID >= @first_id and IdU=@idUsuario
 ORDER BY ID

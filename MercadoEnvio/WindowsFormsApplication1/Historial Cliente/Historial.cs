@@ -47,7 +47,7 @@ namespace WindowsFormsApplication1.Historial_Cliente
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (currentPageNumber<=totalRows)
+            if (currentPageNumber < CalculateTotalPages(totalRows))
             {
             currentPageNumber =currentPageNumber+ 1;
             BindData();

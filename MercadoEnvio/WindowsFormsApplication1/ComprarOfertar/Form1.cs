@@ -301,6 +301,7 @@ namespace WindowsFormsApplication1.ComprarOfertar
             bool status = true;
             List<String> rubrosSeleccionadosId = new List<String>();
 
+            button3.Enabled = true;
            
 
 

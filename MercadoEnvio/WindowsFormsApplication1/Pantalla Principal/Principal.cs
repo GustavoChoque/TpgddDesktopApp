@@ -101,7 +101,7 @@ namespace WindowsFormsApplication1.Pantalla_Principal
             try { dbQueryHandler.crearVista(); } //Crea una vista con los usuarios y las funciones a las que pueden acceder
             catch { };//try por si estaba creada y no se dropeo
 
-            /*if (dbQueryHandler.verificarAccesoFuncion(1) == false) { buttonABMRol.Hide(); };
+            if (dbQueryHandler.verificarAccesoFuncion(1) == false) { buttonABMRol.Hide(); };
             if (dbQueryHandler.verificarAccesoFuncion(2) == false) { buttonABMUsuario.Hide(); };
             if (dbQueryHandler.verificarAccesoFuncion(3) == false) { buttonABMRubro.Hide(); };
             if (dbQueryHandler.verificarAccesoFuncion(4) == false) { buttonGenerarPublicacion.Hide(); };
@@ -111,7 +111,7 @@ namespace WindowsFormsApplication1.Pantalla_Principal
             if (dbQueryHandler.verificarAccesoFuncion(6) == false) { buttonCalificarVendedor.Hide(); };
             if (dbQueryHandler.verificarAccesoFuncion(10) == false) { buttonComprarOfertar.Hide(); };
             if (dbQueryHandler.verificarAccesoFuncion(5) == false) { buttonConsultaFacturas.Hide(); };
-            */
+          
             dbQueryHandler.dropearVista();
             /*funcionalidades:  1 = r=abm rol
                                 2 = u=abm usuario

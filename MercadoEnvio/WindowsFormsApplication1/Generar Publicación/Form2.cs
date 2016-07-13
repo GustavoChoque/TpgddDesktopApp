@@ -28,6 +28,8 @@ namespace WindowsFormsApplication1.Generar_Publicación
 
         private void Form2_Load(object sender, EventArgs e)
         {
+            
+
             if (type == "creacion")
             {
                 button3.Visible = false;
@@ -36,6 +38,8 @@ namespace WindowsFormsApplication1.Generar_Publicación
             {
                 button1.Visible = false;
             }
+
+
 
             estado.Enabled = false;
             rubros = dbQueryHandler.cargarRubros();
@@ -79,6 +83,10 @@ namespace WindowsFormsApplication1.Generar_Publicación
                 radioButton3.Checked = true;
 
             dataReader.Close();
+
+
+            radioButton1.Enabled = false;
+            radioButton2.Enabled = false;
 
             tipoVisib.Text = dbQueryHandler.cargarVisibilidad(visib);
             estado.Text = dbQueryHandler.cargarEstado(est);

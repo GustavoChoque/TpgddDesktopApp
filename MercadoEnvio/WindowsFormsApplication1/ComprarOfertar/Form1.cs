@@ -423,13 +423,20 @@ namespace WindowsFormsApplication1.ComprarOfertar
 
                 string pubId = Convert.ToString(selectedRow.Cells["Column6"].Value);
 
-               //comprobar que la publicacion no sea de uno mismo
+                bool statusOK = true;
 
-                Form2 f2 = new Form2(Convert.ToInt32(pubId));
-                f2.Show();
+                if (CurrentUser.user.getType() == "Admin")
+                {
+                    statusOK = false;
+                    MessageBox.Show("Un usuario administrador no puede comprar/ofertar publicaciones.");
+                }
 
-                this.Close();
-
+                if (statusOK == true)
+                {
+                    Form2 f2 = new Form2(Convert.ToInt32(pubId));
+                    f2.Show();
+                    this.Close();
+                }
             }
 
             else

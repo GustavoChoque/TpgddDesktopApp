@@ -1461,7 +1461,7 @@ go
 /*----hice cambios aqui------------- */
 declare @password nvarchar(255)---declarar estas variables fue la unica manera, para hacer funcionar el login
 declare @username nvarchar(255)
-set @username='Admin'
+set @username='admin'
 set @password='w23e'
 insert into GROUP_APROVED.Usuarios(Username,Passw,intentos)
 values(@username, convert(nvarchar(255),HASHBYTES('SHA2_256', @password),1),0)
@@ -1469,12 +1469,12 @@ values(@username, convert(nvarchar(255),HASHBYTES('SHA2_256', @password),1),0)
 --creo que deberia ser default 0 el numero de intentos en la tabla usuarios
 
 insert into GROUP_APROVED.RolesxUsuario
-values((select Id_Usr from GROUP_APROVED.Usuarios where Username = 'Admin'),(select Id_Rol from GROUP_APROVED.Roles where Desc_Rol = 'Administrador'))
+values((select Id_Usr from GROUP_APROVED.Usuarios where Username = 'admin'),(select Id_Rol from GROUP_APROVED.Roles where Desc_Rol = 'Administrador'))
 insert into GROUP_APROVED.RolesxUsuario
 --agrego lo siguiente, pide en el tp que el usuario admin tenga acceso a todas las funcionalidades
-values((select Id_Usr from GROUP_APROVED.Usuarios where Username = 'Admin'),(select Id_Rol from GROUP_APROVED.Roles where Desc_Rol = 'Empresa'))
+values((select Id_Usr from GROUP_APROVED.Usuarios where Username = 'admin'),(select Id_Rol from GROUP_APROVED.Roles where Desc_Rol = 'Empresa'))
 insert into GROUP_APROVED.RolesxUsuario
-values((select Id_Usr from GROUP_APROVED.Usuarios where Username = 'Admin'),(select Id_Rol from GROUP_APROVED.Roles where Desc_Rol = 'Cliente'))
+values((select Id_Usr from GROUP_APROVED.Usuarios where Username = 'admin'),(select Id_Rol from GROUP_APROVED.Roles where Desc_Rol = 'Cliente'))
 
 begin transaction t1
 rollback transaction t1

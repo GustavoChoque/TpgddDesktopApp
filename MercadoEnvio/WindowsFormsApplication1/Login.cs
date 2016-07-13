@@ -34,7 +34,7 @@ namespace WindowsFormsApplication1
             button1.Text = "Login";
             label1.Text = "User";
             label2.Text = "Password";
-            textBox1.Text = "Admin";
+            textBox1.Text = "admin";
             textBox2.Text = "w23e";
             label3.Text = "";
 
@@ -93,6 +93,9 @@ namespace WindowsFormsApplication1
                         //Setear tipo de usuario
                         if (dbQueryHandler.checkUserIsAdmin(CurrentUser.user.getUserId().ToString()) == true)
                             CurrentUser.user.setType("Admin");
+
+                        if(CurrentUser.user.getUsername() == "admin")
+                            //CurrentUser.user.setType("");
 
                         //Abrir form principal
                         this.Hide();

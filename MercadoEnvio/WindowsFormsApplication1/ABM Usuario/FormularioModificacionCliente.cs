@@ -67,7 +67,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
                 //dbQueryHandler.IniciarTransaction();
                 ModificacionUsuarioCliente datosModificados = new ModificacionUsuarioCliente();
                 cargarDatosEnDataObject(datosModificados);
-                string mjeRta = dbQueryHandler.grabarDatos(datosModificados, Convert.ToInt32(ID));
+                string mjeRta = dbQueryHandler.grabarDatos(datosModificados, Convert.ToInt32(ID),datosCliente);
                 //if (mjeRta.Contains("AC")) { MessageBox.Show("Exito"); dbQueryHandler.endTransaction(); this.Close(); } else { MessageBox.Show("Error SQL"); dbQueryHandler.rollbackear(); };
                 if (mjeRta.Contains("AC")) { MessageBox.Show("Exito"); this.Close(); } else { MessageBox.Show("Error SQL"); };
                 if (mjeRta.Contains('B')) { MessageBox.Show("Error tabla clientes"); };
@@ -179,7 +179,7 @@ namespace WindowsFormsApplication1.ABM_Usuario
             return datosCliente;
         }
 
-        public string grabarDatos(ModificacionUsuarioCliente datosModificados, int id)
+        public string grabarDatos(ModificacionUsuarioCliente datosModificados, int id, ModificacionUsuarioCliente datosAnteriores)
         {
             string mensajeRespuesta;
             SqlCommand command = new SqlCommand("GROUP_APROVED.updateClientes", DbConnection.connection.getdbconnection());
@@ -198,7 +198,13 @@ namespace WindowsFormsApplication1.ABM_Usuario
             command.Parameters.AddWithValue("@Cli_Depto", datosModificados.dpto);
             command.Parameters.AddWithValue("@Cli_Cod_Postal", datosModificados.codigopostal);
             command.Parameters.AddWithValue("@Id_Usr", id);
-            command.Parameters.AddWithValue("@Estado",datosModificados.estado);
+            command.Parameters.AddWithValue("@Estado", datosModificados.estado);
+            if ((datosModificados.estado.Contains('H')) && (datosAnteriores.estado.Contains('I')))
+            {
+                SqlCommand updateIntentos = new SqlCommand("update GROUP_APROVED.Usuarios set intentos = 0 where Id_Usr = " + id, DbConnection.connection.getdbconnection());
+                updateIntentos.ExecuteNonQuery();
+            }
+
 
             SqlParameter retVal = new SqlParameter("@respuesta", SqlDbType.NVarChar, 255);
             command.Parameters.Add(retVal);

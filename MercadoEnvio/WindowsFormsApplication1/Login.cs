@@ -63,6 +63,7 @@ namespace WindowsFormsApplication1
             String password = textBox2.Text;
             Int16 tries = 0;
             String loginResult;
+            String state;
             int userId;
             CurrentUser.user.setUsername(user);
 
@@ -78,6 +79,7 @@ namespace WindowsFormsApplication1
                 userId = dataReader.GetInt32(0);
                 CurrentUser.user.setUserId(userId);
                 tries = dataReader.GetInt16(4);
+                state = dataReader.GetString(5);
                 dataReader.Close();
 
                 if (tries >= 3) //Si la cuenta esta bloqueada
@@ -90,17 +92,29 @@ namespace WindowsFormsApplication1
                     if (dbQueryHandler.resetUserTries(CurrentUser.user.getUsername()) == 1)
                     {
 
+
                         //Setear tipo de usuario
                         if (dbQueryHandler.checkUserIsAdmin(CurrentUser.user.getUserId().ToString()) == true)
                             CurrentUser.user.setType("Admin");
-
                         if(CurrentUser.user.getUsername() == "admin")
                             CurrentUser.user.setType("");
 
-                        //Abrir form principal
-                        this.Hide();
-                        Principal pantallaPrincipal = new Principal();
-                        pantallaPrincipal.Show();
+                        //Setear estado del usuario
+                        CurrentUser.user.setState(state);
+
+                        if (state == "H")
+                        {
+                            //Abrir form principal
+                            this.Hide();
+                            Principal pantallaPrincipal = new Principal();
+                            pantallaPrincipal.Show();
+                        }
+                        else
+                        {
+                            if (state == "B")
+                                MessageBox.Show("El usuario fue dado de baja");
+                        }
+
                     }
                     else
                     {
@@ -140,6 +154,16 @@ namespace WindowsFormsApplication1
         String userName = "";
         int userId = 0;
         String userType = "";
+        String userState = "";
+
+        public void setState(String state)
+        {
+            userState = state;
+        }
+        public String getState()
+        {
+            return userState;
+        }
 
 
         public void setType(String type)

@@ -95,7 +95,7 @@ namespace WindowsFormsApplication1
                             CurrentUser.user.setType("Admin");
 
                         if(CurrentUser.user.getUsername() == "admin")
-                            //CurrentUser.user.setType("");
+                            CurrentUser.user.setType("");
 
                         //Abrir form principal
                         this.Hide();

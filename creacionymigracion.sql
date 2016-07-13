@@ -726,7 +726,7 @@ SET ROWCOUNT 0
 SELECT @totalRows = COUNT(Nro_Fact)from GROUP_APROVED.Facturas f
 join GROUP_APROVED.Publicaciones p on(f.Publicacion_Cod=p.Publicacion_Cod)
 join GROUP_APROVED.Usuarios u on (u.Id_Usr=p.Id_Usuario)
-where (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between @fechaActual-@dias and @fechaActual) and dbo.descripcionFactura(Nro_Fact) like '%'+@textoABuscar+'%' and u.Username like '%'+@usuarioBuscado+'%'
+where (Fact_Total between @importeInicio and @importeFin) and (Fact_Fecha between @fechaActual-@dias and @fechaActual) and GROUP_APROVED.descripcionFactura(Nro_Fact) like '%'+@textoABuscar+'%' and u.Username like '%'+@usuarioBuscado+'%'
 
 end else --usuarios cliente y empresa
 begin
@@ -1306,13 +1306,6 @@ drop procedure GROUP_APROVED.CrearUsuarioEmpresa
 drop procedure GROUP_APROVED.updateClientes
 drop procedure GROUP_APROVED.updateEmpresa
 drop procedure GROUP_APROVED.migrComprasCalif
-drop procedure GROUP_APROVED.insertarCalificacion
-drop procedure GROUP_APROVED.CrearUsuarioCliente
-drop procedure GROUP_APROVED.funcionesEmpresa
-drop procedure GROUP_APROVED.funcionesCliente
-drop procedure GROUP_APROVED.funcionesAdmin
-drop procedure GROUP_APROVED.CrearUsuarioEmpresa
-drop procedure GROUP_APROVED.bajaLogicaUsuario
 drop procedure GROUP_APROVED.insertarCalificacion
 drop procedure GROUP_APROVED.ActualizarPublicacion
 drop procedure GROUP_APROVED.ingresarUsuario

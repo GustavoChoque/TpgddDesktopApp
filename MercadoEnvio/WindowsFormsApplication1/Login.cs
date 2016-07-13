@@ -84,7 +84,7 @@ namespace WindowsFormsApplication1
 
                 if (tries >= 3) //Si la cuenta esta bloqueada
                 {
-                    MessageBox.Show("Usuario bloqueado");
+                    MessageBox.Show("Usuario bloqueado por intentos fallidos.");
                 }
                 else
                 {
@@ -111,8 +111,9 @@ namespace WindowsFormsApplication1
                         }
                         else
                         {
-                            if (state == "B")
+                            if (state == "B" )
                                 MessageBox.Show("El usuario fue dado de baja");
+                           
                         }
 
                     }
@@ -139,6 +140,10 @@ namespace WindowsFormsApplication1
                     tries = dataReader.GetInt16(4);
                     tries++;
                     dataReader.Close();
+
+                    if (tries >= 3)
+                        dbQueryHandler.blockUser(CurrentUser.user.getUsername());
+
                     dbQueryHandler.updateUserTries(CurrentUser.user.getUsername(), tries);
 
                 }
@@ -306,6 +311,13 @@ namespace WindowsFormsApplication1
         public int updateUserTries(String user, Int16 tries)
         {
             cmd = new SqlCommand("update GROUP_APROVED.Usuarios set intentos = " + tries + " where Username = '" + user + "'", DbConnection.connection.getdbconnection());
+            int res = cmd.ExecuteNonQuery();
+            return res;
+        }
+
+        public int blockUser(String user)
+        {
+            cmd = new SqlCommand("update GROUP_APROVED.Usuarios set Estado = 'I' where Username = '" + user + "'", DbConnection.connection.getdbconnection());
             int res = cmd.ExecuteNonQuery();
             return res;
         }

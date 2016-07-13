@@ -23,9 +23,20 @@ namespace WindowsFormsApplication1.Generar_Publicación
 
         private void button1_Click(object sender, EventArgs e)
         {
-            CrearPublicacion cp = new CrearPublicacion();
-            cp.Show();
-            this.Close();
+            bool statusOK = true;
+
+            if (CurrentUser.user.getType() == "Admin")
+            {
+                statusOK = false;
+                MessageBox.Show("Un usuario administrador no puede crear publicaciones.");
+            }
+
+            if (statusOK == true)
+            {
+                CrearPublicacion cp = new CrearPublicacion();
+                cp.Show();
+                this.Close();
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)

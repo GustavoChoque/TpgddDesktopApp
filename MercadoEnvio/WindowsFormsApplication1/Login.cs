@@ -89,6 +89,11 @@ namespace WindowsFormsApplication1
 
                     if (dbQueryHandler.resetUserTries(CurrentUser.user.getUsername()) == 1)
                     {
+
+                        //Setear tipo de usuario
+                        if (dbQueryHandler.checkUserIsAdmin(CurrentUser.user.getUserId().ToString()) == true)
+                            CurrentUser.user.setType("Admin");
+
                         //Abrir form principal
                         this.Hide();
                         Principal pantallaPrincipal = new Principal();
@@ -131,6 +136,17 @@ namespace WindowsFormsApplication1
     {
         String userName = "";
         int userId = 0;
+        String userType = "";
+
+
+        public void setType(String type)
+        {
+            userType = type;
+        }
+        public String getType()
+        {
+            return userType;
+        }
 
         public void setUserId(int id)
         {
@@ -297,6 +313,22 @@ namespace WindowsFormsApplication1
                 command.Parameters.Add(new SqlParameter("@date", CustomDate.date.getDate()));
                 command.ExecuteNonQuery();
             }
+        }
+
+        public bool checkUserIsAdmin(String userId)
+        {
+            bool ret = false;
+            SqlCommand cmd = new SqlCommand("select Id_Usr from GROUP_APROVED.Usuarios where Id_Usr not in (select Id_Usuario from GROUP_APROVED.Clientes) and Id_Usr not in (select Id_Usuario from GROUP_APROVED.Empresas)", DbConnection.connection.getdbconnection());
+            SqlDataReader dataReader = cmd.ExecuteReader();
+
+            while (dataReader.Read())
+            {
+                if (userId == dataReader.GetInt32(0).ToString())
+                    ret = true;
+            }
+            dataReader.Close();
+            return ret;
+
         }
     
     }

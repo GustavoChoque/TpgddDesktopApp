@@ -273,7 +273,7 @@ end;
 	go
 
 
-  /*drop procedure usrCreationCli*/
+  /*drop procedure GROUP_APROVED.usrCreationCli*/
 
 	go
 
@@ -325,10 +325,10 @@ end;
 	go
 
 
-   /*drop procedure usrCreationEmp*/
+   /*drop procedure GROUP_APROVED.usrCreationEmp*/
 
 
-
+   
 CREATE PROCEDURE GROUP_APROVED.funcionesAdmin
 
 as
@@ -357,13 +357,18 @@ begin
 	insert into GROUP_APROVED.FuncionesxRol(Id_Rol,Id_Func)
 	values(@Id_Rol,@ID_Func);
 
+	set @ID_Func = ( select Id_Func from GROUP_APROVED.Funciones where Desc_Func = 'u');
+
+	insert into GROUP_APROVED.FuncionesxRol(Id_Rol,Id_Func)
+	values(@Id_Rol,@ID_Func);
+
 
 end;
 
 go
 	
-	/*drop procedure funcionesAdmin*/
-
+	/*drop procedure GROUP_APROVED.funcionesAdmin*/
+	
 CREATE PROCEDURE GROUP_APROVED.funcionesCliente
 
 as
@@ -392,12 +397,17 @@ begin
 	insert into GROUP_APROVED.FuncionesxRol(Id_Rol,Id_Func)
 	values(@Id_Rol,@ID_Func);
 
+	set @ID_Func = ( select Id_Func from GROUP_APROVED.Funciones where Desc_Func = 'h');
+
+	insert into GROUP_APROVED.FuncionesxRol(Id_Rol,Id_Func)
+	values(@Id_Rol,@ID_Func);
+
 end;
 go
 
 
-	/*drop procedure funcionesCliente*/
-
+	/*drop procedure GROUP_APROVED.funcionesCliente*/
+	
 CREATE PROCEDURE GROUP_APROVED.funcionesEmpresa
 
 as
@@ -421,7 +431,7 @@ begin
 end;
 
 go
-/*drop procedure funcionesEmpresa*/
+/*drop procedure GROUP_APROVED.funcionesEmpresa*/
 
 create procedure GROUP_APROVED.migracionPubl
 
@@ -1476,6 +1486,6 @@ values((select Id_Usr from GROUP_APROVED.Usuarios where Username = 'admin'),(sel
 insert into GROUP_APROVED.RolesxUsuario
 values((select Id_Usr from GROUP_APROVED.Usuarios where Username = 'admin'),(select Id_Rol from GROUP_APROVED.Roles where Desc_Rol = 'Cliente'))
 
-begin transaction t1
-rollback transaction t1
-commit transaction t1
+--begin transaction t1
+--rollback transaction t1
+--commit transaction t1

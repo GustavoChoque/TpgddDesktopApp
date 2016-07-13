@@ -37,45 +37,45 @@ namespace WindowsFormsApplication1.Listado_Estadistico
         {
             SqlDataAdapter dataAdapter = null;
             DataTable tablaDatos = null;
-            try
-            {
+            //try
+            //{
                 dataAdapter = new SqlDataAdapter();
                 tablaDatos = new DataTable();
                 dataAdapter.SelectCommand = dbQueryHandler.vendedoresMenosVentas(anio, mesin, mesFin);
                 dataAdapter.Fill(tablaDatos);
                 dataGridView1.DataSource = tablaDatos;
-            }
-            catch { }
+            //}
+            //catch { }
         }
 
         private void llenarTablaPorTrimestreConRubro(int anio, int mesin, int mesFin, string rubro)
         {
             SqlDataAdapter dataAdapter = null;
             DataTable tablaDatos = null;
-            try
-            {
+            //try
+            //{
                 dataAdapter = new SqlDataAdapter();
                 tablaDatos = new DataTable();
                 dataAdapter.SelectCommand = dbQueryHandler.compradoresMasCompras(anio, mesin, mesFin,rubro);
                 dataAdapter.Fill(tablaDatos);
                 dataGridView1.DataSource = tablaDatos;
-            }
-            catch { }
+            //}
+            //catch { }
         }
 
         private void llenarTablaPorAnoYmesVendMasFact(int anio, int mes)
         {
             SqlDataAdapter dataAdapter = null;
             DataTable tablaDatos = null;
-            try
-            {
+            //try
+            //{
                 dataAdapter = new SqlDataAdapter();
                 tablaDatos = new DataTable();
                 dataAdapter.SelectCommand = dbQueryHandler.vendedoresMasFacturas(anio, mes);
                 dataAdapter.Fill(tablaDatos);
                 dataGridView1.DataSource = tablaDatos;
-            }
-            catch { }
+            //}
+            //catch { }
         }
 
         private void llenarTablaPorAnoYmesVendMasMonto(int anio, int mes)
@@ -104,13 +104,13 @@ namespace WindowsFormsApplication1.Listado_Estadistico
 
         private void button3_Click(object sender, EventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 int anio = Convert.ToInt32(textBox1.Text.ToString());
                 if ((anio < 2017) && (anio > 1900))
                 { llenarTablaPorTrimestre(anio, 7, 9); };
-            }
-            catch { MessageBox.Show("Ingresar año válido"); };
+            //}
+            //catch { MessageBox.Show("Ingresar año válido"); };
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -124,8 +124,8 @@ namespace WindowsFormsApplication1.Listado_Estadistico
                     rubro = comboBox1.SelectedItem.ToString();
                     if ((anio < 2017) && (anio > 1900))
                     { llenarTablaPorTrimestreConRubro(anio, 1, 3, rubro); }
+                    else { MessageBox.Show("Ingresar año válido");}}
                 else { MessageBox.Show("Seleccionar rubro válido"); };
-                 };
             }
             catch { MessageBox.Show("Ingresar año válido"); };
         }
@@ -141,8 +141,9 @@ namespace WindowsFormsApplication1.Listado_Estadistico
                     rubro = comboBox1.SelectedItem.ToString();
                     if ((anio < 2017) && (anio > 1900))
                     { llenarTablaPorTrimestreConRubro(anio, 4, 6, rubro); }
-                    else { MessageBox.Show("Seleccionar rubro válido"); };
-                };
+                    else { MessageBox.Show("Ingresar año válido"); }
+                }
+                else { MessageBox.Show("Seleccionar rubro válido"); };
             }
             catch { MessageBox.Show("Ingresar año válido"); };
         }
@@ -158,8 +159,9 @@ namespace WindowsFormsApplication1.Listado_Estadistico
                     rubro = comboBox1.SelectedItem.ToString();
                     if ((anio < 2017) && (anio > 1900))
                     { llenarTablaPorTrimestreConRubro(anio, 7, 9, rubro); }
-                    else { MessageBox.Show("Seleccionar rubro válido"); };
-                };
+                    else { MessageBox.Show("Ingresar año válido"); }
+                }
+                else { MessageBox.Show("Seleccionar rubro válido"); };
             }
             catch { MessageBox.Show("Ingresar año válido"); };
         }
@@ -208,13 +210,12 @@ namespace WindowsFormsApplication1.Listado_Estadistico
             {
                 int anio = Convert.ToInt32(textBox1.Text.ToString());
                 string rubro;
-                if (comboBox1.SelectedIndex != -1)
-                {
+                if (comboBox1.SelectedIndex != -1) { 
                     rubro = comboBox1.SelectedItem.ToString();
                     if ((anio < 2017) && (anio > 1900))
                     { llenarTablaPorTrimestreConRubro(anio, 10, 12, rubro); }
-                    else { MessageBox.Show("Seleccionar rubro válido"); };
-                };
+                    else { MessageBox.Show("Ingresar año válido");}}
+                else { MessageBox.Show("Seleccionar rubro válido"); };
             }
             catch { MessageBox.Show("Ingresar año válido"); };
         }
@@ -230,7 +231,7 @@ namespace WindowsFormsApplication1.Listado_Estadistico
         public SqlCommand vendedoresMenosVentas(int añobusacod, int mesinit,int mesfin) 
         {
             SqlCommand comando = new SqlCommand(
-            @"select TOP 5 COUNT(P.Publicacion_Stock), U.Username, c.Cli_Nombre, c.Cli_Apellido 
+            @"select TOP 5 COUNT(P.Publicacion_Stock) as 'Cantidad ventas', U.Username, c.Cli_Nombre, c.Cli_Apellido 
             from GROUP_APROVED.Clientes c join GROUP_APROVED.Usuarios u on c.Id_Usuario = u.Id_Usr 
             join GROUP_APROVED.Publicaciones p ON U.Id_Usr= P.Id_Usuario left 
             join GROUP_APROVED.Visibilidades V ON P.Visibilidad_Cod = v.Visibilidad_Cod
@@ -246,15 +247,15 @@ namespace WindowsFormsApplication1.Listado_Estadistico
         public SqlCommand compradoresMasCompras(int añobusacod, int mesinit,int messfin, string rubroelegido) 
         {
             SqlCommand comando = new SqlCommand(
-            @"select TOP 5 u.Username, count(Compra_Cantidad), c1.Cli_Apellido, c1.Cli_Nombre from GROUP_APROVED.Clientes c1 
+            @"select TOP 5 u.Username, count(Compra_Cantidad) 'Cantidad compras', c1.Cli_Apellido, c1.Cli_Nombre from GROUP_APROVED.Clientes c1 
             join GROUP_APROVED.Usuarios u on c1.Id_Usuario = u.Id_Usr 
             join GROUP_APROVED.Compras c on u.Id_Usr = c.Id_Usuario 
             left join GROUP_APROVED.Publicaciones p on c.Publicacion_Cod = p.Publicacion_Cod 
             join GROUP_APROVED.Rubros r on p.Id_Rubro = r.Id_Rubro
             where year(c.Compra_Fecha) =" + añobusacod +
             "and month(c.Compra_Fecha) between " + mesinit + " and " + messfin +
-            "and r.Rubro_Desc_Completa = " + rubroelegido +
-            @"group by u.Username, c1.Cli_Apellido, c1.Cli_Nombre
+            "and r.Rubro_Desc_Completa = '" + rubroelegido +
+            @"' group by u.Username, c1.Cli_Apellido, c1.Cli_Nombre
             order by 2 DESC ", DbConnection.connection.getdbconnection());
             return comando;
         }
@@ -262,7 +263,7 @@ namespace WindowsFormsApplication1.Listado_Estadistico
         public SqlCommand vendedoresMasFacturas(int añobusacod, int mesbuscado) 
         {
             SqlCommand comando = new SqlCommand(
-            @"select TOP 5 u.Username, c.Cli_Apellido, c.Cli_Nombre, count(f.Nro_Fact) 
+            @"select TOP 5 u.Username, c.Cli_Apellido, c.Cli_Nombre, count(f.Nro_Fact) 'Cantidad facturas' 
             from GROUP_APROVED.Clientes c join GROUP_APROVED.Usuarios u on c.Id_Usuario = u.Id_Usr 
             join GROUP_APROVED.Publicaciones p ON U.Id_Usr= P.Id_Usuario 
             join GROUP_APROVED.Facturas f on p.Publicacion_Cod = f.Publicacion_Cod
@@ -275,7 +276,7 @@ namespace WindowsFormsApplication1.Listado_Estadistico
         public SqlCommand vendedoresMasMonto(int añobusacod, int mesbuscado) 
         {
             SqlCommand comando = new SqlCommand(
-            @"select TOP 5 u.Username, c.Cli_Apellido, c.Cli_Nombre, SUM(f.Fact_Total) 
+            @"select TOP 5 u.Username, c.Cli_Apellido, c.Cli_Nombre, SUM(f.Fact_Total) 'Total monto'
             from GROUP_APROVED.Clientes c join GROUP_APROVED.Usuarios u on c.Id_Usuario = u.Id_Usr 
             join GROUP_APROVED.Publicaciones p ON U.Id_Usr= P.Id_Usuario 
             join GROUP_APROVED.Facturas f on p.Publicacion_Cod = f.Publicacion_Cod

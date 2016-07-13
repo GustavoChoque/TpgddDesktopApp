@@ -52,6 +52,7 @@ namespace WindowsFormsApplication1
 
             label4.Text = CustomDate.date.getDate();
 
+            dbQueryHandler.updateUserCreationDate();
             dbQueryHandler.updatePubStates();
            
         }
@@ -282,6 +283,20 @@ namespace WindowsFormsApplication1
                 res = command.ExecuteNonQuery();
             } 
 
+        }
+
+        public void updateUserCreationDate()
+        {
+            using (var command = new SqlCommand("GROUP_APROVED.fechaCreacionUsuarios", DbConnection.connection.getdbconnection())
+            {
+                CommandType = CommandType.StoredProcedure
+
+            })
+            {
+
+                command.Parameters.Add(new SqlParameter("@date", CustomDate.date.getDate()));
+                command.ExecuteNonQuery();
+            }
         }
     
     }

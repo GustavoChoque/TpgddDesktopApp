@@ -88,6 +88,9 @@ namespace WindowsFormsApplication1.ABM_Rol
                 statusOK = false;
             }
 
+            if (!(idUserExiste(nombreRol.Text))) { 
+               MessageBox.Show("Nombre de Rol ya esta en uso\n"); 
+                statusOK = false; };
             if (statusOK)
             {
                 string desc = nombreRol.Text;
@@ -121,10 +124,24 @@ namespace WindowsFormsApplication1.ABM_Rol
         {
 
         }
+        private bool idUserExiste(string user)
+        {
+            return dbQueryHandler.existeUser(user);
+        }
     }
 
     public class DbQueryHandlerAlta
     {
+        public bool existeUser(string nombreRol)
+        {
+            SqlDataReader lector;
+            SqlCommand comando = new SqlCommand("select count(*) from GROUP_APROVED.Roles where Desc_Rol = '" + nombreRol + "'", DbConnection.connection.getdbconnection());
+            lector = comando.ExecuteReader();
+            lector.Read();
+            int retorno = lector.GetInt32(0);
+            lector.Close();
+            return (retorno == 0);
+        }
         //funciones de "RegistrarRol.cs"
         public SqlDataReader getFunctions()
         {

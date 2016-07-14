@@ -365,7 +365,7 @@ namespace WindowsFormsApplication1.ComprarOfertar
 
          public Int32 actualizarPub(String pubId, String cantidad)
          {
-             SqlCommand cmd = new SqlCommand("update GROUP_APROVED.Publicaciones set Publicacion_Stock = Publicacion_Stock-" + cantidad + " where Publicacion_cod = " + pubId, DbConnection.connection.getdbconnection());
+             SqlCommand cmd = new SqlCommand("update GROUP_APROVED.Publicaciones set Publicacion_Stock = Publicacion_Stock-" + cantidad + ", Publicacion_Estado = case when Publicacion_Stock-" + cantidad + " = 0 THEN 3 else Publicacion_Estado end where Publicacion_cod = " + pubId, DbConnection.connection.getdbconnection());
 
              Int32 result = cmd.ExecuteNonQuery();
 

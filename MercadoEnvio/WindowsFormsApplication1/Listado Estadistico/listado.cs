@@ -231,7 +231,7 @@ namespace WindowsFormsApplication1.Listado_Estadistico
         public SqlCommand vendedoresMenosVentas(int añobusacod, int mesinit,int mesfin) 
         {
             SqlCommand comando = new SqlCommand(
-            @"select TOP 5 COUNT(P.Publicacion_Stock) as 'Cantidad ventas', U.Username, c.Cli_Nombre, c.Cli_Apellido 
+            @"select TOP 5 COUNT(P.Publicacion_Stock) as 'Cantidad no vendida', U.Username, c.Cli_Nombre, c.Cli_Apellido 
             from GROUP_APROVED.Clientes c join GROUP_APROVED.Usuarios u on c.Id_Usuario = u.Id_Usr 
             join GROUP_APROVED.Publicaciones p ON U.Id_Usr= P.Id_Usuario left 
             join GROUP_APROVED.Visibilidades V ON P.Visibilidad_Cod = v.Visibilidad_Cod

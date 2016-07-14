@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
             this.Text = "Login";
+            DbConnection.connection.getdbconnection();
             
         }
 
@@ -38,17 +40,8 @@ namespace WindowsFormsApplication1
             textBox2.Text = "w23e";
             label3.Text = "";
 
-            StreamReader reader = File.OpenText("../../../date.txt");
-            String date;
 
-            if ((date = reader.ReadLine()) == null)
-            {
-                MessageBox.Show("Error al cargar la fecha");
-            }
-
-            reader.Close();
-
-            CustomDate.date.setDate(date);
+            CustomDate.date.setDate(ConfigurationManager.AppSettings.Get("date"));
 
             label4.Text = CustomDate.date.getDate();
 
@@ -219,7 +212,8 @@ namespace WindowsFormsApplication1
 
         DbConnection()
         {
-            con = new SqlConnection("data source = .\\SQLSERVER2012; database =GD1C2016;user = gd; password = gd2016;MultipleActiveResultSets=True");
+            String connString = ConfigurationManager.ConnectionStrings["myConn"].ConnectionString;
+            con = new SqlConnection(connString);
 
             con.Open(); 
 
@@ -334,7 +328,7 @@ namespace WindowsFormsApplication1
             })
             {
 
-                command.Parameters.Add(new SqlParameter("@date", CustomDate.date.getDate()));
+                command.Parameters.Add(new SqlParameter("@date", CustomDate.date.getDate().Replace("-","")));
                 res = command.ExecuteNonQuery();
             } 
 
@@ -349,7 +343,7 @@ namespace WindowsFormsApplication1
             })
             {
 
-                command.Parameters.Add(new SqlParameter("@date", CustomDate.date.getDate()));
+                command.Parameters.Add(new SqlParameter("@date", CustomDate.date.getDate().Replace("-","")));
                 command.ExecuteNonQuery();
             }
         }

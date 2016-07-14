@@ -109,6 +109,7 @@ namespace WindowsFormsApplication1.ComprarOfertar
                 MessageBox.Show("La cantidad debe ser un numero entero.");
             }
 
+
             int cant2;
 
             if (!int.TryParse(textBox1.Text, out cant2) && statusOK == true && tipo.Text == "Subasta")
@@ -145,6 +146,8 @@ namespace WindowsFormsApplication1.ComprarOfertar
                 statusOK = false;
             }
 
+
+
             if (statusOK == false)
             {
             }
@@ -173,44 +176,63 @@ namespace WindowsFormsApplication1.ComprarOfertar
                 }
                 else
                 {
-                    String envio = "0";
+                    statusOK = true;
 
-                    if(radioButton1.Checked == true)
-                    { 
-                        envio = dbQueryHandler.getPrecioEnvio(tipoVisib.Text); 
-                    }
-
-                    Double total = Double.Parse(precio.Text);
-
-                    Int32 unidades = Int32.Parse(textBox2.Text);
-
-                    Double porcRecarga = dbQueryHandler.getPorcentajeRecarga(tipoVisib.Text) * 0.01;
-
-                    Decimal recargo = Decimal.Add(Decimal.Parse((total * unidades * porcRecarga).ToString()), Decimal.Parse(envio.Replace('.', ',')));
-            
-
-                    String idCompra = dbQueryHandler.crearCompra(textBox2.Text, pubId.ToString());
-
-                    String factId = dbQueryHandler.crearFactura(recargo.ToString(), pubId.ToString(), idCompra);
-
-                    Decimal nroItem = dbQueryHandler.getNumeroItems(factId);
-
-                    dbQueryHandler.crearItem(factId, (nroItem + 1).ToString(), (recargo - Decimal.Parse(envio.Replace('.', ','))).ToString(), unidades.ToString(), "Venta");
-
-                    dbQueryHandler.actualizarPub(pubId.ToString(),textBox2.Text);
-
-                    if (radioButton1.Checked == true)
+                    if (Int32.Parse(stock.Text) ==0)
                     {
-
-                        nroItem = dbQueryHandler.getNumeroItems(factId);
-                        dbQueryHandler.crearItem(factId, (nroItem + 1).ToString(), envio, "1", "Envio");
+                        MessageBox.Show("No quedan productos en stock.");
+                        statusOK = false;
                     }
 
-                    Form3 f3 = new Form3(factId);
+                    if (cant > Int32.Parse(stock.Text))
+                    {
+                        MessageBox.Show("La cantidad de unidades debe ser menor o igual al stock.");
+                        statusOK = false;
+                    }
 
-                    f3.Show();
-                    
-                    this.Close();
+                    if (statusOK == true)
+                    {
+                        String envio = "0";
+
+                        if (radioButton1.Checked == true)
+                        {
+                            envio = dbQueryHandler.getPrecioEnvio(tipoVisib.Text);
+                        }
+
+                        Double total = Double.Parse(precio.Text);
+
+                        Int32 unidades = Int32.Parse(textBox2.Text);
+
+                        Double porcRecarga = dbQueryHandler.getPorcentajeRecarga(tipoVisib.Text) * 0.01;
+
+                        Decimal recargo = Decimal.Add(Decimal.Parse((total * unidades * porcRecarga).ToString()), Decimal.Parse(envio.Replace('.', ',')));
+
+
+                        String idCompra = dbQueryHandler.crearCompra(textBox2.Text, pubId.ToString());
+
+                        String factId = dbQueryHandler.crearFactura(recargo.ToString(), pubId.ToString(), idCompra);
+
+                        Decimal nroItem = dbQueryHandler.getNumeroItems(factId);
+
+                        dbQueryHandler.crearItem(factId, (nroItem + 1).ToString(), (recargo - Decimal.Parse(envio.Replace('.', ','))).ToString(), unidades.ToString(), "Venta");
+
+                        dbQueryHandler.actualizarPub(pubId.ToString(), textBox2.Text);
+
+                        if (radioButton1.Checked == true)
+                        {
+
+                            nroItem = dbQueryHandler.getNumeroItems(factId);
+                            dbQueryHandler.crearItem(factId, (nroItem + 1).ToString(), envio, "1", "Envio");
+                        }
+
+                        /*Form3 f3 = new Form3(factId);
+
+                        f3.Show();
+                        */
+                        MessageBox.Show("Compra correctamente realizada.");
+
+                        this.Close();
+                    }
 
                 }
             }

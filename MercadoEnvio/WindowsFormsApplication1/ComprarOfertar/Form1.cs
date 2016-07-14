@@ -70,6 +70,7 @@ namespace WindowsFormsApplication1.ComprarOfertar
 
             if (pList.Count() < 5){
                 button3.Enabled = false;
+                button5.Enabled = false;
             }
             int i = 0;
 
@@ -296,12 +297,14 @@ namespace WindowsFormsApplication1.ComprarOfertar
 
         private void button1_Click(object sender, EventArgs e)
         {
-           
+            
+
             int selectedItems = 0;
             bool status = true;
             List<String> rubrosSeleccionadosId = new List<String>();
 
             button3.Enabled = true;
+            button5.Enabled = true;
            
 
 
@@ -309,6 +312,8 @@ namespace WindowsFormsApplication1.ComprarOfertar
             if (radioButton1.Checked == true)
             {
                 rubrosSeleccionadosId.Clear();
+
+                rubrosSeleccionadosId = new List<String>();
 
                 foreach (var item in listBox1.SelectedItems)
                 {
@@ -323,13 +328,14 @@ namespace WindowsFormsApplication1.ComprarOfertar
                     dataReader = null;
                 }
                 else {
-                    
+                    button2.Enabled = false;
+                    button4.Enabled = false;
+                    pubIndex = 0;
                     pList.Clear();
                     pList = new List<Publicacion>();
                     dataGridView1.Rows.Clear();
                     dataGridView1.Refresh();
                     dataReader = dbQueryHandler.cargarPublicacionesPorRubro(rubrosSeleccionadosId);
-                    pubIndex = 0;
                 }
 
             }
@@ -341,12 +347,14 @@ namespace WindowsFormsApplication1.ComprarOfertar
                 }
                 else
                 {
+                    pubIndex = 0;
+                    button2.Enabled = false;
+                    button4.Enabled = false;
                     pList.Clear();
                     pList = new List<Publicacion>();
                     dataGridView1.Rows.Clear();
                     dataGridView1.Refresh();
                     dataReader = dbQueryHandler.cargarPublicacionesPorDesc(richTextBox1.Text);
-                    pubIndex = 0;
                 }
             }
 
@@ -380,6 +388,7 @@ namespace WindowsFormsApplication1.ComprarOfertar
                 if (pList.Count() < 5)
                 {
                     button3.Enabled = false;
+                    button5.Enabled = false;
                 }
                 int i = 0;
 

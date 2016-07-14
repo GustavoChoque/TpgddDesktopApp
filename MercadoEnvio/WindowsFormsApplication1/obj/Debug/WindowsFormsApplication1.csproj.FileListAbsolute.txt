@@ -135,38 +135,6 @@ L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktop
 L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Generar_Publicación.Form1.resources
 L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Generar_Publicación.Form2.resources
 L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Historial_Cliente.Historial.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.ABM_Rol.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.EliminarRol.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.FormularioDeModificacion.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.ListadoSeleccion.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.RegistrarRol.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rubro.Form1.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.abmUsuarioPrincipal.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Generar_Publicación.CrearPublicacion.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Generar_Publicación.Form1.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Generar_Publicación.Form2.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Historial_Cliente.Historial.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Login.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Pantalla_Principal.Principal.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.agregarUsuarioCliente.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.agregarUsuarioEmpresa.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.BajaUsuario.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.BajaUsuarioCliente.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.BajaUsuarioEmpresa.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.crearUsuario.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.FormularioModificacionCliente.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.FormularioModificacionEmpresa.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.ModificacionUsuario.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.modificacionUsuarioCliente.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.modificacionUsuarioEmpresa.resources
 C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.EliminarRol.resources
 C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.FormularioDeModificacion.resources
 C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Rol.ListadoSeleccion.resources
@@ -190,14 +158,8 @@ C:\Users\GustavoChoque\Desktop\copias de Seguridad\gddDesktopApp\MercadoEnvio\Wi
 L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.FormularioModificacionEmpresa.resources
 L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Usuario.modificacionUsuarioEmpresa.resources
 L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Facturas.ListarFacturas.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Visibilidad.cargarPublicaciones.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Facturas.ListarFacturas.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Visibilidad.modificarVisibilidad.resources
 L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Visibilidad.cargarPublicaciones.resources
 L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ABM_Visibilidad.modificarVisibilidad.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Calificar.calificarVendedor.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Calificar.darCalificacion.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Calificar.historial.resources
 L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Calificar.calificarVendedor.resources
 L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Calificar.darCalificacion.resources
 L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Calificar.historial.resources
@@ -224,8 +186,6 @@ C:\git3\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFor
 C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\TPLAST\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
 C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\TPLAST\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
 C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\TPLAST\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ComprarOfertar.Form1.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Listado_Estadistico.listado.resources
 L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ComprarOfertar.Form1.resources
 L:\Materia UTN\tercer año\Gestion de Datos\tp Gestion de Datos\MiGit\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Listado_Estadistico.listado.resources
 C:\git\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
@@ -436,8 +396,6 @@ C:\git4\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFor
 C:\git4\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Pantalla_Principal.Principal.resources
 C:\git4\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
 C:\git4\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ComprarOfertar.Form2.resources
-C:\Users\Lau\Documents\Facul\Tercer año\GDD\tpgddgit\GDDTPGIT\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.ComprarOfertar.Form3.resources
 C:\git5\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
 C:\git5\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
 C:\git5\gddDesktopApp\MercadoEnvio\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb

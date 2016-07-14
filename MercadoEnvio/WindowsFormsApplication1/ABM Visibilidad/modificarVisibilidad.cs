@@ -84,9 +84,7 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
                 {
 
                     if (radioButton1.Checked) { envio = true; };
-                    //dbQueryHandler.IniciarTransaction();
                     bool rta = dbQueryHandler.actualizarVisibilidad(codPub, codVisibilidadAcambiar, envio);
-                    //if (rta) { MessageBox.Show("Éxito"); dbQueryHandler.commit(); } else { MessageBox.Show("Error"); dbQueryHandler.rollback(); };
                     if (rta) { MessageBox.Show("Éxito"); } else { MessageBox.Show("Error"); };
                     pant.cargar();
                     this.Close();
@@ -109,27 +107,6 @@ namespace WindowsFormsApplication1.ABM_Visibilidad
             return comand;
         }
 
-        public void IniciarTransaction()
-        {
-            SqlCommand command = new SqlCommand("Begin Transaction", DbConnection.connection.getdbconnection());
-            command.ExecuteNonQuery();
-
-        }
-
-        public void rollback()
-        {
-            SqlCommand command = new SqlCommand("Rollback Transaction", DbConnection.connection.getdbconnection());
-            command.ExecuteNonQuery();
-
-        }
-
-        public void commit()
-        {
-            SqlCommand command = new SqlCommand("Commit Transaction", DbConnection.connection.getdbconnection());
-            command.ExecuteNonQuery();
-
-        }
-        
         public bool actualizarVisibilidad(int codPublic, int codVisib, bool envio)
         {
             char pubEnvio;

@@ -34,7 +34,6 @@ namespace WindowsFormsApplication1.ABM_Usuario
             if (verificarLlenadoDatos())
             {
                 string mjeError = "Error";
-                //dbQueryHandler.IniciarTransaction();
                 cargarDatosEnDataObject();
                 string resultado = dbQueryHandler.crearUsuario(datosParaCrear);
                 //A inserto en usuarios 
@@ -48,14 +47,12 @@ namespace WindowsFormsApplication1.ABM_Usuario
                 if (resultado.Contains('B')) { MessageBox.Show(mjeError); };
                 if (resultado.Contains('F')) { MessageBox.Show(mjeError); };
                 if (resultado.Contains('D')) { MessageBox.Show(mjeError); };
-                //if (mjeError != "") { dbQueryHandler.rollbackear(); MessageBox.Show(mjeError + ("Se hizo un rollback transaction automático")); };
                 datosParaCrear = null;
             };
         }
 
         private void mensajeExito()
         {
-            //dbQueryHandler.endTransaction();
             MessageBox.Show("Éxito");
             datosParaCrear = null;
         }
@@ -199,25 +196,5 @@ namespace WindowsFormsApplication1.ABM_Usuario
             return mensajeRespuesta;
         }
 
-        public void IniciarTransaction()
-        {
-            SqlCommand command = new SqlCommand("Begin Transaction", DbConnection.connection.getdbconnection());
-            command.ExecuteNonQuery();
-           
-        }
-
-        public void rollbackear()
-        {
-            SqlCommand command = new SqlCommand("Rollback Transaction", DbConnection.connection.getdbconnection());
-            command.ExecuteNonQuery();
-            
-        }
-
-        public void endTransaction()
-        {
-            SqlCommand command = new SqlCommand("Commit Transaction", DbConnection.connection.getdbconnection());
-            command.ExecuteNonQuery();
-            
-        }
     }
 }
